@@ -1,0 +1,87 @@
+schema:
+  schema_id: pdsp
+  name: 拼读双拼
+  version: 20260506
+  author:
+  description: 51声介，44韵调（+ong-eng）
+  dependencies:
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: simplification
+    states: [ 漢字, 汉字 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - lua_processor@no_match_clear
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+  filters:
+    #- simplifier
+    - uniquifier
+
+speller:
+  #编码唯一自动上屏
+  auto_select: false
+  #超最大码长重新编码
+  #auto_clear: max_length
+  max_code_length: 4
+  alphabet: 'abcdefghijklmnopqrstuvwxyz'
+  delimiter: " "
+  algebra:
+
+translator:
+  dictionary: pdsp
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: true
+  enable_encoder: true
+  enable_commit_history: true
+  max_phrase_length: 5
+  disable_user_dict_for_patterns:
+    - '^.{1,3}$'
+  preedit_format:
+    - xform/.*//
+  comment_format:
+    - xform/.*//
+
+key_binder:
+  bindings:
+    #comma period
+    #[]翻页
+    - { when: paging, accept: bracketleft, send: Page_Up }
+    - { when: has_menu, accept: bracketright, send: Page_Down }
+    #；次选
+    - { when: has_menu, accept: semicolon, send: 2 }
+    #退格当清屏用
+    - { when: composing, accept: BackSpace, send: Escape }
+
+punctuator:
+  import_preset: symbols_pd
+  digit_separators: ""
+
+recognizer:
+  patterns:
+    punct: '^\\([0-9]0?|[A-Za-z]+)?$'

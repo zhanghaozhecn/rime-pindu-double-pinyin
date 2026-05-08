@@ -1,0 +1,5155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>拼读双拼练习（26键）</title>
+    <style>
+        /* ---------- 皮肤变量 ---------- */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-container: #ffffff;
+            --bg-section: #f8fafc;
+            --border-section: #e2e8f0;
+            --border-input: #cbd5e1;
+            --border-dashed: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-heading: #334155;
+            --text-body: #475569;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --btn-bg: #eef2ff;
+            --btn-text: #1e293b;
+            --btn-primary: #3b82f6;
+            --btn-danger: #ef4444;
+            --btn-success: #10b981;
+            --btn-switch: #334155;
+            --badge-0-bg: #fee2e2; --badge-0-text: #991b1b;
+            --badge-1-bg: #fef3c7; --badge-1-text: #92400e;
+            --badge-2-bg: #d1fae5; --badge-2-text: #065f46;
+            --badge-3-bg: #dbeafe; --badge-3-text: #1e40af;
+            --progress-bar: #10b981;
+            --error-bg: #fef2f2;
+            --error-border: #fecaca;
+            --error-text: #991b1b;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.15);
+        }
+        [data-theme="dark"] {
+            --bg-body: #1a1e24;
+            --bg-container: #242830;
+            --bg-section: #2e3440;
+            --border-section: #3e4452;
+            --border-input: #4e5462;
+            --border-dashed: #3e4452;
+            --text-primary: #e4e8ec;
+            --text-heading: #d0d6e0;
+            --text-body: #b8c0cc;
+            --text-muted: #8890a0;
+            --text-light: #687080;
+            --btn-bg: #2e3440;
+            --btn-text: #d0d6e0;
+            --btn-primary: #6880a8;
+            --btn-danger: #b04050;
+            --btn-success: #508070;
+            --btn-switch: #1a1e24;
+            --badge-0-bg: #3a2828; --badge-0-text: #d09898;
+            --badge-1-bg: #3a3628; --badge-1-text: #d0c098;
+            --badge-2-bg: #283a30; --badge-2-text: #98d0b0;
+            --badge-3-bg: #283040; --badge-3-text: #98b8d0;
+            --progress-bar: #508070;
+            --error-bg: #3a2424;
+            --error-border: #4a3434;
+            --error-text: #d09898;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.5);
+        }
+        [data-theme="ocean"] {
+            --bg-body: #2a3a4a;
+            --bg-container: #334455;
+            --bg-section: #3d4f60;
+            --border-section: #4e6070;
+            --border-input: #5e7080;
+            --border-dashed: #4e6070;
+            --text-primary: #e8ecf0;
+            --text-heading: #d0d8e0;
+            --text-body: #b8c4ce;
+            --text-muted: #8e9eac;
+            --text-light: #6e8090;
+            --btn-bg: #3d4f60;
+            --btn-text: #d0d8e0;
+            --btn-primary: #5a8ab0;
+            --btn-danger: #c05050;
+            --btn-success: #5a9a7a;
+            --btn-switch: #2a3a4a;
+            --badge-0-bg: #4a3030; --badge-0-text: #d4a0a0;
+            --badge-1-bg: #4a4030; --badge-1-text: #d4c8a0;
+            --badge-2-bg: #304a3a; --badge-2-text: #a0d4b8;
+            --badge-3-bg: #304a5a; --badge-3-text: #a0c8e0;
+            --progress-bar: #5a9a7a;
+            --error-bg: #4a3030;
+            --error-border: #6a4040;
+            --error-text: #d4a0a0;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.35);
+        }
+        [data-theme="forest"] {
+            --bg-body: #2a3a2e;
+            --bg-container: #344538;
+            --bg-section: #3e5040;
+            --border-section: #506050;
+            --border-input: #607860;
+            --border-dashed: #506050;
+            --text-primary: #e8f0e8;
+            --text-heading: #d0e0d4;
+            --text-body: #b8ccba;
+            --text-muted: #8eaa9a;
+            --text-light: #6e8a78;
+            --btn-bg: #3e5040;
+            --btn-text: #d0e0d4;
+            --btn-primary: #5a8a6a;
+            --btn-danger: #c05050;
+            --btn-success: #5a9a7a;
+            --btn-switch: #2a3a2e;
+            --badge-0-bg: #4a3030; --badge-0-text: #d4a0a0;
+            --badge-1-bg: #4a4030; --badge-1-text: #d4c8a0;
+            --badge-2-bg: #304a3a; --badge-2-text: #a0d4b8;
+            --badge-3-bg: #304a5a; --badge-3-text: #a0c8e0;
+            --progress-bar: #5a9a7a;
+            --error-bg: #4a3030;
+            --error-border: #6a4040;
+            --error-text: #d4a0a0;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.35);
+        }
+        [data-theme="sunset"] {
+            --bg-body: #3a2e2a;
+            --bg-container: #453834;
+            --bg-section: #504440;
+            --border-section: #605050;
+            --border-input: #706060;
+            --border-dashed: #605050;
+            --text-primary: #f0e8e4;
+            --text-heading: #e0d8d0;
+            --text-body: #ccc0ba;
+            --text-muted: #9e9088;
+            --text-light: #7e7068;
+            --btn-bg: #504440;
+            --btn-text: #e0d8d0;
+            --btn-primary: #9a7060;
+            --btn-danger: #c05050;
+            --btn-success: #7a9a6a;
+            --btn-switch: #3a2e2a;
+            --badge-0-bg: #4a3030; --badge-0-text: #d4a0a0;
+            --badge-1-bg: #4a4030; --badge-1-text: #d4c8a0;
+            --badge-2-bg: #304a3a; --badge-2-text: #a0d4b8;
+            --badge-3-bg: #304a5a; --badge-3-text: #a0c8e0;
+            --progress-bar: #9a7060;
+            --error-bg: #4a3030;
+            --error-border: #6a4040;
+            --error-text: #d4a0a0;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.35);
+        }
+        [data-theme="lavender"] {
+            --bg-body: #3a304a;
+            --bg-container: #453858;
+            --bg-section: #504268;
+            --border-section: #605080;
+            --border-input: #706098;
+            --border-dashed: #605080;
+            --text-primary: #e8e4f0;
+            --text-heading: #d8d4e4;
+            --text-body: #c8c0d8;
+            --text-muted: #9890ac;
+            --text-light: #786890;
+            --btn-bg: #504268;
+            --btn-text: #d8d4e4;
+            --btn-primary: #8878b0;
+            --btn-danger: #c05070;
+            --btn-success: #6888a0;
+            --btn-switch: #3a304a;
+            --badge-0-bg: #4a3040; --badge-0-text: #d4a8b8;
+            --badge-1-bg: #4a4038; --badge-1-text: #d4c8a8;
+            --badge-2-bg: #304a48; --badge-2-text: #a0d4c0;
+            --badge-3-bg: #304858; --badge-3-text: #a0c0d8;
+            --progress-bar: #8878b0;
+            --error-bg: #4a3040;
+            --error-border: #6a4060;
+            --error-text: #d4a8b8;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.35);
+        }
+        [data-theme="deepgray"] {
+            --bg-body: #2e3238;
+            --bg-container: #3a3e46;
+            --bg-section: #44484e;
+            --border-section: #555c68;
+            --border-input: #656c78;
+            --border-dashed: #555c68;
+            --text-primary: #e8ecf0;
+            --text-heading: #d8dce4;
+            --text-body: #c0c8d2;
+            --text-muted: #909aa8;
+            --text-light: #707a88;
+            --btn-bg: #44484e;
+            --btn-text: #d8dce4;
+            --btn-primary: #6880a8;
+            --btn-danger: #b04050;
+            --btn-success: #508070;
+            --btn-switch: #2e3238;
+            --badge-0-bg: #4a3636; --badge-0-text: #d4a0a0;
+            --badge-1-bg: #4a4236; --badge-1-text: #d4c0a0;
+            --badge-2-bg: #364a3e; --badge-2-text: #a0d4b8;
+            --badge-3-bg: #364a58; --badge-3-text: #a0c0d8;
+            --progress-bar: #508070;
+            --error-bg: #4a3232;
+            --error-border: #5a4242;
+            --error-text: #d4a0a0;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.3);
+        }
+        [data-theme="lightgray"] {
+            --bg-body: #d4d8dc;
+            --bg-container: #dfe2e6;
+            --bg-section: #e8eaee;
+            --border-section: #c0c4ca;
+            --border-input: #a8acb2;
+            --border-dashed: #c0c4ca;
+            --text-primary: #1e2228;
+            --text-heading: #333840;
+            --text-body: #4a5060;
+            --text-muted: #687080;
+            --text-light: #8898a8;
+            --btn-bg: #d0d4d8;
+            --btn-text: #333840;
+            --btn-primary: #5870a0;
+            --btn-danger: #c05050;
+            --btn-success: #4a8870;
+            --btn-switch: #d4d8dc;
+            --badge-0-bg: #f0d8d8; --badge-0-text: #991b1b;
+            --badge-1-bg: #f0ead0; --badge-1-text: #92400e;
+            --badge-2-bg: #d8f0e4; --badge-2-text: #065f46;
+            --badge-3-bg: #d8e4f0; --badge-3-text: #1e40af;
+            --progress-bar: #4a8870;
+            --error-bg: #f0e0e0;
+            --error-border: #e0c8c8;
+            --error-text: #991b1b;
+            --shadow-container: 0 20px 35px -12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-body);
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 960px;
+            width: 100%;
+            background: var(--bg-container);
+            border-radius: 2rem;
+            box-shadow: var(--shadow-container);
+            overflow: hidden;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        button, .file-label {
+            background: var(--btn-bg);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--btn-text);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary {
+            background: var(--btn-primary);
+            color: white;
+            box-shadow: 0 2px 6px rgba(59,130,246,0.3);
+        }
+
+        .btn-warning {
+            background: #f97316;
+            color: var(--bg-container);
+        }
+
+        .btn-danger {
+            background: var(--btn-danger);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--btn-success);
+            color: white;
+        }
+
+        .switch-btn {
+            background: var(--btn-switch);
+            color: white;
+            font-weight: bold;
+        }
+
+        .switch-btn.active {
+            background: var(--progress-bar);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--progress-bar) 40%, white);
+        }
+
+        .stats-grid {
+            background: var(--bg-section);
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            margin-bottom: 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            border: 1px solid var(--border-section);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .stat-unit {
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: var(--text-body);
+        }
+
+        .practice-area {
+            text-align: center;
+            background: var(--bg-container);
+            border-radius: 2rem;
+            padding: 1.8rem 1rem;
+            margin-bottom: 20px;
+            border: 2px dashed var(--border-dashed);
+            position: relative;
+        }
+
+        .pause-overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: color-mix(in srgb, var(--bg-body) 92%, transparent);
+            border-radius: 2rem;
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .pause-overlay.active {
+            display: flex;
+        }
+        .pause-overlay .pause-icon {
+            font-size: 2rem;
+            color: var(--text-body);
+        }
+        .pause-overlay .pause-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .pause-overlay .auto-pause-info {
+            font-size: 0.85rem;
+            color: var(--text-body);
+            text-align: center;
+            max-width: 280px;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+        .pause-overlay .auto-pause-countdown {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--btn-primary);
+            margin-top: 6px;
+        }
+
+        .current-element {
+            font-size: 3.4rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: var(--bg-body);
+            display: inline-block;
+            padding: 0.4rem 1.4rem;
+            border-radius: 60px;
+            color: var(--text-primary);
+            word-break: break-word;
+            font-family: 'Noto Sans', system-ui, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei';
+        }
+
+        .current-card-row {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .current-hanzi {
+            font-size: 3.4rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        .mastery-badge {
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: block;
+            min-width: 128px;
+            max-width: 148px;
+            text-align: center;
+            margin: 0 auto 12px auto;
+            text-align: center;
+        }
+
+        .mastery-0 { background: var(--badge-0-bg); color: var(--badge-0-text); }
+        .mastery-1 { background: var(--badge-1-bg); color: var(--badge-1-text); }
+        .mastery-2 { background: var(--badge-2-bg); color: var(--badge-2-text); }
+        .mastery-3 { background: var(--badge-3-bg); color: var(--badge-3-text); }
+        .mastery-4 { background: #6b7280; color: #ffffff; opacity: 0.7; }
+
+        .letter-group-indicator {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: var(--btn-bg);
+            color: var(--text-muted);
+            display: block;
+            width: fit-content;
+            margin: 0 auto 6px auto;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .input-area {
+            margin: 20px 0 12px;
+        }
+
+        /* 分数漂浮特效 */
+        .score-float {
+            position: absolute;
+            pointer-events: none;
+            font-weight: 900;
+            font-size: 1.6rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 20;
+            animation: scoreFloatUp 0.9s ease-out forwards;
+            white-space: nowrap;
+        }
+        .score-float.correct {
+            color: #4ade80;
+        }
+        .score-float.wrong {
+            color: #f87171;
+        }
+        @keyframes scoreFloatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-50px) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(0.8);
+            }
+        }
+
+        #keyInput {
+            width: 85%;
+            max-width: 280px;
+            padding: 14px 20px;
+            font-size: 1.4rem;
+            text-align: center;
+            font-family: monospace;
+            letter-spacing: 2px;
+            border: 2px solid var(--border-input);
+            border-radius: 60px;
+            outline: none;
+            background: var(--bg-container);
+            color: var(--text-primary);
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        #keyInput:focus {
+            border-color: var(--btn-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-primary) 20%, transparent);
+        }
+
+        .message {
+            font-size: 0.8rem;
+            color: var(--error-text);
+            background: var(--badge-0-bg);
+            border-radius: 8px;
+            padding: 4px 12px;
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            max-width: 90%;
+            word-break: break-word;
+            font-weight: 500;
+            min-height: 28px;
+            line-height: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+        .message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .settings-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .settings-row label {
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+
+        .settings-row input[type="number"] {
+            width: 70px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            background: var(--bg-container);
+            color: var(--text-primary);
+        }
+
+        /* 首页样式 - 横屏紧凑布局 */
+        .home-topbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .home-topbar button {
+            font-size: 0.78rem;
+            padding: 5px 14px;
+        }
+
+        .home-header {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .home-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .home-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .home-body {
+            display: flex;
+            gap: 14px;
+            align-items: stretch;
+        }
+
+        .home-body .home-section {
+            flex: 1;
+        }
+
+        .home-section {
+            background: var(--bg-section);
+            border-radius: 1rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-section);
+        }
+
+        .home-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .home-section-title-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-settings-btn {
+            background: none;
+            border: none;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+            transition: 0.2s;
+            box-shadow: none;
+            font-weight: 500;
+        }
+        .stat-settings-btn:hover {
+            color: var(--btn-primary);
+            background: color-mix(in srgb, var(--btn-primary) 10%, var(--bg-container));
+        }
+
+        /* 统计面板 */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            font-size: 0.82rem;
+            color: var(--text-body);
+            border-bottom: 1px solid var(--bg-body);
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-row .stat-label-home {
+            color: var(--text-muted);
+        }
+        .stat-row .stat-val-home {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: var(--border-section);
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--progress-bar);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        /* 词库选择下拉 */
+        .deck-select-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .deck-select-row label {
+            font-size: 0.82rem;
+            color: var(--text-body);
+            white-space: nowrap;
+        }
+        .deck-select-row select {
+            flex: 1;
+            padding: 4px 8px;
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            font-size: 0.82rem;
+            background: var(--bg-container);
+            color: var(--text-primary);
+            cursor: pointer;
+            outline: none;
+        }
+        .deck-select-row select option {
+            background: var(--bg-container);
+            color: var(--text-primary);
+        }
+        .deck-select-row select:focus {
+            border-color: var(--btn-primary);
+        }
+
+        .file-info {
+            font-size: 0.8rem;
+            color: var(--text-body);
+            margin-top: 6px;
+        }
+
+        .file-info .file-name {
+            font-weight: 600;
+            color: var(--btn-primary);
+        }
+
+        .settings-row {
+            margin-bottom: 8px;
+        }
+
+        .start-btn {
+            padding: 12px 48px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-top: 14px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 600px) {
+            .home-body {
+                flex-direction: column;
+            }
+        }
+
+        .changelog-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .changelog-modal.active {
+            display: flex;
+        }
+
+        .changelog-content {
+            background: var(--bg-container);
+            border-radius: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        .changelog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .changelog-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .changelog-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .changelog-entry {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-section);
+        }
+
+        .changelog-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .changelog-version {
+            font-weight: 700;
+            color: var(--btn-primary);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .changelog-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .changelog-list {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.85rem;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .changelog-list li {
+            margin-bottom: 4px;
+        }
+
+        .version-tag {
+            display: inline-block;
+            background: var(--badge-3-bg);
+            color: var(--badge-3-text);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        hr {
+            margin: 16px 0 8px;
+            border-color: var(--border-section);
+        }
+
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 1rem;
+            }
+            .current-element {
+                font-size: 2.4rem;
+            }
+            .current-hanzi {
+                font-size: 2.4rem;
+            }
+            .stat-value {
+                font-size: 1.3rem;
+            }
+            button {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .home-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* 皮肤切换按钮 */
+        .skin-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 500;
+            background: var(--bg-container);
+            border: 1px solid var(--border-section);
+            border-radius: 8px;
+            min-width: 48px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            padding: 0 8px;
+        }
+        .skin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .skin-btn.hidden {
+            display: none !important;
+        }
+
+        /* 皮肤选择面板 */
+        .skin-panel {
+            display: none;
+            position: absolute;
+            top: 52px;
+            left: 0;
+            z-index: 1000;
+            background: var(--bg-container);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-section);
+        }
+        .skin-panel.active {
+            display: block;
+        }
+        .skin-panel-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            margin-bottom: 10px;
+        }
+        .skin-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .skin-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px 4px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+        .skin-item:hover {
+            background: var(--bg-section);
+        }
+        .skin-item.active {
+            border-color: var(--btn-primary);
+            background: var(--bg-section);
+        }
+        .skin-swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--border-section);
+            transition: 0.2s;
+        }
+        .skin-item.active .skin-swatch {
+            border-color: var(--btn-primary);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--btn-primary) 30%, transparent);
+        }
+        .skin-name {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .skin-item.active .skin-name {
+            color: var(--btn-primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+<!-- 皮肤切换按钮 -->
+<button class="skin-btn" id="skinBtn" title="切换皮肤">皮肤</button>
+
+<!-- 皮肤选择面板 -->
+<div class="skin-panel" id="skinPanel">
+    <div class="skin-panel-title">选择皮肤</div>
+    <div class="skin-list" id="skinList">
+        <div class="skin-item active" data-theme="">
+            <div class="skin-swatch" style="background:#f1f5f9;"></div>
+            <span class="skin-name">经典白</span>
+        </div>
+        <div class="skin-item" data-theme="dark">
+            <div class="skin-swatch" style="background:#242830;"></div>
+            <span class="skin-name">暗夜</span>
+        </div>
+        <div class="skin-item" data-theme="ocean">
+            <div class="skin-swatch" style="background:#334455;"></div>
+            <span class="skin-name">海洋</span>
+        </div>
+        <div class="skin-item" data-theme="forest">
+            <div class="skin-swatch" style="background:#344538;"></div>
+            <span class="skin-name">森林</span>
+        </div>
+        <div class="skin-item" data-theme="sunset">
+            <div class="skin-swatch" style="background:#453834;"></div>
+            <span class="skin-name">落日</span>
+        </div>
+        <div class="skin-item" data-theme="lavender">
+            <div class="skin-swatch" style="background:#453858;"></div>
+            <span class="skin-name">薰衣草</span>
+        </div>
+        <div class="skin-item" data-theme="deepgray">
+            <div class="skin-swatch" style="background:#3a3e46;"></div>
+            <span class="skin-name">深灰</span>
+        </div>
+        <div class="skin-item" data-theme="lightgray">
+            <div class="skin-swatch" style="background:#dfe2e6;border:1px solid #a8acb2;"></div>
+            <span class="skin-name">淡灰</span>
+        </div>
+    </div>
+</div>
+
+<!-- 版本日志弹窗 -->
+<div class="changelog-modal" id="changelogModal">
+    <div class="changelog-content">
+        <div class="changelog-header">
+            <h2>📋 版本日志</h2>
+            <button class="changelog-close" id="changelogClose">&times;</button>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v6.0 <span class="version-tag">最新</span></div>
+            <div class="changelog-date">2026-04-27</div>
+            <ul class="changelog-list">
+                <li>字母排序功能：卡片按首字母a→b→c…顺序加入练习池，组间无缝衔接</li>
+                <li>词库按首字母排序，配合字母排序使用</li>
+                <li>打错后自动再次朗读，帮助建立正确记忆</li>
+                <li>对错音效开关：统一控制答对答错的音效提示</li>
+                <li>清空所有词库数据按钮：一键清除全部词库进度</li>
+                <li>词库管理弹窗加大，内容更易查看</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v5.0</div>
+            <div class="changelog-date">2026-04-26</div>
+            <ul class="changelog-list">
+                <li>对错音效系统：答对升调双音，答错降调锯齿波（Web Audio API）</li>
+                <li>词库朗读联动：根据词库是否有汉字列自动设置朗读开关</li>
+                <li>分数漂浮特效：答对绿色+10上浮，答错红色-20上浮</li>
+                <li>多音字修复：167个高风险字逐个推理TTS默认读音</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v4.1</div>
+            <div class="changelog-date">2026-04-22</div>
+            <ul class="changelog-list">
+                <li>皮肤按钮改为中文字"皮肤"，更直观</li>
+                <li>掌握度150分以上屏蔽：分数达150不再出题，100%时间留给需要练的</li>
+                <li>掌握间隔计时优化：从卡片首次出现在面前开始计时，避免统计失真</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v4.0</div>
+            <ul class="changelog-list">
+                <li>8套护眼皮肤：经典白、暗夜、海洋、森林、落日、薰衣草、深灰、淡灰</li>
+                <li>皮肤切换按钮位于页面左上角，点击弹出皮肤选择面板</li>
+                <li>暂停功能：⏸️ 暂停按钮 + ESC 快捷键，暂停时停止计时并遮罩内容</li>
+                <li>60秒无操作自动暂停，30秒后自动返回首页（手动暂停无倒计时）</li>
+                <li>练习卡片精简：掌握度徽章贴合文字居中于拼音上方，移除冗余描述</li>
+                <li>首页设置弹窗：自动保存说明 + 清空数据按钮（两步确认）</li>
+                <li>练习中默认开启记录，进入即开始计时</li>
+                <li>清空数据仅影响当前词库，不影响其他词库存档</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v3.0</div>
+            <div class="changelog-date">2026-04-22</div>
+            <ul class="changelog-list">
+                <li>多词库系统：支持导入多个练习文件，下拉切换，各自保留进度</li>
+                <li>内置"拼读双拼音节完整版1257指法"词库，无需手动导入</li>
+                <li>首页统计面板：总指法、已掌握、总进度百分比、练习时间、每种指法平均掌握时间</li>
+                <li>首页布局重做：右上角导入按钮、词库下拉选择、左统计右设置</li>
+                <li>进度自动存档：每次切卡/答错即存档，关闭页面时自动保存</li>
+                <li>切换词库时保留各自的练习进度和分组状态</li>
+                <li>计时器代码重构：统一用 startTimer / stopTimerAndCapture</li>
+                <li>修复 ded 标记在换题时未重置的 bug</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v2.0</div>
+            <div class="changelog-date">2026-04-22</div>
+            <ul class="changelog-list">
+                <li>错误提示改为紧凑样式，不再挤压卡片</li>
+                <li>掌握度徽章改为"掌握度 XX%"百分比显示</li>
+                <li>首页改为横屏双栏布局，紧凑化间距和字号</li>
+                <li>练习页 UI 优化：消息动画、样式精简</li>
+            </ul>
+        </div>
+        <div class="changelog-entry">
+            <div class="changelog-version">v1.0</div>
+            <div class="changelog-date">2026-04-10</div>
+            <ul class="changelog-list">
+                <li>基础键位练习功能：导入词库、实时输入检测</li>
+                <li>前缀匹配与完整匹配判定</li>
+                <li>统计面板：正确数、击键速度、正确率、计时</li>
+                <li>localStorage 数据持久化</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 词库设置弹窗 -->
+<div class="changelog-modal" id="statSettingsModal">
+    <div class="changelog-content" style="max-width:420px;">
+        <div class="changelog-header">
+            <h2>⚙️ 词库设置</h2>
+            <button class="changelog-close" id="statSettingsClose">&times;</button>
+        </div>
+        <div style="font-size:0.82rem;color:var(--text-body);line-height:1.7;">
+            <div style="background:#f0fdf4;border-radius:0.6rem;padding:0.7rem 0.9rem;margin-bottom:10px;border:1px solid #bbf7d0;">
+                <div style="font-weight:600;color:#166534;margin-bottom:4px;">💾 自动保存</div>
+                <div>每次切换卡片或答错时，进度会自动保存。关闭页面时也会自动保存。</div>
+                <div>点击「开始练习」会继续上次的练习进度，不会从头开始。</div>
+            </div>
+            <div style="background:#fff7ed;border-radius:0.6rem;padding:0.7rem 0.9rem;margin-bottom:10px;border:1px solid #fed7aa;">
+                <div style="font-weight:600;color:#9a3412;margin-bottom:4px;">🔄 切换词库</div>
+                <div>每个词库的进度独立保存，切换词库不会丢失另一个词库的进度。</div>
+            </div>
+            <div style="background:#fef2f2;border-radius:0.6rem;padding:0.7rem 0.9rem;border:1px solid #fecaca;">
+                <div style="font-weight:600;color:#991b1b;margin-bottom:4px;">⚠️ 清空数据</div>
+                <div>清空当前词库的全部练习数据与存档。清空后，点击「开始练习」将从零开始。</div>
+                <div style="margin-top:8px;text-align:center;">
+                    <button id="clearDeckDataBtn" style="padding:8px 24px;font-size:0.85rem;background:var(--btn-danger);color:white;border:none;border-radius:40px;cursor:pointer;">🗑️ 清空当前词库数据</button>
+                </div>
+                <div style="margin-top:6px;font-size:0.78rem;color:#991b1b;">清空所有词库的练习数据（词库本身不会被删除）。</div>
+                <div style="margin-top:6px;text-align:center;">
+                    <button id="clearAllDeckDataBtn" style="padding:8px 24px;font-size:0.85rem;background:#9f1239;color:white;border:none;border-radius:40px;cursor:pointer;">🗑️ 清空所有词库数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 掌握间隔弹窗 -->
+<div class="changelog-modal" id="masteryIntervalModal">
+    <div class="changelog-content" style="max-width:680px;">
+        <div class="changelog-header">
+            <h2>📈 掌握间隔</h2>
+            <button class="changelog-close" id="masteryIntervalClose">&times;</button>
+        </div>
+        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">
+            每个指法从首次出现在你面前到达到100分所需的时间。已掌握 <span id="miMasteredCount">0</span> / <span id="miTotalCount">0</span> 个指法。
+        </div>
+        <canvas id="masteryChart" style="width:100%;height:260px;"></canvas>
+        <div style="text-align:right;margin-top:10px;">
+            <button id="miExportBtn" style="padding:6px 18px;font-size:0.82rem;background:var(--btn-primary);color:#fff;border:none;border-radius:20px;cursor:pointer;">📥 导出CSV</button>
+        </div>
+    </div>
+</div>
+
+<!-- 词库说明弹窗 -->
+<div class="changelog-modal" id="deckFormatModal">
+    <div class="changelog-content" style="max-width:520px;">
+        <div class="changelog-header">
+            <h2>📖 词库格式说明</h2>
+            <button class="changelog-close" id="deckFormatClose">&times;</button>
+        </div>
+        <div style="font-size:0.82rem;color:var(--text-body);line-height:1.8;">
+            <div style="background:#f0fdf4;border-radius:0.6rem;padding:0.7rem 0.9rem;margin-bottom:10px;border:1px solid #bbf7d0;">
+                <div style="font-weight:600;color:#166534;margin-bottom:4px;">📋 两列格式（基础）</div>
+                <div style="font-family:monospace;background:var(--bg-primary);padding:6px 10px;border-radius:6px;margin:6px 0;font-size:0.8rem;">
+                    拼音<TAB>指法键位
+                </div>
+                <div style="color:var(--text-muted);font-size:0.78rem;">示例：<code>shì<code style="margin:0 2px;">→</code>ak</code></div>
+            </div>
+            <div style="background:#eff6ff;border-radius:0.6rem;padding:0.7rem 0.9rem;margin-bottom:10px;border:1px solid #bfdbfe;">
+                <div style="font-weight:600;color:#1e40af;margin-bottom:4px;">📋 三列格式（推荐）</div>
+                <div style="font-family:monospace;background:var(--bg-primary);padding:6px 10px;border-radius:6px;margin:6px 0;font-size:0.8rem;">
+                    拼音<TAB>指法键位<TAB>中文汉字
+                </div>
+                <div style="color:var(--text-muted);font-size:0.78rem;">示例：<code>shì<code style="margin:0 2px;">→</code>ak<code style="margin:0 2px;">→</code>是</code></div>
+            </div>
+            <div style="background:#fefce8;border-radius:0.6rem;padding:0.7rem 0.9rem;margin-bottom:10px;border:1px solid #fde68a;">
+                <div style="font-weight:600;color:#92400e;margin-bottom:4px;">🔊 为什么要加汉字？</div>
+                <div>练习器的语音朗读功能需要将拼音转换为中文汉字，才能被 TTS 引擎正确朗读。三列格式直接提供汉字，朗读更准确；两列格式会自动查映射表，但映射表可能无法覆盖所有拼音。</div>
+            </div>
+            <div style="color:var(--text-muted);font-size:0.78rem;">
+                💡 汉字列仅在朗读时使用，<b>不会</b>显示在练习界面上。
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 词库管理弹窗 -->
+<div class="changelog-modal" id="deckManageModal">
+    <div class="changelog-content" style="max-width:720px;max-height:85vh;">
+        <div class="changelog-header">
+            <h2>📦 词库管理</h2>
+            <button class="changelog-close" id="deckManageClose">&times;</button>
+        </div>
+        <div id="deckManageList" style="font-size:0.82rem;"></div>
+    </div>
+</div>
+
+    <!-- ========== 首页 ========== -->
+    <div class="page active" id="homePage">
+        <div class="home-topbar">
+            <input type="file" id="importFile" accept=".txt,.tsv" style="display: none;" />
+            <button id="importBtn" class="btn-primary">📂 导入练习材料</button>
+            <button id="changelogBtn">📋 版本日志</button>
+        </div>
+
+        <div class="home-header">
+            <div class="home-title">中文输入方案键位练习器</div>
+            <div class="home-subtitle">基于掌握度算法的智能练习系统</div>
+        </div>
+
+        <div class="deck-select-row">
+            <label>选择词库：</label>
+            <select id="deckSelect"></select>
+            <button id="deckFormatBtn" style="padding:4px 10px;font-size:0.78rem;background:var(--bg-container);color:var(--text-body);border:1px solid var(--border-input);border-radius:8px;cursor:pointer;white-space:nowrap;">词库说明</button>
+            <button id="deckManageBtn" style="padding:4px 10px;font-size:0.78rem;background:var(--bg-container);color:var(--text-body);border:1px solid var(--border-input);border-radius:8px;cursor:pointer;white-space:nowrap;">📦 管理</button>
+        </div>
+
+        <div class="home-body">
+            <div class="home-section">
+                <div class="home-section-title">
+                    <span class="home-section-title-left">📊 统计</span>
+                    <div style="display:flex;gap:6px;">
+                        <button class="stat-settings-btn" id="masteryIntervalBtn" title="掌握间隔">掌握间隔</button>
+                        <button class="stat-settings-btn" id="statSettingsBtn" title="统计设置">统计设置</button>
+                    </div>
+                </div>
+                <div class="stat-row"><span class="stat-label-home">总指法</span><span class="stat-val-home" id="homeTotalCards">0</span></div>
+                <div class="stat-row"><span class="stat-label-home">已掌握</span><span class="stat-val-home" id="homeMastered">0</span></div>
+                <div class="stat-row"><span class="stat-label-home">总进度</span><span class="stat-val-home" id="homeProgress">0%</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="homeProgressBar" style="width:0%"></div></div>
+                <div class="stat-row" style="margin-top:6px"><span class="stat-label-home">总练习时间</span><span class="stat-val-home" id="homeTotalTime">00时00分00秒</span></div>
+                <div class="stat-row"><span class="stat-label-home">总按键数</span><span class="stat-val-home" id="homeTotalKeys">0</span></div>
+                <div class="stat-row"><span class="stat-label-home">每种指法平均掌握时间</span><span class="stat-val-home" id="homeAvgTime">—</span></div>
+            </div>
+
+            <div class="home-section">
+                <div class="home-section-title">掌握度算法</div>
+                <div class="settings-row">
+                    <label>初始练习数量:</label>
+                    <input type="number" id="initialPoolSize" value="10" min="1" max="500">
+                </div>
+                <div class="settings-row">
+                    <button id="masterySwitchBtn" class="switch-btn active">🧠 掌握度算法: 开</button>
+                </div>
+                <div class="settings-row">
+                    <button id="soundSwitchBtn" class="switch-btn active">🔔 对错音效: 开</button>
+                </div>
+                <div class="settings-row">
+                    <button id="letterGroupSwitchBtn" class="switch-btn">🔤 字母排序: 关</button>
+                </div>
+                <div class="info-tip" style="margin-top:8px;font-size:0.72rem;color:var(--text-muted);line-height:1.5;">
+                    开启：分数低的优先出题，练会解锁新元素。<br>
+                    关闭：完全随机，无分数机制。<br>
+                    字母分组：按首字母a→b→c…顺序练习，a开头的全部掌握后才练b。
+                </div>
+            </div>
+        </div>
+
+        <button id="startPracticeBtn" class="btn-success start-btn" disabled>▶️ 开始练习</button>
+
+        <footer>数据自动保存至浏览器 | 切换词库保留各自进度</footer>
+    </div>
+
+    <!-- ========== 练习页 ========== -->
+    <div class="page" id="practicePage">
+        <div class="toolbar">
+            <div class="btn-group">
+                <button id="backHomeBtn">🏠 返回首页</button>
+                <button id="pauseBtn">⏸️ 暂停</button>
+            </div>
+            <button id="ttsSwitchBtn" class="switch-btn active">🔊 朗读: 开</button>
+            <button id="recordSwitchBtn" class="switch-btn">⏻ 记录: 关</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-label">✅ 已掌握</div><div class="stat-value" id="correctCount">0</div></div>
+            <div class="stat-item"><div class="stat-label">📋 总指法</div><div class="stat-value" id="totalCount">0</div></div>
+            <div class="stat-item"><div class="stat-label">📊 总进度</div><div class="stat-value" id="totalProgress">0%</div></div>
+            <div class="stat-item"><div class="stat-label">⌨️ 键数总数</div><div class="stat-value" id="keyCount">0</div></div>
+            <div class="stat-item"><div class="stat-label">⏱️ 打字时间</div><div class="stat-value" id="timeElapsed">00时00分00秒</div></div>
+            <div class="stat-item"><div class="stat-label">⚡ 击键速度</div><div class="stat-value" id="speed">0.00</div></div>
+        </div>
+
+        <div class="practice-area">
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-icon">⏸️ 已暂停</div>
+                <div class="pause-hint">按 ESC 或点击继续</div>
+                <div class="auto-pause-info" id="autoPauseInfo"></div>
+                <div class="auto-pause-countdown" id="autoPauseCountdown"></div>
+            </div>
+            <div class="mastery-badge" id="masteryBadge" style="display:none;"></div>
+            <div class="letter-group-indicator" id="letterGroupIndicator" style="display:none;"></div>
+            <div class="current-card-row">
+                <span class="current-hanzi" id="currentHanziDisplay" style="display:none;"></span>
+                <span class="current-element" id="currentElementDisplay">—</span>
+            </div>
+            <div class="input-area">
+                <input type="text" id="keyInput" placeholder="输入键位 (a-z , . / ;)" autocomplete="off" autocapitalize="none" spellcheck="false">
+            </div>
+            <div id="errorMsg" class="message"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- 内置词库1：拼读双拼音节完整版1257指法 (1257条，首字母排序) ----------
+    const BUILTIN_SYLLABLES = `biàn	bd	变
+biào	bv	俵
+biè	bm	别
+bié	bu	别
+biān	bi	边
+biāo	be	膘
+biē	ba	憋
+biě	br	瘪
+biǎn	bf	扁
+biǎo	be	表
+bà	bx	爸
+bài	bp	拜
+bàn	bd	办
+bàng	bh	棒
+bào	bv	爆
+bá	bs	拔
+bái	bc	白
+báo	be	雹
+bèi	bz	被
+bèn	bp	笨
+bèng	bp	蹦
+béng	bg	甭
+bì	bk	必
+bìn	bp	鬓
+bìng	bp	并
+bí	bl	鼻
+bò	bm	擘
+bó	bu	博
+bù	bk	不
+bú	bl	醭
+bā	bs	粑
+bāi	bc	掰
+bān	bi	班
+bāng	by	帮
+bāo	be	包
+bēi	bq	悲
+bēn	bn	奔
+bēng	bn	崩
+běi	bq	北
+běn	bb	本
+běng	bb	绷
+bī	bo	逼
+bīn	bn	斌
+bīng	bn	冰
+bō	ba	波
+bū	bo	晡
+bǎ	bo	把
+bǎi	bc	摆
+bǎn	bf	版
+bǎng	by	绑
+bǎo	be	宝
+bǐ	bj	比
+bǐng	bb	饼
+bǒ	br	跛
+bǔ	bj	补
+chuài	cp	踹
+chuàn	cd	串
+chuàng	ch	创
+chuán	ci	传
+chuáng	cw	床
+chuí	ca	锤
+chuò	cm	龊
+chuāi	cc	搋
+chuān	ci	穿
+chuāng	cy	窗
+chuī	cq	吹
+chuō	ca	戳
+chuǎi	cc	揣
+chuǎn	cf	喘
+chuǎng	cy	闯
+chà	ox	差
+chài	op	虿
+chàn	od	颤
+chàng	oh	唱
+chào	ov	耖
+chá	os	茶
+chái	oc	柴
+chán	oi	馋
+cháng	ow	长
+cháo	oe	朝
+chè	om	撤
+chèn	op	趁
+chèng	op	秤
+chén	og	陈
+chéng	og	成
+chì	ok	翅
+chí	ol	迟
+chòng	ow	铳
+chòu	ot	臭
+chóng	oh	虫
+chóu	ou	愁
+chù	ck	触
+chú	cl	除
+chún	cg	纯
+chā	os	插
+chāi	oc	拆
+chān	oi	掺
+chāng	oy	菖
+chāo	oe	超
+chē	oa	车
+chēn	on	嗔
+chēng	on	称
+chě	or	扯
+chěn	ob	碜
+chěng	ob	逞
+chī	oo	吃
+chōng	oh	冲
+chōu	ou	抽
+chū	co	出
+chūn	cn	春
+chǎ	oo	镲
+chǎi	oc	茝
+chǎn	of	产
+chǎng	oy	场
+chǎo	oe	吵
+chǐ	oj	尺
+chǒng	oh	宠
+chǒu	oa	丑
+chǔ	cj	楚
+chǔn	cb	蠢
+cuàn	cd	窜
+cuán	ci	㠝
+cuì	cz	脆
+cuò	cm	错
+cuó	cu	矬
+cuān	ci	蹿
+cuī	cq	催
+cuō	ca	搓
+cuǐ	cq	璀
+cuǒ	cr	脞
+cài	cp	菜
+càn	cd	灿
+cái	cc	才
+cán	ci	残
+cáng	cw	藏
+cáo	ce	槽
+cè	cm	测
+cèng	cp	蹭
+cén	cg	岑
+céng	cg	曾
+cì	ck	次
+cí	cl	词
+còu	ct	凑
+cóng	ch	从
+cù	ck	醋
+cùn	cp	寸
+cú	cl	殂
+cún	cg	存
+cā	cs	擦
+cāi	cc	猜
+cān	ci	餐
+cāng	cy	仓
+cāo	ce	操
+cēn	cn	嵾
+cēng	cn	噌
+cī	co	呲
+cōng	ch	葱
+cū	co	粗
+cūn	cn	村
+cǎi	cc	踩
+cǎn	cf	惨
+cǎo	ce	草
+cǐ	cj	此
+cǔn	cb	忖
+diàn	yd	店
+diào	yv	掉
+dié	yu	叠
+diān	yi	颠
+diāo	ye	叼
+diē	ya	爹
+diū	yu	丢
+diǎ	yo	嗲
+diǎn	yf	点
+diǎo	ye	䄪
+duàn	dd	断
+duì	dz	对
+duò	dm	剁
+duó	du	夺
+duān	di	端
+duī	dq	堆
+duō	da	多
+duǎn	df	短
+duǒ	dr	躲
+dà	dx	大
+dài	dp	带
+dàn	dd	但
+dàng	dh	档
+dào	dv	到
+dá	ds	达
+dáo	de	捯
+dèn	dp	扽
+dèng	dp	瞪
+dé	du	德
+dì	yk	地
+dìng	yp	定
+dí	yl	敌
+dòng	dw	动
+dòu	dt	痘
+dù	dk	度
+dùn	dp	炖
+dú	dl	读
+dā	ds	哒
+dāi	dc	呆
+dān	di	单
+dāng	dy	当
+dāo	de	刀
+dē	da	嘚
+dēng	dn	灯
+děi	dq	得
+děng	db	等
+dī	yo	滴
+dīng	yn	盯
+dōng	dh	东
+dōu	du	都
+dū	do	嘟
+dūn	dn	蹲
+dǎ	do	打
+dǎi	dc	歹
+dǎn	df	胆
+dǎng	dy	党
+dǎo	de	岛
+dǐ	yj	底
+dǐng	yb	顶
+dǒng	dh	懂
+dǒu	da	抖
+dǔ	dj	堵
+dǔn	db	趸
+fà	fx	珐
+fàn	fd	饭
+fàng	fh	放
+fá	fs	伐
+fán	fi	烦
+fáng	fw	房
+fèi	fz	费
+fèn	fp	份
+fèng	fp	奉
+féi	fa	肥
+fén	fg	坟
+féng	fg	逢
+fó	fu	佛
+fù	fk	副
+fú	fl	服
+fā	fs	发
+fān	fi	翻
+fāng	fy	方
+fēi	fq	飞
+fēn	fn	分
+fēng	fn	疯
+fěi	fq	匪
+fěn	fb	粉
+fěng	fb	讽
+fū	fo	敷
+fǎ	fo	法
+fǎn	ff	反
+fǎng	fy	仿
+fǒu	fa	否
+fǔ	fj	腐
+guà	rx	挂
+guài	rp	怪
+guàn	rd	惯
+guàng	rh	逛
+guì	rz	贵
+guò	rm	过
+guó	ru	国
+guā	rs	刮
+guāi	rc	乖
+guān	ri	关
+guāng	ry	光
+guī	rq	归
+guō	ra	郭
+guǎ	ro	剐
+guǎi	rc	拐
+guǎn	rf	管
+guǎng	ry	广
+guǐ	rq	鬼
+guǒ	rr	果
+gà	gx	尬
+gài	gp	盖
+gàn	gd	赣
+gàng	gh	杠
+gào	gv	告
+gá	gs	噶
+gè	gm	个
+gèn	gp	艮
+gèng	gp	更
+gé	gu	隔
+gén	gg	哏
+gòng	gw	共
+gòu	gt	够
+gù	rk	故
+gùn	rp	棍
+gā	gs	嘎
+gāi	gc	该
+gān	gi	竿
+gāng	gy	刚
+gāo	ge	高
+gē	ga	哥
+gēn	gn	跟
+gēng	gn	羹
+gě	gr	舸
+gěi	gq	给
+gěng	gb	梗
+gōng	gh	宫
+gōu	gu	勾
+gū	ro	菇
+gǎ	go	尕
+gǎi	gc	改
+gǎn	gf	敢
+gǎng	gy	港
+gǎo	ge	搞
+gǒng	gh	拱
+gǒu	ga	狗
+gǔ	rj	股
+gǔn	rb	滚
+huà	hx	话
+huài	hp	坏
+huàn	hd	换
+huàng	hh	晃
+huá	hs	滑
+huái	hc	怀
+huán	hi	环
+huáng	hw	黄
+huì	hz	会
+huí	ha	回
+huò	hm	或
+huó	hu	活
+huā	hs	花
+huān	hi	欢
+huāng	hy	慌
+huī	hq	灰
+huō	ha	豁
+huǎn	hf	缓
+huǎng	hy	谎
+huǐ	hq	毁
+huǒ	hr	火
+hài	hp	害
+hàn	hd	汗
+hàng	hh	沆
+hào	hv	耗
+há	hs	蛤
+hái	hc	还
+hán	hi	韩
+háng	hw	杭
+háo	he	蚝
+hè	hm	贺
+hèn	hp	恨
+hèng	hp	横
+hé	hu	和
+hén	hg	痕
+héng	hg	衡
+hòng	hw	讧
+hòu	ht	后
+hóng	hh	红
+hóu	hu	猴
+hù	hk	沪
+hùn	hp	混
+hú	hl	胡
+hún	hg	魂
+hā	hs	哈
+hāi	hc	嗨
+hān	hi	憨
+hāng	hy	夯
+hāo	he	蒿
+hē	ha	喝
+hēi	hq	黑
+hēng	hn	哼
+hěn	hb	很
+hōng	hh	轰
+hōu	hu	齁
+hū	ho	呼
+hūn	hn	婚
+hǎ	ho	哈
+hǎi	hc	海
+hǎn	hf	喊
+hǎo	he	好
+hǒng	hh	哄
+hǒu	ha	吼
+hǔ	hj	虎
+jià	jx	嫁
+jiàn	jd	见
+jiàng	jh	酱
+jiào	jv	叫
+jiá	js	夹
+jiáo	je	嚼
+jiè	jm	借
+jié	ju	羯
+jiù	jt	就
+jiā	js	加
+jiān	ji	间
+jiāng	jy	将
+jiāo	je	教
+jiē	ja	接
+jiě	jr	姐
+jiōng	jh	扃
+jiū	ju	啾
+jiǎ	jo	假
+jiǎn	jf	剪
+jiǎng	jy	讲
+jiǎo	je	脚
+jiǒng	jh	炅
+jiǔ	ja	久
+juàn	gd	眷
+juè	gm	倔
+jué	gu	绝
+juān	gi	捐
+juē	ga	撅
+juǎn	gf	卷
+jì	jk	既
+jìn	jp	进
+jìng	jp	竟
+jí	jl	急
+jù	gk	句
+jùn	gp	俊
+jú	gl	局
+jī	jo	鸡
+jīn	jn	斤
+jīng	jn	经
+jū	go	居
+jūn	gn	君
+jǐ	jj	挤
+jǐn	jb	仅
+jǐng	jb	景
+jǔ	gj	举
+kuà	kx	跨
+kuài	kp	快
+kuàng	kh	框
+kuáng	kw	狂
+kuì	kz	溃
+kuí	ka	葵
+kuò	km	阔
+kuā	ks	夸
+kuān	ki	宽
+kuāng	ky	筐
+kuī	kq	亏
+kuǎ	ko	垮
+kuǎi	kc	蒯
+kuǎn	kf	款
+kuǎng	ky	夼
+kuǐ	kq	跬
+kài	kp	忾
+kàn	kd	看
+kàng	kh	抗
+kào	kv	靠
+káng	kw	扛
+kè	km	课
+kèn	kp	裉
+ké	ku	咳
+kòng	kw	控
+kòu	kt	扣
+kù	kk	酷
+kùn	kp	困
+kā	ks	咔
+kāi	kc	开
+kān	ki	刊
+kāng	ky	康
+kāo	ke	尻
+kē	ka	颗
+kēi	kq	剋
+kēng	kn	坑
+kě	kr	可
+kěn	kb	啃
+kōng	kh	空
+kōu	ku	抠
+kū	ko	哭
+kūn	kn	坤
+kǎ	ko	卡
+kǎi	kc	凯
+kǎn	kf	砍
+kǎo	ke	考
+kǒng	kh	孔
+kǒu	ka	口
+kǔ	kj	苦
+kǔn	kb	捆
+liàn	wd	练
+liàng	wh	亮
+liào	wv	料
+lián	wi	连
+liáng	ww	凉
+liáo	we	聊
+liè	wm	列
+liù	wt	六
+liú	wu	留
+liāng	wy	两
+liāo	we	撩
+liē	wa	咧
+liě	wr	咧
+liū	wu	溜
+liǎ	wo	俩
+liǎn	wf	脸
+liǎng	wy	两
+liǎo	we	蓼
+liǔ	wa	柳
+luàn	ld	乱
+luán	li	栾
+luò	lm	落
+luó	lu	罗
+luō	la	啰
+luǎn	lf	卵
+luǒ	lr	裸
+lvè	lm	略
+là	lx	辣
+lài	lp	赖
+làn	ld	烂
+làng	lh	浪
+lào	lv	涝
+lá	ls	旯
+lái	lc	来
+lán	li	蓝
+láng	lw	狼
+láo	le	牢
+lè	lm	乐
+lèi	lz	累
+lèng	lp	愣
+léi	la	雷
+léng	lg	楞
+lì	wk	力
+lìn	wp	吝
+lìng	wp	另
+lí	wl	离
+lín	wg	林
+líng	wg	零
+lòng	lw	哢
+lòu	lt	漏
+lóng	lh	龙
+lóu	lu	楼
+lù	lk	路
+lùn	lp	论
+lú	ll	卢
+lún	lg	轮
+lā	ls	拉
+lāng	ly	啷
+lāo	le	捞
+lē	la	嘞
+lēi	lq	勒
+lēng	ln	棱
+lěi	lq	蕾
+lěng	lb	冷
+lī	wo	哩
+līn	wn	拎
+lō	la	啰
+lōng	lh	隆
+lōu	lu	搂
+lū	lo	撸
+lūn	ln	抡
+lǎ	lo	喇
+lǎn	lf	懒
+lǎng	ly	朗
+lǎo	le	老
+lǐ	wj	里
+lǐn	wb	凛
+lǐng	wb	领
+lǒng	lh	拢
+lǒu	la	篓
+lǔ	lj	卤
+lǔn	lb	𫭢
+lǘ	ll	驴
+lǚ	lj	旅
+lǜ	lk	绿
+m2	ml	呒
+m4	mk	呣
+miàn	md	面
+miào	mv	妙
+mián	mi	眠
+miáo	me	瞄
+miè	mm	灭
+miù	mt	谬
+miāo	me	喵
+miē	ma	咩
+miǎn	mf	免
+miǎo	me	秒
+mà	mx	骂
+mài	mp	卖
+màn	md	慢
+mào	mv	冒
+má	ms	麻
+mái	mc	埋
+mán	mi	蛮
+máng	mw	忙
+máo	me	毛
+mèi	mz	妹
+mèn	mp	闷
+mèng	mp	梦
+méi	ma	没
+mén	mg	门
+méng	mg	萌
+mì	mk	幂
+mìng	mp	命
+mí	ml	迷
+mín	mg	民
+míng	mg	名
+mò	mm	莫
+mó	mu	摩
+móu	mu	谋
+mù	mk	木
+mú	ml	毪
+mā	ms	妈
+mān	mi	嫚
+māng	my	牤
+māo	me	猫
+mē	ma	嚒
+mēn	mn	扪
+mēng	mn	蒙
+měi	mq	每
+měng	mb	猛
+mī	mo	咪
+mō	ma	摸
+mōu	mu	哞
+mǎ	mo	马
+mǎi	mc	买
+mǎn	mf	满
+mǎng	my	蟒
+mǎo	me	卯
+mǐ	mj	米
+mǐn	mb	皿
+mǐng	mb	酩
+mǒ	mr	抹
+mǒu	ma	某
+mǔ	mj	母
+ng4	op	嗯
+niàn	nd	念
+niàng	nh	酿
+niào	nv	尿
+nián	ni	年
+niáng	nw	娘
+niè	nm	涅
+niù	nt	䋴
+niú	nu	牛
+niān	ni	蔫
+niē	na	捏
+niū	nu	妞
+niǎn	nf	碾
+niǎo	ne	鸟
+niǔ	na	扭
+nuò	nm	诺
+nuó	nu	挪
+nuǎn	nf	暖
+nvè	nm	虐
+nà	nx	那
+nài	np	耐
+nàn	nd	难
+nàng	nh	齉
+nào	nv	闹
+ná	ns	拿
+nán	ni	南
+náng	nw	囊
+náo	ne	挠
+nè	nm	讷
+nèi	nz	内
+nèn	np	嫩
+né	nu	哪
+néng	ng	能
+nì	nk	腻
+nìng	np	甯
+ní	nl	泥
+nín	ng	您
+níng	ng	宁
+nòng	nw	弄
+nòu	nt	耨
+nóng	nh	浓
+nù	nk	怒
+nú	nl	奴
+nā	ns	那
+nān	ni	囡
+nāng	ny	囔
+nāo	ne	孬
+nē	na	呢
+něi	nq	馁
+nī	no	妮
+nǎ	no	哪
+nǎi	nc	乃
+nǎn	nf	腩
+nǎng	ny	攮
+nǎo	ne	脑
+nǐ	nj	你
+nǐng	nb	拧
+nǔ	nj	努
+nǚ	nj	女
+nǜ	nk	衄
+piàn	pd	骗
+piào	pv	票
+pián	pi	骈
+piáo	pe	嫖
+piān	pi	篇
+piāo	pe	飘
+piē	pa	瞥
+piě	pr	撇
+piǎn	pf	谝
+piǎo	pe	瞟
+pà	px	怕
+pài	pp	派
+pàn	pd	盼
+pàng	ph	胖
+pào	pv	泡
+pá	ps	爬
+pái	pc	徘
+pán	pi	盘
+páng	pw	旁
+páo	pe	袍
+pèi	pz	配
+pèn	pp	喷
+pèng	pp	碰
+péi	pa	陪
+pén	pg	盆
+péng	pg	彭
+pì	pk	屁
+pìn	pp	聘
+pí	pl	皮
+pín	pg	贫
+píng	pg	瓶
+pò	pm	破
+pó	pu	婆
+póu	pu	抔
+pù	pk	瀑
+pú	pl	葡
+pā	ps	趴
+pāi	pc	拍
+pān	pi	潘
+pāng	py	乓
+pāo	pe	抛
+pēi	pq	呸
+pēn	pn	喷
+pēng	pn	嘭
+pěng	pb	捧
+pī	po	劈
+pīn	pn	拼
+pīng	pn	乒
+pō	pa	颇
+pōu	pu	剖
+pū	po	噗
+pǎi	pc	排
+pǎng	py	耪
+pǎo	pe	跑
+pǐ	pj	癖
+pǐn	pb	品
+pǒ	pr	叵
+pǒu	pa	掊
+pǔ	pj	谱
+qià	qx	恰
+qiàn	qd	欠
+qiàng	qh	炝
+qiào	qv	翘
+qiá	qs	拤
+qián	qi	前
+qiáng	qw	强
+qiáo	qe	瞧
+qiè	qm	窃
+qié	qu	茄
+qióng	qh	穷
+qiú	qu	求
+qiā	qs	掐
+qiān	qi	签
+qiāng	qy	枪
+qiāo	qe	敲
+qiē	qa	切
+qiě	qr	且
+qiū	qu	秋
+qiǎ	qo	峠
+qiǎn	qf	浅
+qiǎng	qy	抢
+qiǎo	qe	巧
+qiǔ	qa	糗
+quàn	gd	劝
+quán	gi	全
+què	gm	却
+qué	gu	瘸
+quān	gi	圈
+quē	ga	缺
+quǎn	gf	犬
+qì	qk	气
+qìn	qp	沁
+qìng	qp	庆
+qí	ql	其
+qín	qg	琴
+qíng	qg	情
+qù	gk	去
+qú	gl	渠
+qún	gg	群
+qī	qo	期
+qīn	qn	亲
+qīng	qn	清
+qū	go	区
+qūn	gn	囷
+qǐ	qj	起
+qǐn	qb	寝
+qǐng	qb	请
+qǔ	gj	娶
+ruán	ri	堧
+ruì	rz	瑞
+ruí	ra	蕤
+ruò	rm	若
+ruǎn	rf	软
+ruǐ	rq	蕊
+ràng	rh	让
+rào	rv	绕
+rán	ri	然
+ráng	rw	瓤
+ráo	re	饶
+rè	rm	热
+rèn	rp	任
+rén	rg	人
+réng	rg	仍
+rì	rk	日
+ròu	rt	肉
+róng	rh	容
+róu	ru	揉
+rù	rk	入
+rùn	rp	润
+rú	rl	如
+rāng	ry	嚷
+rēng	rn	扔
+rě	rr	惹
+rěn	rb	忍
+rǎn	rf	染
+rǎng	ry	壤
+rǎo	re	扰
+rǒng	rh	冗
+rǔ	rj	乳
+shuà	tx	刷
+shuài	tp	帅
+shuàn	td	涮
+shuì	tz	睡
+shuí	ta	脽
+shuò	tm	硕
+shuā	ts	刷
+shuāi	tc	摔
+shuān	ti	拴
+shuāng	ty	双
+shuō	ta	说
+shuǎ	to	耍
+shuǎi	tc	甩
+shuǎng	ty	爽
+shuǐ	tq	水
+shà	ax	煞
+shài	ap	晒
+shàn	ad	善
+shàng	ah	上
+shào	av	哨
+shá	as	啥
+sháo	ae	勺
+shè	am	射
+shèn	ap	甚
+shèng	ap	剩
+shé	au	蛇
+shéi	aa	谁
+shén	ag	神
+shéng	ag	绳
+shì	ak	是
+shí	al	时
+shòu	at	瘦
+shóu	au	熟
+shù	tk	树
+shùn	tp	顺
+shú	tl	孰
+shā	as	杀
+shāi	ac	筛
+shān	ai	删
+shāng	ay	伤
+shāo	ae	烧
+shē	aa	奢
+shēn	an	深
+shēng	an	生
+shě	ar	舍
+shěn	ab	沈
+shěng	ab	省
+shī	ao	诗
+shōu	au	收
+shū	to	书
+shǎ	ao	傻
+shǎi	ac	𢄌
+shǎn	af	闪
+shǎng	ay	赏
+shǎo	ae	少
+shǐ	aj	屎
+shǒu	aa	手
+shǔ	tj	属
+shǔn	tb	吮
+suàn	sd	算
+suì	sz	岁
+suí	sa	随
+suān	si	酸
+suī	sq	虽
+suō	sa	缩
+suǐ	sq	髓
+suǒ	sr	所
+sà	sx	萨
+sài	sp	赛
+sàn	sd	散
+sàng	sh	丧
+sào	sv	瘙
+sè	sm	色
+sì	sk	四
+sòng	sw	送
+sòu	st	嗽
+sù	sk	素
+sú	sl	俗
+sā	ss	仨
+sāi	sc	塞
+sān	si	三
+sāng	sy	桑
+sāo	se	骚
+sēn	sn	森
+sēng	sn	僧
+sī	so	斯
+sōng	sh	松
+sōu	su	搜
+sū	so	苏
+sūn	sn	孙
+sǎ	so	撒
+sǎn	sf	伞
+sǎng	sy	嗓
+sǎo	se	嫂
+sǐ	sj	死
+sǒng	sh	怂
+sǒu	sa	叟
+sǔn	sb	损
+tiàn	td	瑱
+tiào	tv	跳
+tián	ti	甜
+tiáo	te	条
+tiè	tm	餮
+tiān	ti	天
+tiāo	te	挑
+tiē	ta	贴
+tiě	tr	帖
+tiǎn	tf	舔
+tiǎo	te	窕
+tuàn	td	彖
+tuán	ti	团
+tuì	tz	退
+tuí	ta	颓
+tuò	tm	拓
+tuó	tu	坨
+tuān	ti	湍
+tuī	tq	推
+tuō	ta	拖
+tuǎn	tf	疃
+tuǐ	tq	腿
+tuǒ	tr	妥
+tà	tx	踏
+tài	tp	太
+tàn	td	叹
+tàng	th	烫
+tào	tv	套
+tái	tc	台
+tán	ti	谈
+táng	tw	糖
+táo	te	淘
+tè	tm	特
+téng	tg	疼
+tì	tk	替
+tìng	tp	梃
+tí	tl	提
+tíng	tg	停
+tòng	tw	痛
+tòu	tt	透
+tóng	th	同
+tóu	tu	头
+tù	tk	兔
+tú	tl	图
+tún	tg	臀
+tā	ts	他
+tāi	tc	胎
+tān	ti	贪
+tāng	ty	汤
+tāo	te	掏
+tēng	tn	熥
+tī	to	踢
+tīng	tn	听
+tōng	th	通
+tōu	tu	偷
+tū	to	凸
+tūn	tn	吞
+tǎ	to	塔
+tǎn	tf	毯
+tǎng	ty	躺
+tǎo	te	讨
+tǐ	tj	体
+tǐng	tb	挺
+tǒng	th	捅
+tǔ	tj	吐
+wà	ux	袜
+wài	up	外
+wàn	ud	万
+wàng	uh	忘
+wá	us	娃
+wán	ui	玩
+wáng	uw	王
+wèi	uz	未
+wèn	up	问
+wèng	up	瓮
+wéi	ua	围
+wén	ug	文
+wò	um	握
+wù	uk	雾
+wú	ul	无
+wā	us	挖
+wāi	uc	歪
+wān	ui	弯
+wāng	uy	汪
+wēi	uq	微
+wēn	un	温
+wēng	un	嗡
+wěi	uq	伪
+wěn	ub	吻
+wěng	ub	蓊
+wō	ua	喔
+wū	uo	呜
+wǎ	uo	瓦
+wǎi	uc	崴
+wǎn	uf	晚
+wǎng	uy	网
+wǒ	ur	我
+wǔ	uj	五
+xià	xx	下
+xiàn	xd	线
+xiàng	xh	像
+xiào	xv	笑
+xiá	xs	侠
+xián	xi	嫌
+xiáng	xw	翔
+xiáo	xe	崤
+xiè	xm	谢
+xié	xu	鞋
+xiòng	xw	夐
+xióng	xh	熊
+xiù	xt	秀
+xiā	xs	瞎
+xiān	xi	先
+xiāng	xy	香
+xiāo	xe	消
+xiē	xa	些
+xiě	xr	写
+xiōng	xh	胸
+xiū	xu	修
+xiǎn	xf	显
+xiǎng	xy	想
+xiǎo	xe	小
+xiǔ	xa	朽
+xuàn	xd	炫
+xuán	xi	悬
+xuè	xm	谑
+xué	xu	学
+xuān	xi	萱
+xuē	xa	薛
+xuě	xr	雪
+xuǎn	xf	选
+xì	xk	系
+xìn	xp	信
+xìng	xp	性
+xí	xl	习
+xíng	xg	行
+xù	xk	恤
+xùn	xp	讯
+xú	xl	徐
+xún	xg	寻
+xī	xo	西
+xīn	xn	新
+xīng	xn	星
+xū	xo	需
+xūn	xn	熏
+xǐ	xj	洗
+xǐn	xb	伈
+xǐng	xb	醒
+xǔ	xj	许
+yuàn	vd	愿
+yuán	vi	元
+yuè	vm	月
+yuān	vi	冤
+yuē	va	约
+yuě	vr	噦
+yuǎn	vf	远
+yà	ix	亚
+yàn	id	咽
+yàng	ih	样
+yào	iv	要
+yá	is	牙
+yán	ii	言
+yáng	iw	羊
+yáo	ie	摇
+yè	im	夜
+yé	iu	爷
+yì	ik	亿
+yìn	ip	印
+yìng	ip	硬
+yí	il	咦
+yín	ig	银
+yíng	ig	赢
+yòng	iw	用
+yòu	it	又
+yóng	ih	颙
+yóu	iu	由
+yù	vk	欲
+yùn	vp	运
+yú	vl	于
+yún	vg	云
+yā	is	丫
+yān	ii	烟
+yāng	iy	央
+yāo	ie	腰
+yē	ia	噎
+yě	ir	也
+yī	io	一
+yīn	in	因
+yīng	in	嘤
+yō	ia	唷
+yōng	ih	拥
+yōu	iu	呦
+yū	vo	瘀
+yūn	vn	晕
+yǎ	io	雅
+yǎn	if	演
+yǎng	iy	养
+yǎo	ie	咬
+yǐ	ij	已
+yǐn	ib	饮
+yǐng	ib	影
+yǒng	ih	永
+yǒu	ia	有
+yǔ	vj	与
+yǔn	vb	允
+zhuài	sp	拽
+zhuàn	sd	赚
+zhuàng	sh	撞
+zhuì	sz	坠
+zhuó	su	濯
+zhuā	ss	抓
+zhuān	si	砖
+zhuāng	sy	装
+zhuī	sq	追
+zhuō	sa	捉
+zhuǎ	so	爪
+zhuǎi	sc	跩
+zhuǎn	sf	转
+zhà	ex	炸
+zhài	ep	债
+zhàn	ed	站
+zhàng	eh	帐
+zhào	ev	照
+zhá	es	闸
+zhái	ec	宅
+zháo	ee	着
+zhè	em	这
+zhèn	ep	朕
+zhèng	ep	正
+zhé	eu	折
+zhì	ek	致
+zhí	el	直
+zhòng	ew	众
+zhòu	et	皱
+zhóu	eu	轴
+zhù	sk	祝
+zhú	sl	竹
+zhā	es	渣
+zhāi	ec	摘
+zhān	ei	詹
+zhāng	ey	张
+zhāo	ee	招
+zhē	ea	遮
+zhēn	en	真
+zhēng	en	蒸
+zhě	er	者
+zhěn	eb	枕
+zhěng	eb	整
+zhī	eo	之
+zhōng	eh	忠
+zhōu	eu	周
+zhū	so	猪
+zhūn	sn	肫
+zhǎ	eo	眨
+zhǎi	ec	窄
+zhǎn	ef	展
+zhǎng	ey	涨
+zhǎo	ee	找
+zhǐ	ej	只
+zhǒng	eh	肿
+zhǒu	ea	肘
+zhǔ	sj	煮
+zhǔn	sb	准
+zuàn	zd	攥
+zuì	zz	最
+zuò	zm	做
+zuó	zu	昨
+zuān	zi	钻
+zuō	za	嘬
+zuǎn	zf	纂
+zuǐ	zq	嘴
+zuǒ	zr	左
+zài	zp	在
+zàn	zd	赞
+zàng	zh	葬
+zào	zv	造
+zá	zs	砸
+zán	zi	咱
+záo	ze	凿
+zè	zm	仄
+zèn	zp	谮
+zèng	zp	赠
+zé	zu	则
+zéi	za	贼
+zì	zk	字
+zòng	zw	粽
+zòu	zt	揍
+zú	zl	足
+zā	zs	咂
+zāi	zc	哉
+zān	zi	簪
+zāng	zy	脏
+zāo	ze	遭
+zēng	zn	增
+zěn	zb	怎
+zī	zo	兹
+zōng	zh	棕
+zōu	zu	邹
+zū	zo	租
+zūn	zn	尊
+zǎ	zo	咋
+zǎi	zc	宰
+zǎn	zf	攒
+zǎng	zy	驵
+zǎo	ze	早
+zǐ	zj	子
+zǒng	zh	总
+zǒu	za	走
+zǔ	zj	组
+zǔn	zb	僔
+ài	op	爱
+àn	od	按
+àng	oh	盎
+ào	ov	奥
+ái	oc	癌
+áng	ow	昂
+áo	oe	熬
+è	om	饿
+èn	op	摁
+èr	ok	二
+é	ou	额
+éi	oa	诶
+ér	ol	而
+ò	om	哦
+òu	ot	沤
+ó	ou	哦
+ā	os	阿
+āi	oc	哎
+ān	oi	安
+āng	oy	肮
+āo	oe	凹
+ē	oa	屙
+ēn	on	恩
+ēr	oo	而
+ě	or	恶
+ěr	oj	耳
+ō	oa	噢
+ōu	ou	欧
+ǎi	oc	矮
+ǎn	of	俺
+ǎo	oe	袄
+ǒu	oa	偶
+`;
+
+    // ---------- 内置词库2：拼读双拼音节500指法 (500条，首字母排序) ----------
+    const BUILTIN_SYLLABLES_500 = `biàn	bd	变
+bié	bu	别
+biān	bi	边
+biāo	be	膘
+biǎo	be	表
+bàn	bd	办
+bào	bv	爆
+bái	bc	白
+bèi	bz	被
+bì	bk	必
+bìng	bp	并
+bó	bu	博
+bù	bk	不
+bā	bs	粑
+bān	bi	班
+bāng	by	帮
+bāo	be	包
+běi	bq	北
+běn	bb	本
+bō	ba	波
+bǎ	bo	把
+bǎi	bc	摆
+bǎn	bf	版
+bǎo	be	宝
+bǐ	bj	比
+chuàng	ch	创
+chuán	ci	传
+chuān	ci	穿
+chá	os	茶
+cháng	ow	长
+chén	og	陈
+chéng	og	成
+chí	ol	迟
+chóng	oh	虫
+chù	ck	触
+chú	cl	除
+chāo	oe	超
+chē	oa	车
+chēng	on	称
+chī	oo	吃
+chōng	oh	冲
+chū	co	出
+chǎn	of	产
+chǎng	oy	场
+chǔ	cj	楚
+cuò	cm	错
+cài	cp	菜
+cái	cc	才
+cè	cm	测
+céng	cg	曾
+cì	ck	次
+cí	cl	词
+cóng	ch	从
+cún	cg	存
+cān	ci	餐
+cǎi	cc	踩
+cǐ	cj	此
+diàn	yd	店
+diào	yv	掉
+diǎn	yf	点
+duàn	dd	断
+duì	dz	对
+duō	da	多
+dà	dx	大
+dài	dp	带
+dàn	dd	但
+dào	dv	到
+dá	ds	达
+dé	du	德
+dì	yk	地
+dìng	yp	定
+dòng	dw	动
+dòu	dt	痘
+dù	dk	度
+dú	dl	读
+dān	di	单
+dāng	dy	当
+dē	da	嘚
+děng	db	等
+dī	yo	滴
+dōng	dh	东
+dōu	du	都
+dǎ	do	打
+dǎo	de	岛
+dǐ	yj	底
+fàn	fd	饭
+fàng	fh	放
+fáng	fw	房
+fèi	fz	费
+fèn	fp	份
+fù	fk	副
+fú	fl	服
+fā	fs	发
+fāng	fy	方
+fēi	fq	飞
+fēn	fn	分
+fēng	fn	疯
+fū	fo	敷
+fǎ	fo	法
+fǎn	ff	反
+fǒu	fa	否
+fǔ	fj	腐
+guì	rz	贵
+guò	rm	过
+guó	ru	国
+guān	ri	关
+guāng	ry	光
+guī	rq	归
+guǎn	rf	管
+guǎng	ry	广
+guǒ	rr	果
+gài	gp	盖
+gào	gv	告
+gè	gm	个
+gèng	gp	更
+gé	gu	隔
+gòng	gw	共
+gòu	gt	够
+gù	rk	故
+gāi	gc	该
+gān	gi	竿
+gāng	gy	刚
+gāo	ge	高
+gē	ga	哥
+gēn	gn	跟
+gěi	gq	给
+gōng	gh	宫
+gū	ro	菇
+gǎi	gc	改
+gǎn	gf	敢
+gǔ	rj	股
+huà	hx	话
+huàn	hd	换
+huá	hs	滑
+huán	hi	环
+huáng	hw	黄
+huì	hz	会
+huí	ha	回
+huò	hm	或
+huó	hu	活
+huā	hs	花
+huān	hi	欢
+huǒ	hr	火
+hàn	hd	汗
+hào	hv	耗
+hái	hc	还
+hán	hi	韩
+háng	hw	杭
+hé	hu	和
+hòu	ht	后
+hóng	hh	红
+hù	hk	沪
+hú	hl	胡
+hā	hs	哈
+hē	ha	喝
+hēi	hq	黑
+hěn	hb	很
+hū	ho	呼
+hǎi	hc	海
+hǎo	he	好
+jià	jx	嫁
+jiàn	jd	见
+jiàng	jh	酱
+jiào	jv	叫
+jiè	jm	借
+jié	ju	羯
+jiù	jt	就
+jiā	js	加
+jiān	ji	间
+jiāng	jy	将
+jiāo	je	教
+jiē	ja	接
+jiě	jr	姐
+jiū	ju	啾
+jiǎn	jf	剪
+jiǎng	jy	讲
+jiǎo	je	脚
+jiǔ	ja	久
+jué	gu	绝
+jì	jk	既
+jìn	jp	进
+jìng	jp	竟
+jí	jl	急
+jù	gk	句
+jú	gl	局
+jī	jo	鸡
+jīn	jn	斤
+jīng	jn	经
+jū	go	居
+jūn	gn	君
+jǐ	jj	挤
+jǐn	jb	仅
+jǐng	jb	景
+jǔ	gj	举
+kuài	kp	快
+kuàng	kh	框
+kuò	km	阔
+kuǎn	kf	款
+kàn	kd	看
+kè	km	课
+kòng	kw	控
+kāi	kc	开
+kāng	ky	康
+kē	ka	颗
+kě	kr	可
+kōng	kh	空
+kǎ	ko	卡
+kǎo	ke	考
+kǒu	ka	口
+liàn	wd	练
+liàng	wh	亮
+liào	wv	料
+lián	wi	连
+liáng	ww	凉
+liáo	we	聊
+liè	wm	列
+liú	wu	留
+liǎng	wy	两
+liǎo	we	蓼
+luò	lm	落
+luó	lu	罗
+lái	lc	来
+lán	li	蓝
+lè	lm	乐
+lèi	lz	累
+lì	wk	力
+lìng	wp	另
+lí	wl	离
+lín	wg	林
+líng	wg	零
+lóng	lh	龙
+lù	lk	路
+lùn	lp	论
+lā	ls	拉
+lē	la	嘞
+lǎo	le	老
+lǐ	wj	里
+lǐng	wb	领
+lǚ	lj	旅
+lǜ	lk	绿
+miàn	md	面
+miǎn	mf	免
+mài	mp	卖
+màn	md	慢
+méi	ma	没
+mén	mg	门
+mì	mk	幂
+mìng	mp	命
+mín	mg	民
+míng	mg	名
+mò	mm	莫
+mó	mu	摩
+mù	mk	木
+mā	ms	妈
+mē	ma	嚒
+mēn	mn	扪
+měi	mq	每
+mǎ	mo	马
+mǎi	mc	买
+mǎn	mf	满
+mǐ	mj	米
+mǔ	mj	母
+nián	ni	年
+nà	nx	那
+nán	ni	南
+nèi	nz	内
+néng	ng	能
+nǎ	no	哪
+nǐ	nj	你
+nǚ	nj	女
+piàn	pd	骗
+piào	pv	票
+pái	pc	徘
+pèi	pz	配
+péng	pg	彭
+pí	pl	皮
+pín	pg	贫
+píng	pg	瓶
+pǐn	pb	品
+pǔ	pj	谱
+qián	qi	前
+qiáng	qw	强
+qiú	qu	求
+qiān	qi	签
+qiě	qr	且
+quán	gi	全
+què	gm	却
+qì	qk	气
+qí	ql	其
+qíng	qg	情
+qù	gk	去
+qī	qo	期
+qīn	qn	亲
+qīng	qn	清
+qū	go	区
+qǐ	qj	起
+qǐng	qb	请
+qǔ	gj	娶
+ràng	rh	让
+rán	ri	然
+rè	rm	热
+rèn	rp	任
+rén	rg	人
+rì	rk	日
+ròu	rt	肉
+róng	rh	容
+rù	rk	入
+rú	rl	如
+shuì	tz	睡
+shuō	ta	说
+shuǐ	tq	水
+shàng	ah	上
+shè	am	射
+shèng	ap	剩
+shén	ag	神
+shì	ak	是
+shí	al	时
+shòu	at	瘦
+shù	tk	树
+shā	as	杀
+shān	ai	删
+shāng	ay	伤
+shēn	an	深
+shēng	an	生
+shī	ao	诗
+shōu	au	收
+shū	to	书
+shǎo	ae	少
+shǐ	aj	屎
+shǒu	aa	手
+shǔ	tj	属
+suàn	sd	算
+suí	sa	随
+suǒ	sr	所
+sài	sp	赛
+sè	sm	色
+sì	sk	四
+sòng	sw	送
+sù	sk	素
+sān	si	三
+sī	so	斯
+sǐ	sj	死
+tián	ti	甜
+tiáo	te	条
+tiān	ti	天
+tuán	ti	团
+tuī	tq	推
+tài	tp	太
+tái	tc	台
+tán	ti	谈
+táng	tw	糖
+tè	tm	特
+tí	tl	提
+tíng	tg	停
+tóng	th	同
+tóu	tu	头
+tú	tl	图
+tā	ts	他
+tīng	tn	听
+tōng	th	通
+tǐ	tj	体
+tǒng	th	捅
+wài	up	外
+wàn	ud	万
+wàng	uh	忘
+wán	ui	玩
+wáng	uw	王
+wèi	uz	未
+wèn	up	问
+wéi	ua	围
+wén	ug	文
+wù	uk	雾
+wú	ul	无
+wēi	uq	微
+wēn	un	温
+wěi	uq	伪
+wǎn	uf	晚
+wǎng	uy	网
+wǒ	ur	我
+wǔ	uj	五
+xià	xx	下
+xiàn	xd	线
+xiàng	xh	像
+xiào	xv	笑
+xiè	xm	谢
+xié	xu	鞋
+xiān	xi	先
+xiāng	xy	香
+xiāo	xe	消
+xiē	xa	些
+xiě	xr	写
+xiū	xu	修
+xiǎn	xf	显
+xiǎng	xy	想
+xiǎo	xe	小
+xué	xu	学
+xuǎn	xf	选
+xì	xk	系
+xìn	xp	信
+xìng	xp	性
+xí	xl	习
+xíng	xg	行
+xù	xk	恤
+xùn	xp	讯
+xún	xg	寻
+xī	xo	西
+xīn	xn	新
+xīng	xn	星
+xū	xo	需
+xǐ	xj	洗
+xǔ	xj	许
+yuàn	vd	愿
+yuán	vi	元
+yuè	vm	月
+yuē	va	约
+yà	ix	亚
+yàn	id	咽
+yàng	ih	样
+yào	iv	要
+yán	ii	言
+yáng	iw	羊
+yè	im	夜
+yì	ik	亿
+yìng	ip	硬
+yí	il	咦
+yín	ig	银
+yíng	ig	赢
+yòng	iw	用
+yòu	it	又
+yóu	iu	由
+yù	vk	欲
+yùn	vp	运
+yú	vl	于
+yā	is	丫
+yāo	ie	腰
+yě	ir	也
+yī	io	一
+yīn	in	因
+yīng	in	嘤
+yōu	iu	呦
+yǎn	if	演
+yǎng	iy	养
+yǐ	ij	已
+yǐn	ib	饮
+yǐng	ib	影
+yǒu	ia	有
+yǔ	vj	与
+zhuàng	sh	撞
+zhuān	si	砖
+zhuāng	sy	装
+zhuǎn	sf	转
+zhàn	ed	站
+zhào	ev	照
+zhè	em	这
+zhèn	ep	朕
+zhèng	ep	正
+zhì	ek	致
+zhí	el	直
+zhòng	ew	众
+zhù	sk	祝
+zhāng	ey	张
+zhē	ea	遮
+zhēn	en	真
+zhēng	en	蒸
+zhě	er	者
+zhěng	eb	整
+zhī	eo	之
+zhōng	eh	忠
+zhōu	eu	周
+zhǎn	ef	展
+zhǎng	ey	涨
+zhǎo	ee	找
+zhǐ	ej	只
+zhǒng	eh	肿
+zhǔ	sj	煮
+zhǔn	sb	准
+zuì	zz	最
+zuò	zm	做
+zài	zp	在
+zào	zv	造
+zé	zu	则
+zì	zk	字
+zú	zl	足
+zēng	zn	增
+zěn	zb	怎
+zī	zo	兹
+zōng	zh	棕
+zǎo	ze	早
+zǐ	zj	子
+zǒng	zh	总
+zǒu	za	走
+zǔ	zj	组
+ài	op	爱
+àn	od	按
+èr	ok	二
+é	ou	额
+ér	ol	而
+ā	os	阿
+ān	oi	安
+ěr	oj	耳
+`;
+
+    // ---------- 内置词库3：声介键位练习 (65条) ----------
+    const BUILTIN_SHENGJIE = `a	o
+b	b
+bi	b
+bu	b
+c	c
+ch	o
+chi	o
+chu	c
+ci	c
+cu	c
+d	d
+di	y
+du	d
+e	o
+f	f
+fu	f
+g	g
+gu	r
+h	h
+hu	h
+ji	j
+ju	g
+k	k
+ku	k
+l	l
+li	w
+lu	l
+lv	l
+m	m
+mi	m
+mu	m
+n	n
+ng	o
+ni	n
+nu	n
+nv	n
+o	o
+p	p
+pi	p
+pu	p
+qi	q
+qu	g
+r	r
+ri	r
+ru	r
+s	s
+sh	a
+shi	a
+shu	t
+si	s
+su	s
+t	t
+ti	t
+tu	t
+wu	u
+xi	x
+xu	x
+yi	i
+yv	v
+z	z
+zh	e
+zhi	e
+zhu	s
+zi	z
+zu	z
+`;
+
+    // ---------- 内置词库4：韵调键位练习 (138条) ----------
+    const BUILTIN_YUNDIAO = `ià	x
+iàn	d
+iàng	h
+iào	v
+iá	s
+ián	i
+iáng	w
+iáo	e
+iè	m
+ié	u
+iòng	w
+ióng	h
+iù	t
+iú	u
+iā	s
+iān	i
+iāng	y
+iāo	e
+iē	a
+iě	r
+iōng	h
+iū	u
+iǎ	o
+iǎn	f
+iǎng	y
+iǎo	e
+iǒng	h
+iǔ	a
+m	k
+m	l
+m2	l
+m4	k
+ng	p
+ng4	p
+uà	x
+uài	p
+uàn	d
+uàng	h
+uá	s
+uái	c
+uán	i
+uáng	w
+uè	m
+ué	u
+uì	z
+uí	a
+uò	m
+uó	u
+uā	s
+uāi	c
+uān	i
+uāng	y
+uē	a
+uě	r
+uī	q
+uō	a
+uǎ	o
+uǎi	c
+uǎn	f
+uǎng	y
+uǐ	q
+uǒ	r
+vè	m
+à	x
+ài	p
+àn	d
+àng	h
+ào	v
+á	s
+ái	c
+án	i
+áng	w
+áo	e
+è	m
+èi	z
+èn	p
+èng	p
+èr	k
+é	u
+éi	a
+én	g
+éng	g
+ér	l
+ì	k
+ìn	p
+ìng	p
+í	l
+ín	g
+íng	g
+ò	m
+òng	w
+òu	t
+ó	u
+óng	h
+óu	u
+ù	k
+ùn	p
+ú	l
+ún	g
+ā	s
+āi	c
+ān	i
+āng	y
+āo	e
+ē	a
+ēi	q
+ēn	n
+ēng	n
+ēr	o
+ě	r
+ěi	q
+ěn	b
+ěng	b
+ěr	j
+ī	o
+īn	n
+īng	n
+ō	a
+ōng	h
+ōu	u
+ū	o
+ūn	n
+ǎ	o
+ǎi	c
+ǎn	f
+ǎng	y
+ǎo	e
+ǐ	j
+ǐn	b
+ǐng	b
+ǒ	r
+ǒng	h
+ǒu	a
+ǔ	j
+ǔn	b
+ǘ	l
+ǚ	j
+ǜ	k
+`;
+
+
+
+    function loadBuiltinData() {
+        const lines = BUILTIN_SYLLABLES.split(/\r?\n/);
+        const newItems = [];
+        for (let line of lines) {
+            line = line.trim();
+            if (line === '') continue;
+            const parts = line.split('\t');
+            if (parts.length >= 2) {
+                let element = parts[0].trim();
+                let key = parts[1].trim().toLowerCase();
+                if (/^[a-z.,/;]{1,4}$/.test(key)) {
+                    newItems.push({ element, key, hanzi: '', score: 0, ded: false, triggered50: false, triggered100: false, firstSeenAt: null, masteredAt: null });
+                }
+            }
+        }
+        return newItems;
+    }
+
+    // ---------- 页面切换 ----------
+    const homePage = document.getElementById('homePage');
+    const practicePage = document.getElementById('practicePage');
+
+    function showPage(pageName) {
+        if (pageName === 'home') {
+            homePage.classList.add('active');
+            practicePage.classList.remove('active');
+            skinBtn.classList.remove('hidden');
+            skinPanel.classList.remove('active');
+            updateHomeStats();
+            updateDeckSelect();
+        } else {
+            homePage.classList.remove('active');
+            practicePage.classList.add('active');
+            skinBtn.classList.add('hidden');
+            skinPanel.classList.remove('active');
+            if (allItems.length) keyInput.focus();
+        }
+    }
+
+    // ---------- 皮肤切换 ----------
+    const skinBtn = document.getElementById('skinBtn');
+    const skinPanel = document.getElementById('skinPanel');
+    const skinItems = document.querySelectorAll('.skin-item');
+
+    // 从 localStorage 恢复皮肤
+    const savedTheme = localStorage.getItem('ime_theme_26') || '';
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        skinItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.theme === savedTheme);
+        });
+    }
+
+    // 切换面板显隐
+    skinBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        skinPanel.classList.toggle('active');
+    });
+
+    // 点击面板外关闭
+    document.addEventListener('click', (e) => {
+        if (!skinPanel.contains(e.target) && e.target !== skinBtn) {
+            skinPanel.classList.remove('active');
+        }
+    });
+
+    // 选择皮肤
+    skinItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const theme = item.dataset.theme;
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            localStorage.setItem('ime_theme_26', theme);
+            skinItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            skinPanel.classList.remove('active');
+        });
+    });
+
+    // ---------- 版本日志 ----------
+    const changelogModal = document.getElementById('changelogModal');
+    const changelogBtn = document.getElementById('changelogBtn');
+    const changelogClose = document.getElementById('changelogClose');
+
+    changelogBtn.addEventListener('click', () => changelogModal.classList.add('active'));
+    changelogClose.addEventListener('click', () => changelogModal.classList.remove('active'));
+    changelogModal.addEventListener('click', (e) => {
+        if (e.target === changelogModal) changelogModal.classList.remove('active');
+    });
+
+    // 词库设置弹窗
+    const statSettingsModal = document.getElementById('statSettingsModal');
+    const statSettingsBtn = document.getElementById('statSettingsBtn');
+    const statSettingsClose = document.getElementById('statSettingsClose');
+    const clearDeckDataBtn = document.getElementById('clearDeckDataBtn');
+
+    statSettingsBtn.addEventListener('click', () => statSettingsModal.classList.add('active'));
+    statSettingsClose.addEventListener('click', () => statSettingsModal.classList.remove('active'));
+    statSettingsModal.addEventListener('click', (e) => {
+        if (e.target === statSettingsModal) statSettingsModal.classList.remove('active');
+    });
+
+    // 掌握间隔弹窗
+    const masteryIntervalModal = document.getElementById('masteryIntervalModal');
+    const masteryIntervalBtn = document.getElementById('masteryIntervalBtn');
+    const masteryIntervalClose = document.getElementById('masteryIntervalClose');
+    const miExportBtn = document.getElementById('miExportBtn');
+
+    masteryIntervalBtn.addEventListener('click', () => {
+        renderMasteryIntervalChart();
+        masteryIntervalModal.classList.add('active');
+    });
+    masteryIntervalClose.addEventListener('click', () => masteryIntervalModal.classList.remove('active'));
+    masteryIntervalModal.addEventListener('click', (e) => {
+        if (e.target === masteryIntervalModal) masteryIntervalModal.classList.remove('active');
+    });
+
+    // 词库说明弹窗
+    const deckFormatModal = document.getElementById('deckFormatModal');
+    const deckFormatBtn = document.getElementById('deckFormatBtn');
+    const deckFormatClose = document.getElementById('deckFormatClose');
+    deckFormatBtn.addEventListener('click', () => deckFormatModal.classList.add('active'));
+    deckFormatClose.addEventListener('click', () => deckFormatModal.classList.remove('active'));
+    deckFormatModal.addEventListener('click', (e) => {
+        if (e.target === deckFormatModal) deckFormatModal.classList.remove('active');
+    });
+
+    // 词库管理弹窗
+    const deckManageModal = document.getElementById('deckManageModal');
+    const deckManageClose = document.getElementById('deckManageClose');
+    const deckManageBtn = document.getElementById('deckManageBtn');
+    const deckManageList = document.getElementById('deckManageList');
+    // renderDeckManageList 和事件绑定移到 BUILTIN_IDS 声明之后（避免TDZ问题）
+
+    function renderMasteryIntervalChart() {
+        const mastered = allItems.filter(it => it.masteredAt && it.firstSeenAt);
+        const total = allItems.length;
+        document.getElementById('miMasteredCount').innerText = mastered.length;
+        document.getElementById('miTotalCount').innerText = total;
+
+        const canvas = document.getElementById('masteryChart');
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        const W = rect.width;
+        const H = rect.height;
+
+        ctx.clearRect(0, 0, W, H);
+
+        if (mastered.length === 0) {
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim();
+            ctx.font = '14px system-ui';
+            ctx.textAlign = 'center';
+            ctx.fillText('暂无掌握间隔数据，练习后自动生成', W / 2, H / 2);
+            return;
+        }
+
+        // 按掌握时间排序
+        const data = mastered.map(it => ({
+            element: it.element,
+            key: it.key,
+            intervalSec: (it.masteredAt - it.firstSeenAt) / 1000,
+            masteredAt: it.masteredAt
+        })).sort((a, b) => a.masteredAt - b.masteredAt);
+
+        const maxSec = Math.max(...data.map(d => d.intervalSec));
+        const padL = 50, padR = 16, padT = 20, padB = 40;
+        const chartW = W - padL - padR;
+        const chartH = H - padT - padB;
+
+        // 坐标轴
+        const cs = getComputedStyle(document.documentElement);
+        const axisColor = cs.getPropertyValue('--text-light').trim();
+        const textColor = cs.getPropertyValue('--text-muted').trim();
+        const barColor = cs.getPropertyValue('--btn-primary').trim();
+
+        ctx.strokeStyle = axisColor;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padL, padT);
+        ctx.lineTo(padL, padT + chartH);
+        ctx.lineTo(padL + chartW, padT + chartH);
+        ctx.stroke();
+
+        // Y轴刻度
+        ctx.fillStyle = textColor;
+        ctx.font = '11px system-ui';
+        ctx.textAlign = 'right';
+        const ySteps = 4;
+        for (let i = 0; i <= ySteps; i++) {
+            const val = (maxSec * i / ySteps);
+            const y = padT + chartH - (chartH * i / ySteps);
+            ctx.fillText(formatDurationShort(val), padL - 6, y + 4);
+            if (i > 0) {
+                ctx.strokeStyle = axisColor;
+                ctx.globalAlpha = 0.3;
+                ctx.beginPath();
+                ctx.moveTo(padL + 1, y);
+                ctx.lineTo(padL + chartW, y);
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        // 柱状图
+        const barW = Math.max(2, Math.min(12, chartW / data.length - 2));
+        const gap = (chartW - barW * data.length) / Math.max(1, data.length);
+        data.forEach((d, i) => {
+            const x = padL + i * (barW + gap) + gap / 2;
+            const barH = Math.max(1, (d.intervalSec / maxSec) * chartH);
+            const y = padT + chartH - barH;
+            ctx.fillStyle = barColor;
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(x, y, barW, barH);
+            ctx.globalAlpha = 1;
+        });
+
+        // X轴标签
+        ctx.fillStyle = textColor;
+        ctx.font = '10px system-ui';
+        ctx.textAlign = 'center';
+        const labelStep = Math.max(1, Math.floor(data.length / 10));
+        data.forEach((d, i) => {
+            if (i % labelStep === 0) {
+                const x = padL + i * (barW + gap) + gap / 2 + barW / 2;
+                ctx.fillText(d.element, x, padT + chartH + 16);
+            }
+        });
+    }
+
+    function formatDurationShort(totalSec) {
+        const sec = Math.max(0, Math.floor(totalSec));
+        if (sec < 60) return sec + 's';
+        if (sec < 3600) return (sec / 60).toFixed(1) + 'm';
+        return (sec / 3600).toFixed(1) + 'h';
+    }
+
+    // 导出CSV
+    miExportBtn.addEventListener('click', () => {
+        const mastered = allItems.filter(it => it.masteredAt && it.firstSeenAt);
+        if (mastered.length === 0) { alert('暂无数据可导出'); return; }
+        const data = mastered.map(it => ({
+            element: it.element,
+            key: it.key,
+            firstSeenAt: new Date(it.firstSeenAt).toLocaleString('zh-CN'),
+            masteredAt: new Date(it.masteredAt).toLocaleString('zh-CN'),
+            intervalSec: ((it.masteredAt - it.firstSeenAt) / 1000).toFixed(1)
+        })).sort((a, b) => parseFloat(a.intervalSec) - parseFloat(b.intervalSec));
+
+        let csv = '\uFEFF指法,编码,首次出现在面前时间,到达100分时间,掌握间隔(秒)\n';
+        data.forEach(d => {
+            csv += `${d.element},${d.key},${d.firstSeenAt},${d.masteredAt},${d.intervalSec}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '掌握间隔_' + new Date().toISOString().slice(0, 10) + '.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // 清空数据：两步确认（第一次点击变红"确定清空？"，3秒内再点才真正执行）
+    let clearConfirmPending = false;
+    let clearConfirmTimer = null;
+
+    clearDeckDataBtn.addEventListener('click', () => {
+        if (!clearConfirmPending) {
+            // 第一步：显示确认提示
+            clearConfirmPending = true;
+            clearDeckDataBtn.innerText = '⚠️ 再次点击确认清空';
+            clearDeckDataBtn.style.background = '#b91c1c';
+            clearConfirmTimer = setTimeout(() => {
+                clearConfirmPending = false;
+                clearDeckDataBtn.innerText = '🗑️ 清空当前词库数据';
+                clearDeckDataBtn.style.background = 'var(--btn-danger)';
+            }, 3000);
+            return;
+        }
+        // 第二步：确认清空
+        clearTimeout(clearConfirmTimer);
+        clearConfirmPending = false;
+        try {
+            // 清除当前词库的 localStorage 存档
+            localStorage.removeItem('ime_progress_26_' + currentDeckId);
+            // 重置内存中的状态
+            const deckList = getDeckList();
+            const deck = deckList[currentDeckId];
+            if (deck && deck.rawTsv) {
+                allItems = parseTsvToItems(deck.rawTsv);
+            } else {
+                allItems = loadBuiltinData();
+            }
+            dynamicPool = [];
+            dynamicReserve = [];
+            currentItemIndex = -1;
+            lastItemIndex = -1;
+            currentKey = '';
+            hasErrorInCurrent = false;
+            stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+            recordActive = false;
+            initialPoolSize = parseInt(initialPoolInput.value, 10) || 10;
+            updateUIByCurrentItem();
+            updateStatsUI();
+            updateHomeStats();
+            updateMasterySwitchUI();
+            updateLetterGroupSwitchUI();
+        } catch(e) {
+            console.error('清空数据失败:', e);
+            alert('清空数据时出错：' + e.message);
+        }
+        // 重置按钮文字并关闭弹窗
+        clearDeckDataBtn.innerText = '🗑️ 清空当前词库数据';
+        clearDeckDataBtn.style.background = 'var(--btn-danger)';
+        statSettingsModal.classList.remove('active');
+    });
+
+    // 清空所有词库数据：两步确认
+    let clearAllConfirmPending = false;
+    let clearAllConfirmTimer = null;
+    const clearAllDeckDataBtn = document.getElementById('clearAllDeckDataBtn');
+
+    clearAllDeckDataBtn.addEventListener('click', () => {
+        if (!clearAllConfirmPending) {
+            clearAllConfirmPending = true;
+            clearAllDeckDataBtn.innerText = '⚠️ 再次点击确认清空所有';
+            clearAllDeckDataBtn.style.background = '#7f1d1d';
+            clearAllConfirmTimer = setTimeout(() => {
+                clearAllConfirmPending = false;
+                clearAllDeckDataBtn.innerText = '🗑️ 清空所有词库数据';
+                clearAllDeckDataBtn.style.background = '#9f1239';
+            }, 3000);
+            return;
+        }
+        clearTimeout(clearAllConfirmTimer);
+        clearAllConfirmPending = false;
+        try {
+            const deckList = getDeckList();
+            for (const id of Object.keys(deckList)) {
+                localStorage.removeItem('ime_progress_26_' + id);
+            }
+            // 重置当前词库状态
+            const deck = deckList[currentDeckId];
+            if (deck && deck.rawTsv) {
+                allItems = parseTsvToItems(deck.rawTsv);
+            } else {
+                allItems = loadBuiltinData();
+            }
+            dynamicPool = [];
+            dynamicReserve = [];
+            currentItemIndex = -1;
+            lastItemIndex = -1;
+            currentKey = '';
+            hasErrorInCurrent = false;
+            stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+            recordActive = false;
+            initialPoolSize = parseInt(initialPoolInput.value, 10) || 10;
+            updateUIByCurrentItem();
+            updateStatsUI();
+            updateHomeStats();
+            updateMasterySwitchUI();
+            updateLetterGroupSwitchUI();
+        } catch(e) {
+            console.error('清空所有数据失败:', e);
+            alert('清空所有数据时出错：' + e.message);
+        }
+        clearAllDeckDataBtn.innerText = '🗑️ 清空所有词库数据';
+        clearAllDeckDataBtn.style.background = '#9f1239';
+        statSettingsModal.classList.remove('active');
+    });
+
+    // ---------- 多词库存储系统 ----------
+    // 存储格式：localStorage['ime_decks'] = { deckId: { name, rawTsv, savedAt }, ... }
+    // 每个词库的练习进度：localStorage['ime_progress_26_' + deckId] = { allItems, dynamicPool, ... }
+
+    const BUILTIN_DECK_ID = '__builtin_pdsp__';
+    const BUILTIN_DECK_ID_500 = '__builtin_pdsp_500__';
+    const BUILTIN_DECK_ID_SHENGJIE = '__builtin_shengjie__';
+    const BUILTIN_DECK_ID_YUNDIAO = '__builtin_yundiao__';
+                    const BUILTIN_IDS = new Set([
+        BUILTIN_DECK_ID, BUILTIN_DECK_ID_500, BUILTIN_DECK_ID_SHENGJIE, BUILTIN_DECK_ID_YUNDIAO
+    ]);
+    const DECKS_KEY = 'ime_decks_26';
+    const DELETED_BUILTINS_KEY = 'ime_deleted_builtins_26';
+
+    // ---------- 词库管理弹窗（必须在 BUILTIN_IDS/DELETED_BUILTINS_KEY 之后） ----------
+    function renderDeckManageList() {
+        const list = getDeckList();
+        let html = '<div style="color:var(--text-muted);margin-bottom:10px;font-size:0.78rem;">点击名称可修改，点击「编辑」可修改指法和汉字，所有词库均可删除。</div>';
+        for (const [id, deck] of Object.entries(list)) {
+            const isBuiltin = BUILTIN_IDS.has(id);
+            const itemCount = deck.rawTsv ? deck.rawTsv.split(/\r?\n/).filter(l => l.trim()).length : 0;
+            const isCurrent = id === currentDeckId;
+            html += `<div class="deck-mgmt-row" data-deck-id="${id}" style="padding:8px 10px;border-radius:10px;margin-bottom:6px;background:${isCurrent ? 'var(--bg-secondary)' : 'transparent'};border:1px solid ${isCurrent ? 'var(--btn-primary)' : 'var(--border-input)'};">`;
+            html += `<div style="display:flex;align-items:center;gap:8px;">`;
+            html += `<span style="flex-shrink:0;font-size:0.75rem;color:var(--text-muted);">${isBuiltin ? '📌' : '📄'}</span>`;
+            html += `<input type="text" value="${deck.name.replace(/"/g, '&quot;')}" data-deck-id="${id}" class="deck-name-input" style="flex:1;padding:4px 8px;border:1px solid var(--border-input);border-radius:6px;font-size:0.82rem;background:var(--bg-primary);color:var(--text-primary);outline:none;min-width:0;" />`;
+            html += `<span style="font-size:0.72rem;color:var(--text-muted);white-space:nowrap;">${itemCount}条</span>`;
+            if (isCurrent) html += `<span style="font-size:0.7rem;color:var(--btn-primary);white-space:nowrap;">当前</span>`;
+            html += `<button data-edit-id="${id}" class="deck-edit-btn" style="padding:3px 8px;font-size:0.72rem;background:var(--bg-container);color:var(--text-body);border:1px solid var(--border-input);border-radius:6px;cursor:pointer;white-space:nowrap;">编辑</button>`;
+            html += `<button data-delete-id="${id}" class="deck-delete-btn" style="padding:3px 8px;font-size:0.72rem;background:#fef2f2;color:#991b1b;border:1px solid #fecaca;border-radius:6px;cursor:pointer;white-space:nowrap;">删除</button>`;
+            html += `</div>`;
+            html += `<div class="deck-edit-area" data-edit-deck-id="${id}" style="display:none;margin-top:8px;"></div>`;
+            html += '</div>';
+        }
+        if (Object.keys(list).length === 0) {
+            html += '<div style="text-align:center;color:var(--text-muted);padding:20px;">暂无词库</div>';
+        }
+        let deletedBuiltins = [];
+        try { deletedBuiltins = JSON.parse(localStorage.getItem(DELETED_BUILTINS_KEY) || '[]'); } catch(e) {}
+        if (deletedBuiltins.length > 0) {
+            const builtinNames = {
+                [BUILTIN_DECK_ID]: '1257指法', [BUILTIN_DECK_ID_500]: '500指法',
+                [BUILTIN_DECK_ID_SHENGJIE]: '声介键位', [BUILTIN_DECK_ID_YUNDIAO]: '韵调键位',
+            };
+            html += `<div style="margin-top:10px;padding:8px;border:1px dashed var(--border-input);border-radius:8px;">`;
+            html += `<div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:6px;">已删除的内置词库：</div>`;
+            for (const did of deletedBuiltins) {
+                const dname = builtinNames[did] || did;
+                html += `<button data-restore-id="${did}" class="deck-restore-btn" style="margin:2px 4px;padding:3px 10px;font-size:0.72rem;background:var(--bg-container);color:var(--btn-primary);border:1px solid var(--btn-primary);border-radius:6px;cursor:pointer;">恢复「${dname}」</button>`;
+            }
+            html += '</div>';
+        }
+        deckManageList.innerHTML = html;
+
+        // 绑定改名事件
+        deckManageList.querySelectorAll('.deck-name-input').forEach(input => {
+            input.addEventListener('change', () => {
+                const deckId = input.dataset.deckId;
+                const newName = input.value.trim();
+                if (!newName) {
+                    const dlist = getDeckList();
+                    input.value = dlist[deckId] ? dlist[deckId].name : '';
+                    return;
+                }
+                const dlist = getDeckList();
+                if (dlist[deckId]) {
+                    dlist[deckId].name = newName;
+                    saveDeckList(dlist);
+                    updateDeckSelect();
+                }
+            });
+        });
+
+        // 绑定编辑按钮
+        deckManageList.querySelectorAll('.deck-edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const deckId = btn.dataset.editId;
+                const editArea = deckManageList.querySelector(`.deck-edit-area[data-edit-deck-id="${deckId}"]`);
+                if (!editArea) return;
+                if (editArea.style.display !== 'none') {
+                    editArea.style.display = 'none';
+                    btn.innerText = '编辑';
+                    return;
+                }
+                const dlist = getDeckList();
+                const deck = dlist[deckId];
+                if (!deck || !deck.rawTsv) return;
+                const items = parseTsvToItems(deck.rawTsv);
+                let areaHtml = `<div style="max-height:360px;overflow-y:auto;border:1px solid var(--border-input);border-radius:8px;padding:6px;">`;
+                areaHtml += `<div style="display:flex;gap:4px;padding:4px 6px;font-size:0.7rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border-input);margin-bottom:4px;"><span style="width:100px;">拼音调</span><span style="width:70px;">键位</span><span style="flex:1;">汉字</span></div>`;
+                items.forEach((item, idx) => {
+                    areaHtml += `<div style="display:flex;gap:4px;padding:3px 6px;font-size:0.78rem;align-items:center;${idx % 2 === 0 ? '' : 'background:var(--bg-secondary);border-radius:4px;'}">`;
+                    areaHtml += `<span style="width:100px;color:var(--text-primary);white-space:nowrap;">${item.element}</span>`;
+                    areaHtml += `<input type="text" value="${item.key}" data-idx="${idx}" data-field="key" class="deck-item-edit" style="width:70px;padding:2px 4px;border:1px solid var(--border-input);border-radius:4px;font-size:0.78rem;background:var(--bg-primary);color:var(--text-primary);outline:none;" />`;
+                    areaHtml += `<input type="text" value="${item.hanzi || ''}" data-idx="${idx}" data-field="hanzi" class="deck-item-edit" style="flex:1;padding:2px 4px;border:1px solid var(--border-input);border-radius:4px;font-size:0.78rem;background:var(--bg-primary);color:var(--text-primary);outline:none;min-width:0;" />`;
+                    areaHtml += '</div>';
+                });
+                areaHtml += `</div>`;
+                areaHtml += `<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px;">`;
+                areaHtml += `<button class="deck-edit-save" data-save-deck-id="${deckId}" style="padding:5px 14px;font-size:0.78rem;background:var(--btn-primary);color:#fff;border:none;border-radius:6px;cursor:pointer;">保存修改</button>`;
+                areaHtml += `<button class="deck-edit-cancel" data-cancel-deck-id="${deckId}" style="padding:5px 14px;font-size:0.78rem;background:var(--bg-container);color:var(--text-body);border:1px solid var(--border-input);border-radius:6px;cursor:pointer;">取消</button>`;
+                areaHtml += `</div>`;
+                editArea.innerHTML = areaHtml;
+                editArea.style.display = '';
+                btn.innerText = '收起';
+
+                editArea.querySelector('.deck-edit-save').addEventListener('click', () => {
+                    const dlist2 = getDeckList();
+                    const deck2 = dlist2[deckId];
+                    if (!deck2) return;
+                    const origItems = parseTsvToItems(deck2.rawTsv);
+                    const keyInputs = editArea.querySelectorAll('input[data-field="key"]');
+                    const hanziInputs = editArea.querySelectorAll('input[data-field="hanzi"]');
+                    keyInputs.forEach(inp => {
+                        const idx = parseInt(inp.dataset.idx);
+                        if (origItems[idx]) origItems[idx].key = inp.value.trim().toLowerCase();
+                    });
+                    hanziInputs.forEach(inp => {
+                        const idx = parseInt(inp.dataset.idx);
+                        if (origItems[idx]) origItems[idx].hanzi = inp.value.trim();
+                    });
+                    let newTsv = origItems.map(it => {
+                        const parts = [it.element, it.key];
+                        if (it.hanzi) parts.push(it.hanzi);
+                        return parts.join('\t');
+                    }).join('\n');
+                    deck2.rawTsv = newTsv;
+                    saveDeckList(dlist2);
+                    if (deckId === currentDeckId) {
+                        allItems = parseTsvToItems(newTsv);
+                        updateUIByCurrentItem();
+                        updateStatsUI();
+                    }
+                    editArea.style.display = 'none';
+                    btn.innerText = '已保存';
+                    setTimeout(() => { btn.innerText = '编辑'; }, 1200);
+                });
+
+                editArea.querySelector('.deck-edit-cancel').addEventListener('click', () => {
+                    editArea.style.display = 'none';
+                    btn.innerText = '编辑';
+                });
+            });
+        });
+
+        // 绑定删除事件（两步确认）
+        deckManageList.querySelectorAll('.deck-delete-btn').forEach(btn => {
+            let deletePending = false;
+            let deleteTimer = null;
+            btn.addEventListener('click', () => {
+                const deckId = btn.dataset.deleteId;
+                if (!deletePending) {
+                    deletePending = true;
+                    btn.innerText = '确认?';
+                    btn.style.background = '#991b1b';
+                    btn.style.color = '#fff';
+                    deleteTimer = setTimeout(() => {
+                        deletePending = false;
+                        btn.innerText = '删除';
+                        btn.style.background = '#fef2f2';
+                        btn.style.color = '#991b1b';
+                    }, 2500);
+                } else {
+                    clearTimeout(deleteTimer);
+                    deletePending = false;
+                    removeDeck(deckId);
+                    if (deckId === currentDeckId) {
+                        const dlist2 = getDeckList();
+                        const firstId = Object.keys(dlist2)[0];
+                        if (firstId) {
+                            currentDeckId = firstId;
+                            const deck = dlist2[firstId];
+                            allItems = parseTsvToItems(deck.rawTsv);
+                        } else {
+                            allItems = [];
+                        }
+                        dynamicPool = [];
+                        dynamicReserve = [];
+                        currentItemIndex = -1;
+                        lastItemIndex = -1;
+                        currentKey = '';
+                        hasErrorInCurrent = false;
+                        stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+                        recordActive = false;
+                        autoSetTtsByDeck();
+                        updateUIByCurrentItem();
+                        updateStatsUI();
+                        updateHomeStats();
+                    }
+                    renderDeckManageList();
+                    updateDeckSelect();
+                }
+            });
+        });
+
+        // 绑定恢复内置词库按钮
+        deckManageList.querySelectorAll('.deck-restore-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const restoreId = btn.dataset.restoreId;
+                let delList = [];
+                try { delList = JSON.parse(localStorage.getItem(DELETED_BUILTINS_KEY) || '[]'); } catch(e) {}
+                delList = delList.filter(x => x !== restoreId);
+                localStorage.setItem(DELETED_BUILTINS_KEY, JSON.stringify(delList));
+                ensureBuiltinDeck();
+                renderDeckManageList();
+                updateDeckSelect();
+            });
+        });
+    }
+
+    deckManageBtn.addEventListener('click', () => {
+        renderDeckManageList();
+        deckManageModal.classList.add('active');
+    });
+    deckManageClose.addEventListener('click', () => deckManageModal.classList.remove('active'));
+    deckManageModal.addEventListener('click', (e) => {
+        if (e.target === deckManageModal) deckManageModal.classList.remove('active');
+    });
+
+    function getDeckList() {
+        try {
+            const raw = localStorage.getItem(DECKS_KEY);
+            return raw ? JSON.parse(raw) : {};
+        } catch(e) { return {}; }
+    }
+
+    function saveDeckList(list) {
+        try { localStorage.setItem(DECKS_KEY, JSON.stringify(list)); } catch(e) { console.warn(e); }
+    }
+
+    function ensureBuiltinDeck() {
+        const list = getDeckList();
+        // 读取被用户删除的内置词库列表
+        let deletedBuiltins = [];
+        try { deletedBuiltins = JSON.parse(localStorage.getItem(DELETED_BUILTINS_KEY) || '[]'); } catch(e) {}
+        const deletedSet = new Set(deletedBuiltins);
+
+        // 内置词库：未被用户删除的才写入（确保汉字列等更新生效）
+        const builtins = [
+            [BUILTIN_DECK_ID, '拼读双拼音节完整版1257指法（内置）', BUILTIN_SYLLABLES],
+            [BUILTIN_DECK_ID_500, '拼读双拼音节500指法·带读音（内置）', BUILTIN_SYLLABLES_500],
+            [BUILTIN_DECK_ID_SHENGJIE, '声介键位练习（内置）', BUILTIN_SHENGJIE],
+            [BUILTIN_DECK_ID_YUNDIAO, '韵调键位练习（内置）', BUILTIN_YUNDIAO],
+        ];
+        for (const [id, name, rawTsv] of builtins) {
+            if (deletedSet.has(id)) continue;
+            list[id] = { name, rawTsv, savedAt: Date.now() };
+        }
+        saveDeckList(list);
+    }
+
+    function addDeck(name, rawTsv) {
+        const list = getDeckList();
+        const id = 'deck_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+        list[id] = { name, rawTsv, savedAt: Date.now() };
+        saveDeckList(list);
+        return id;
+    }
+
+    function removeDeck(id) {
+        const list = getDeckList();
+        delete list[id];
+        saveDeckList(list);
+        localStorage.removeItem('ime_progress_26_' + id);
+        // 如果是内置词库，记录删除状态，防止 ensureBuiltinDeck 恢复
+        if (BUILTIN_IDS.has(id)) {
+            let deletedBuiltins = [];
+            try { deletedBuiltins = JSON.parse(localStorage.getItem(DELETED_BUILTINS_KEY) || '[]'); } catch(e) {}
+            if (!deletedBuiltins.includes(id)) {
+                deletedBuiltins.push(id);
+                localStorage.setItem(DELETED_BUILTINS_KEY, JSON.stringify(deletedBuiltins));
+            }
+        }
+    }
+
+    function parseTsvToItems(rawTsv) {
+        const lines = rawTsv.split(/\r?\n/);
+        const items = [];
+        for (let line of lines) {
+            line = line.trim();
+            if (line === '') continue;
+            const parts = line.split('\t');
+            if (parts.length >= 2) {
+                let element = parts[0].trim();
+                let key = parts[1].trim().toLowerCase();
+                let hanzi = parts.length >= 3 ? parts[2].trim() : '';
+                if (/^[a-z.,/;]{1,4}$/.test(key)) {
+                    items.push({ element, key, hanzi, score: 0, ded: false, triggered50: false, triggered100: false, firstSeenAt: null, masteredAt: null });
+                }
+            }
+        }
+        return items;
+    }
+
+    // ---------- 核心数据结构 ----------
+    let currentDeckId = BUILTIN_DECK_ID;
+    let allItems = [];
+    let dynamicPool = [];
+    let dynamicReserve = [];
+    let currentItemIndex = -1;
+    let currentKey = "";
+
+    let stats = {
+        correctElem: 0,
+        totalElem: 0,
+        totalKeys: 0,
+        elapsedSec: 0
+    };
+
+    let recordActive = false;
+    let timerInterval = null;
+    let timerStartBase = null;
+    let hasErrorInCurrent = false;
+    let isSwitching = false;
+    let isPaused = false;
+    let isAutoPaused = false; // 标记是否为自动暂停（60秒无操作触发）
+    let autoPauseCountdown = 0; // 自动暂停后的返回倒计时（秒）
+    let autoPauseInterval = null; // 倒计时 interval
+    let lastActivityTime = 0;
+    let idleCheckInterval = null;
+    const IDLE_TIMEOUT = 60; // 秒
+    let lastItemIndex = -1;
+    let initialPoolSize = 10;
+    let masteryAlgorithmEnabled = true;
+    let letterGroupEnabled = localStorage.getItem('ime_letter_group_26') === 'true'; // 默认关闭
+
+    const currentElementDisplay = document.getElementById('currentElementDisplay');
+    const currentHanziDisplay = document.getElementById('currentHanziDisplay');
+    const keyInput = document.getElementById('keyInput');
+    const errorMsgDiv = document.getElementById('errorMsg');
+    const recordSwitchBtn = document.getElementById('recordSwitchBtn');
+    const importBtn = document.getElementById('importBtn');
+    const importFileInput = document.getElementById('importFile');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const pauseOverlay = document.getElementById('pauseOverlay');
+    const masteryBadge = document.getElementById('masteryBadge');
+    const initialPoolInput = document.getElementById('initialPoolSize');
+    const startPracticeBtn = document.getElementById('startPracticeBtn');
+    const backHomeBtn = document.getElementById('backHomeBtn');
+    const masterySwitchBtn = document.getElementById('masterySwitchBtn');
+    const letterGroupSwitchBtn = document.getElementById('letterGroupSwitchBtn');
+    const deckSelect = document.getElementById('deckSelect');
+
+    // ---------- 语音朗读（TTS） ----------
+    let ttsEnabled = true;
+    const ttsSwitchBtn = document.getElementById('ttsSwitchBtn');
+    const synth = window.speechSynthesis;
+    let chineseVoice = null;
+
+    // 带调拼音 → 常见汉字 映射表（供TTS朗读用）
+    const PINYIN_HANZI = {"biàn":"变","biào":"俵","biè":"别","bié":"别","biān":"边","biāo":"膘","biē":"憋","biēn":"边","biě":"瘪","biǎn":"扁","biǎo":"表","bà":"爸","bài":"拜","bàn":"办","bàng":"棒","bào":"爆","bá":"拔","bái":"白","báo":"雹","bèi":"被","bèn":"笨","bèng":"蹦","béng":"甭","bì":"必","bìn":"鬓","bìng":"并","bí":"鼻","bò":"擘","bó":"博","bù":"不","bú":"醭","bā":"粑","bāi":"掰","bān":"班","bāng":"帮","bāo":"包","bēi":"悲","bēn":"奔","bēng":"崩","běi":"北","běn":"本","běng":"绷","bī":"逼","bīn":"斌","bīng":"冰","bō":"波","bū":"晡","bǎ":"把","bǎi":"摆","bǎn":"版","bǎng":"绑","bǎo":"宝","bǐ":"比","bǐng":"饼","bǒ":"跛","bǔ":"补","chuài":"踹","chuàn":"串","chuàng":"创","chuán":"传","chuáng":"床","chuí":"锤","chuò":"龊","chuāi":"搋","chuān":"穿","chuāng":"窗","chuī":"吹","chuō":"戳","chuǎi":"揣","chuǎn":"喘","chuǎng":"闯","chà":"差","chài":"虿","chàn":"颤","chàng":"唱","chào":"耖","chá":"茶","chái":"柴","chán":"馋","cháng":"长","cháo":"朝","chè":"撤","chèn":"趁","chèng":"秤","chén":"陈","chéng":"成","chì":"翅","chí":"迟","chòng":"铳","chòu":"臭","chóng":"虫","chóu":"愁","chù":"触","chú":"除","chún":"纯","chā":"插","chāi":"拆","chān":"掺","chāng":"菖","chāo":"超","chē":"车","chēn":"嗔","chēng":"称","chě":"扯","chěn":"碜","chěng":"逞","chī":"吃","chōng":"冲","chōu":"抽","chū":"出","chūn":"春","chǎ":"镲","chǎi":"茝","chǎn":"产","chǎng":"场","chǎo":"吵","chǐ":"尺","chǒng":"宠","chǒu":"丑","chǔ":"楚","chǔn":"蠢","cuàn":"窜","cuán":"㠝","cuì":"脆","cuò":"错","cuó":"矬","cuān":"蹿","cuī":"催","cuō":"搓","cuǐ":"璀","cuǒ":"脞","cài":"菜","càn":"灿","cái":"才","cán":"残","cáng":"藏","cáo":"槽","cè":"测","cèng":"蹭","cén":"岑","céng":"曾","cì":"次","cí":"词","còu":"凑","cóng":"从","cù":"醋","cùn":"寸","cú":"殂","cún":"存","cā":"擦","cāi":"猜","cān":"餐","cāng":"仓","cāo":"操","cēn":"嵾","cēng":"噌","cī":"呲","cōng":"葱","cū":"粗","cūn":"村","cǎi":"踩","cǎn":"惨","cǎo":"草","cǐ":"此","cǔn":"忖","de":"的","diàn":"店","diào":"掉","dié":"叠","diān":"颠","diāo":"叼","diē":"爹","diū":"丢","diǎ":"嗲","diǎn":"点","diǎo":"䄪","duàn":"断","duì":"对","duò":"剁","duó":"夺","duān":"端","duī":"堆","duō":"多","duǎn":"短","duǒ":"躲","dà":"大","dài":"带","dàn":"但","dàng":"档","dào":"到","dá":"达","dáo":"捯","dèn":"扽","dèng":"瞪","dé":"德","dì":"地","dìng":"定","dí":"敌","dòng":"动","dòu":"痘","dù":"度","dùn":"炖","dú":"读","dā":"哒","dāi":"呆","dān":"单","dāng":"当","dāo":"刀","dē":"嘚","dēng":"灯","děi":"得","děng":"等","dī":"滴","dīng":"盯","dōng":"东","dōu":"都","dū":"嘟","dūn":"蹲","dǎ":"打","dǎi":"歹","dǎn":"胆","dǎng":"党","dǎo":"岛","dǐ":"底","dǐng":"顶","dǒng":"懂","dǒu":"抖","dǔ":"堵","dǔn":"趸","fà":"珐","fàn":"饭","fàng":"放","fá":"伐","fán":"烦","fáng":"房","fèi":"费","fèn":"份","fèng":"奉","féi":"肥","fén":"坟","féng":"逢","fó":"佛","fù":"副","fú":"服","fā":"发","fān":"翻","fāng":"方","fēi":"飞","fēn":"分","fēng":"疯","fěi":"匪","fěn":"粉","fěng":"讽","fū":"敷","fǎ":"法","fǎn":"反","fǎng":"仿","fǒu":"否","fǔ":"腐","guà":"挂","guài":"怪","guàn":"惯","guàng":"逛","guì":"贵","guò":"过","guó":"国","guā":"刮","guāi":"乖","guān":"关","guāng":"光","guī":"归","guō":"郭","guǎ":"剐","guǎi":"拐","guǎn":"管","guǎng":"广","guǐ":"鬼","guǒ":"果","gà":"尬","gài":"盖","gàn":"赣","gàng":"杠","gào":"告","gá":"噶","gè":"个","gèn":"艮","gèng":"更","gé":"隔","gén":"哏","gòng":"共","gòu":"够","gù":"故","gùn":"棍","gā":"嘎","gāi":"该","gān":"竿","gāng":"刚","gāo":"高","gē":"哥","gēn":"跟","gēng":"羹","gě":"舸","gěi":"给","gěng":"梗","gōng":"宫","gōu":"勾","gū":"菇","gǎ":"尕","gǎi":"改","gǎn":"敢","gǎng":"港","gǎo":"搞","gǒng":"拱","gǒu":"狗","gǔ":"股","gǔn":"滚","huà":"话","huài":"坏","huàn":"换","huàng":"晃","huá":"滑","huái":"怀","huán":"环","huáng":"黄","huì":"会","huí":"回","huò":"或","huó":"活","huā":"花","huān":"欢","huāng":"慌","huī":"灰","huō":"豁","huǎn":"缓","huǎng":"谎","huǐ":"毁","huǒ":"火","hài":"害","hàn":"汗","hàng":"沆","hào":"耗","há":"蛤","hái":"还","hán":"韩","háng":"杭","háo":"蚝","hè":"贺","hèn":"恨","hèng":"横","hé":"和","hén":"痕","héng":"衡","hòng":"讧","hòu":"后","hóng":"红","hóu":"猴","hù":"沪","hùn":"混","hú":"胡","hún":"魂","hā":"哈","hāi":"嗨","hān":"憨","hāng":"夯","hāo":"蒿","hē":"喝","hēi":"黑","hēng":"哼","hěn":"很","hōng":"轰","hōu":"齁","hū":"呼","hūn":"婚","hǎ":"哈","hǎi":"海","hǎn":"喊","hǎo":"好","hǒng":"哄","hǒu":"吼","hǔ":"虎","jià":"嫁","jiàn":"见","jiàng":"酱","jiào":"叫","jiá":"夹","jiáo":"嚼","jiè":"借","jié":"羯","jiù":"就","jiú":"九","jiā":"加","jiān":"间","jiāng":"将","jiāo":"教","jiē":"接","jiě":"姐","jiōng":"扃","jiū":"啾","jiǎ":"假","jiǎn":"剪","jiǎng":"讲","jiǎo":"脚","jiǒng":"炅","jiǔ":"久","juàn":"眷","juè":"倔","jué":"绝","juān":"捐","juē":"撅","juǎn":"卷","jì":"既","jìn":"进","jìng":"竟","jí":"急","jù":"句","jùn":"俊","jú":"局","jī":"鸡","jīn":"斤","jīng":"经","jū":"居","jūn":"君","jǐ":"挤","jǐn":"仅","jǐng":"景","jǔ":"举","kuà":"跨","kuài":"快","kuàng":"框","kuáng":"狂","kuì":"溃","kuí":"葵","kuò":"阔","kuā":"夸","kuān":"宽","kuāng":"筐","kuī":"亏","kuǎ":"垮","kuǎi":"蒯","kuǎn":"款","kuǎng":"夼","kuǐ":"跬","kài":"忾","kàn":"看","kàng":"抗","kào":"靠","káng":"扛","kè":"课","kèn":"裉","ké":"咳","kòng":"控","kòu":"扣","kù":"酷","kùn":"困","kā":"咔","kāi":"开","kān":"刊","kāng":"康","kāo":"尻","kē":"颗","kēi":"剋","kēng":"坑","kě":"可","kěn":"啃","kōng":"空","kōu":"抠","kū":"哭","kūn":"坤","kǎ":"卡","kǎi":"凯","kǎn":"砍","kǎng":"慷","kǎo":"考","kǒng":"孔","kǒu":"口","kǔ":"苦","kǔn":"捆","liàn":"练","liàng":"亮","liào":"料","lián":"连","liáng":"凉","liáo":"聊","liè":"列","liù":"六","liú":"留","liāng":"两","liāo":"撩","liē":"咧","liě":"咧","liū":"溜","liǎ":"俩","liǎn":"脸","liǎng":"两","liǎo":"蓼","liǔ":"柳","luàn":"乱","luán":"栾","luò":"落","luó":"罗","luō":"啰","luǎn":"卵","luǒ":"裸","lvè":"略","là":"辣","lài":"赖","làn":"烂","làng":"浪","lào":"涝","lá":"旯","lái":"来","lán":"蓝","láng":"狼","láo":"牢","lè":"乐","lèi":"累","lèng":"愣","léi":"雷","léng":"楞","lì":"力","lìn":"吝","lìng":"另","lí":"离","lín":"林","líng":"零","lòng":"哢","lòu":"漏","lóng":"龙","lóu":"楼","lù":"路","lùn":"论","lú":"卢","lún":"轮","lüè":"略","lā":"拉","lāng":"啷","lāo":"捞","lē":"嘞","lēi":"勒","lēng":"棱","lěi":"蕾","lěng":"冷","lī":"哩","līn":"拎","lō":"啰","lōng":"隆","lōu":"搂","lū":"撸","lūn":"抡","lǎ":"喇","lǎn":"懒","lǎng":"朗","lǎo":"老","lǐ":"里","lǐn":"凛","lǐng":"领","lǒng":"拢","lǒu":"篓","lǔ":"卤","lǔn":"𫭢","lǘ":"驴","lǚ":"旅","lǜ":"绿","m2":"呒","m4":"呣","miàn":"面","miào":"妙","mián":"眠","miáo":"瞄","miè":"灭","miù":"谬","miāo":"喵","miē":"咩","miǎn":"免","miǎo":"秒","mà":"骂","mài":"卖","màn":"慢","mào":"冒","má":"麻","mái":"埋","mán":"蛮","máng":"忙","máo":"毛","mèi":"妹","mèn":"闷","mèng":"梦","méi":"没","mén":"门","méng":"萌","mì":"幂","mìng":"命","mí":"迷","mín":"民","míng":"名","mò":"莫","mó":"摩","móu":"谋","mù":"木","mú":"毪","mā":"妈","mān":"嫚","māng":"牤","māo":"猫","mē":"嚒","mēn":"扪","mēng":"蒙","měi":"每","měng":"猛","mī":"咪","mō":"摸","mōu":"哞","mǎ":"马","mǎi":"买","mǎn":"满","mǎng":"蟒","mǎo":"卯","mǐ":"米","mǐn":"皿","mǐng":"酩","mǒ":"抹","mǒu":"某","mǔ":"母","ng4":"嗯","niàn":"念","niàng":"酿","niào":"尿","nián":"年","niáng":"娘","niè":"涅","niù":"䋴","niú":"牛","niān":"蔫","niē":"捏","niū":"妞","niǎn":"碾","niǎo":"鸟","niǔ":"扭","nuò":"诺","nuó":"挪","nuǎn":"暖","nvè":"虐","nà":"那","nài":"耐","nàn":"难","nàng":"齉","nào":"闹","ná":"拿","nán":"南","náng":"囊","náo":"挠","nè":"讷","nèi":"内","nèn":"嫩","né":"哪","néng":"能","nì":"腻","nìng":"甯","ní":"泥","nín":"您","níng":"宁","nòng":"弄","nòu":"耨","nóng":"浓","nù":"怒","nú":"奴","nā":"那","nān":"囡","nāng":"囔","nāo":"孬","nē":"呢","něi":"馁","nī":"妮","nǎ":"哪","nǎi":"乃","nǎn":"腩","nǎng":"攮","nǎo":"脑","nǐ":"你","nǐng":"拧","nǔ":"努","nǚ":"女","nǜ":"衄","piàn":"骗","piào":"票","pián":"骈","piáo":"嫖","piān":"篇","piāo":"飘","piē":"瞥","piě":"撇","piǎn":"谝","piǎo":"瞟","pà":"怕","pài":"派","pàn":"盼","pàng":"胖","pào":"泡","pá":"爬","pái":"徘","pán":"盘","páng":"旁","páo":"袍","pèi":"配","pèn":"喷","pèng":"碰","péi":"陪","pén":"盆","péng":"彭","pì":"屁","pìn":"聘","pí":"皮","pín":"贫","píng":"瓶","pò":"破","pó":"婆","póu":"抔","pù":"瀑","pú":"葡","pā":"趴","pāi":"拍","pān":"潘","pāng":"乓","pāo":"抛","pēi":"呸","pēn":"喷","pēng":"嘭","pěng":"捧","pī":"劈","pīn":"拼","pīng":"乒","pō":"颇","pōu":"剖","pū":"噗","pǎi":"排","pǎng":"耪","pǎo":"跑","pǐ":"癖","pǐn":"品","pǒ":"叵","pǒu":"掊","pǔ":"谱","qià":"恰","qiàn":"欠","qiàng":"炝","qiào":"翘","qiá":"拤","qián":"前","qiáng":"强","qiáo":"瞧","qiè":"窃","qié":"茄","qióng":"穷","qiú":"求","qiā":"掐","qiān":"签","qiāng":"枪","qiāo":"敲","qiē":"切","qiě":"且","qiū":"秋","qiǎ":"峠","qiǎn":"浅","qiǎng":"抢","qiǎo":"巧","qiǔ":"糗","quàn":"劝","quán":"全","què":"却","qué":"瘸","quān":"圈","quē":"缺","quǎn":"犬","qì":"气","qìn":"沁","qìng":"庆","qí":"其","qín":"琴","qíng":"情","qù":"去","qú":"渠","qún":"群","qī":"期","qīn":"亲","qīng":"清","qū":"区","qūn":"囷","qǐ":"起","qǐn":"寝","qǐng":"请","qǔ":"娶","ruán":"堧","ruì":"瑞","ruí":"蕤","ruò":"若","ruǎn":"软","ruǐ":"蕊","ràng":"让","rào":"绕","rán":"然","ráng":"瓤","ráo":"饶","rè":"热","rèn":"任","rén":"人","réng":"仍","rì":"日","ròu":"肉","róng":"容","róu":"揉","rù":"入","rùn":"润","rú":"如","rāng":"嚷","rēng":"扔","rě":"惹","rěn":"忍","rǎn":"染","rǎng":"壤","rǎo":"扰","rǒng":"冗","rǔ":"乳","shuà":"刷","shuài":"帅","shuàn":"涮","shuì":"睡","shuí":"脽","shuò":"硕","shuā":"刷","shuāi":"摔","shuān":"拴","shuāng":"双","shuō":"说","shuǎ":"耍","shuǎi":"甩","shuǎng":"爽","shuǐ":"水","shà":"煞","shài":"晒","shàn":"善","shàng":"上","shào":"哨","shá":"啥","sháo":"勺","shè":"射","shèn":"甚","shèng":"剩","shé":"蛇","shéi":"谁","shén":"神","shéng":"绳","shì":"是","shí":"时","shòu":"瘦","shóu":"熟","shù":"树","shùn":"顺","shú":"孰","shā":"杀","shāi":"筛","shān":"删","shāng":"伤","shāo":"烧","shē":"奢","shēn":"深","shēng":"生","shě":"舍","shěn":"沈","shěng":"省","shī":"诗","shōu":"收","shū":"书","shǎ":"傻","shǎi":"𢄌","shǎn":"闪","shǎng":"赏","shǎo":"少","shǐ":"屎","shǒu":"手","shǔ":"属","shǔn":"吮","suàn":"算","suì":"岁","suí":"随","suān":"酸","suī":"虽","suō":"缩","suǐ":"髓","suǒ":"所","sà":"萨","sài":"赛","sàn":"散","sàng":"丧","sào":"瘙","sè":"色","sì":"四","sòng":"送","sòu":"嗽","sù":"素","sú":"俗","sā":"仨","sāi":"塞","sān":"三","sāng":"桑","sāo":"骚","sēn":"森","sēng":"僧","sī":"斯","sōng":"松","sōu":"搜","sū":"苏","sūn":"孙","sǎ":"撒","sǎi":"晒","sǎn":"伞","sǎng":"嗓","sǎo":"嫂","sǐ":"死","sǒng":"怂","sǒu":"叟","sǔn":"损","tiàn":"瑱","tiào":"跳","tián":"甜","tiáo":"条","tiè":"餮","tiān":"天","tiāo":"挑","tiē":"贴","tiě":"帖","tiǎn":"舔","tiǎo":"窕","tuàn":"彖","tuán":"团","tuì":"退","tuí":"颓","tuò":"拓","tuó":"坨","tuān":"湍","tuī":"推","tuō":"拖","tuǎn":"疃","tuǐ":"腿","tuǒ":"妥","tà":"踏","tài":"太","tàn":"叹","tàng":"烫","tào":"套","tái":"台","tán":"谈","táng":"糖","táo":"淘","tè":"特","téng":"疼","tì":"替","tìng":"梃","tí":"提","tíng":"停","tòng":"痛","tòu":"透","tóng":"同","tóu":"头","tù":"兔","tùn":"屯","tú":"图","tún":"臀","tā":"他","tāi":"胎","tān":"贪","tāng":"汤","tāo":"掏","tēng":"熥","tī":"踢","tīng":"听","tōng":"通","tōu":"偷","tū":"凸","tūn":"吞","tǎ":"塔","tǎn":"毯","tǎng":"躺","tǎo":"讨","tǐ":"体","tǐng":"挺","tǒng":"捅","tǔ":"吐","wà":"袜","wài":"外","wàn":"万","wàng":"忘","wá":"娃","wán":"玩","wáng":"王","wèi":"未","wèn":"问","wèng":"瓮","wéi":"围","wén":"文","wò":"握","wù":"雾","wú":"无","wā":"挖","wāi":"歪","wān":"弯","wāng":"汪","wēi":"微","wēn":"温","wēng":"嗡","wěi":"伪","wěn":"吻","wěng":"蓊","wō":"喔","wū":"呜","wǎ":"瓦","wǎi":"崴","wǎn":"晚","wǎng":"网","wǒ":"我","wǔ":"五","xià":"下","xiàn":"线","xiàng":"像","xiào":"笑","xiá":"侠","xián":"嫌","xiáng":"翔","xiáo":"崤","xiè":"谢","xié":"鞋","xiòng":"夐","xióng":"熊","xiù":"秀","xiā":"瞎","xiān":"先","xiāng":"香","xiāo":"消","xiē":"些","xiě":"写","xiōng":"胸","xiū":"修","xiǎ":"吓","xiǎn":"显","xiǎng":"想","xiǎo":"小","xiǔ":"朽","xuàn":"炫","xuán":"悬","xuè":"谑","xué":"学","xuān":"萱","xuē":"薛","xuě":"雪","xuǎn":"选","xì":"系","xìn":"信","xìng":"性","xí":"习","xíng":"行","xù":"恤","xùn":"讯","xú":"徐","xún":"寻","xī":"西","xīn":"新","xīng":"星","xū":"需","xūn":"熏","xǐ":"洗","xǐn":"伈","xǐng":"醒","xǔ":"许","yuàn":"愿","yuán":"元","yuè":"月","yuān":"冤","yuē":"约","yuě":"噦","yuǎn":"远","yà":"亚","yàn":"咽","yàng":"样","yào":"要","yá":"牙","yán":"言","yáng":"羊","yáo":"摇","yè":"夜","yé":"爷","yì":"亿","yìn":"印","yìng":"硬","yí":"咦","yín":"银","yíng":"赢","yòng":"用","yòu":"又","yóng":"颙","yóu":"由","yù":"欲","yùn":"运","yú":"于","yún":"云","yā":"丫","yān":"烟","yāng":"央","yāo":"腰","yē":"噎","yě":"也","yī":"一","yīn":"因","yīng":"嘤","yō":"唷","yōng":"拥","yōu":"呦","yū":"瘀","yūn":"晕","yǎ":"雅","yǎn":"演","yǎng":"养","yǎo":"咬","yǐ":"已","yǐn":"饮","yǐng":"影","yǒng":"永","yǒu":"有","yǔ":"与","yǔn":"允","zhuài":"拽","zhuàn":"赚","zhuàng":"撞","zhuì":"坠","zhuó":"濯","zhuā":"抓","zhuāi":"拽","zhuān":"砖","zhuāng":"装","zhuī":"追","zhuō":"捉","zhuǎ":"爪","zhuǎi":"跩","zhuǎn":"转","zhuǎng":"壮","zhà":"炸","zhài":"债","zhàn":"站","zhàng":"帐","zhào":"照","zhá":"闸","zhái":"宅","zháo":"着","zhè":"这","zhèn":"朕","zhèng":"正","zhé":"折","zhì":"致","zhí":"直","zhòng":"众","zhòu":"皱","zhóu":"轴","zhù":"祝","zhú":"竹","zhā":"渣","zhāi":"摘","zhān":"詹","zhāng":"张","zhāo":"招","zhē":"遮","zhēn":"真","zhēng":"蒸","zhě":"者","zhěn":"枕","zhěng":"整","zhī":"之","zhōng":"忠","zhōu":"周","zhū":"猪","zhūn":"肫","zhǎ":"眨","zhǎi":"窄","zhǎn":"展","zhǎng":"涨","zhǎo":"找","zhǐ":"只","zhǒng":"肿","zhǒu":"肘","zhǔ":"煮","zhǔn":"准","zuàn":"攥","zuì":"最","zuò":"做","zuó":"昨","zuān":"钻","zuō":"嘬","zuǎn":"纂","zuǐ":"嘴","zuǒ":"左","zài":"在","zàn":"赞","zàng":"葬","zào":"造","zá":"砸","zán":"咱","záo":"凿","zè":"仄","zèn":"谮","zèng":"赠","zé":"则","zéi":"贼","zì":"字","zòng":"粽","zòu":"揍","zú":"足","zā":"咂","zāi":"哉","zān":"簪","zāng":"脏","zāo":"遭","zēng":"增","zěn":"怎","zī":"兹","zōng":"棕","zōu":"邹","zū":"租","zūn":"尊","zǎ":"咋","zǎi":"宰","zǎn":"攒","zǎng":"驵","zǎo":"早","zǐ":"子","zǒng":"总","zǒu":"走","zǔ":"组","zǔn":"僔","à":"啊","ài":"爱","àn":"按","àng":"盎","ào":"奥","á":"啊","ái":"癌","áng":"昂","áo":"熬","è":"饿","èn":"摁","èr":"二","é":"额","éi":"诶","ér":"而","ò":"哦","òu":"沤","ó":"哦","ā":"阿","āi":"哎","ān":"安","āng":"肮","āo":"凹","ē":"屙","ēn":"恩","ēr":"而","ě":"恶","ěr":"耳","ō":"噢","ōu":"欧","ǎ":"啊","ǎi":"矮","ǎn":"俺","ǎo":"袄","ǒ":"哦","ǒu":"偶"};
+
+    // 查找中文语音
+    function findChineseVoice() {
+        const voices = synth.getVoices();
+        chineseVoice = voices.find(v => v.lang === 'zh-CN') ||
+                       voices.find(v => v.lang.startsWith('zh')) ||
+                       voices.find(v => v.lang.includes('CN')) ||
+                       null;
+    }
+    if (synth.getVoices) {
+        findChineseVoice();
+        synth.addEventListener('voiceschanged', findChineseVoice);
+    }
+
+    function speakPinyin(item) {
+        if (!ttsEnabled || !synth) return;
+        synth.cancel();
+        // 优先使用词库自带的汉字，没有则查映射表
+        let text;
+        if (item.hanzi) {
+            text = item.hanzi;
+        } else {
+            text = PINYIN_HANZI[item.element] || item.element;
+        }
+        const utt = new SpeechSynthesisUtterance(text);
+        utt.lang = 'zh-CN';
+        utt.rate = 0.85;
+        if (chineseVoice) utt.voice = chineseVoice;
+        synth.speak(utt);
+    }
+
+    ttsSwitchBtn.addEventListener('click', () => {
+        ttsEnabled = !ttsEnabled;
+        ttsSwitchBtn.innerText = ttsEnabled ? '🔊 朗读: 开' : '🔇 朗读: 关';
+        ttsSwitchBtn.classList.toggle('active', ttsEnabled);
+        if (!ttsEnabled) synth.cancel();
+    });
+
+    // ---------- 音效系统（Web Audio API）----------
+    let soundEnabled = localStorage.getItem('ime_sound_26') !== 'false'; // 默认开启
+    let audioCtx = null;
+
+    function getAudioCtx() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        return audioCtx;
+    }
+
+    // 播放正确音效：短促清脆的上升双音
+    function playCorrectSound() {
+        if (!soundEnabled) return;
+        try {
+            const ctx = getAudioCtx();
+            const now = ctx.currentTime;
+
+            // 第一个音（C5）
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(523.25, now); // C5
+            gain1.gain.setValueAtTime(0.18, now);
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+            osc1.connect(gain1);
+            gain1.connect(ctx.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.12);
+
+            // 第二个音（E5）
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(659.25, now + 0.06); // E5
+            gain2.gain.setValueAtTime(0.001, now);
+            gain2.gain.linearRampToValueAtTime(0.18, now + 0.07);
+            gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start(now + 0.06);
+            osc2.stop(now + 0.2);
+        } catch(e) { /* 静默失败 */ }
+    }
+
+    // 播放错误音效：短促低沉的下降音
+    function playWrongSound() {
+        if (!soundEnabled) return;
+        try {
+            const ctx = getAudioCtx();
+            const now = ctx.currentTime;
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(300, now);
+            osc.frequency.exponentialRampToValueAtTime(150, now + 0.15);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.18);
+        } catch(e) { /* 静默失败 */ }
+    }
+
+    const soundSwitchBtn = document.getElementById('soundSwitchBtn');
+    function updateSoundSwitchUI() {
+        soundSwitchBtn.innerText = soundEnabled ? '🔔 对错音效: 开' : '🔕 对错音效: 关';
+        soundSwitchBtn.classList.toggle('active', soundEnabled);
+    }
+    updateSoundSwitchUI(); // 初始化UI
+
+    soundSwitchBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('ime_sound_26', soundEnabled);
+        updateSoundSwitchUI();
+        // 切换开时试听一下正确音效
+        if (soundEnabled) playCorrectSound();
+    });
+
+    // ---------- 掌握度算法核心 ----------
+
+    function getMasteryLevel(score) {
+        if (score >= 150) return { level: 4, name: '已屏蔽', className: 'mastery-4' };
+        if (score >= 100) return { level: 3, name: '圆满', className: 'mastery-3' };
+        if (score >= 51)  return { level: 2, name: '小成', className: 'mastery-2' };
+        if (score >= 10)  return { level: 1, name: '入门', className: 'mastery-1' };
+        return { level: 0, name: '未入门', className: 'mastery-0' };
+    }
+
+    function getBaseWeight(score) {
+        if (score < 0) score = 0;
+        let w = 1.0;
+        const steps1 = Math.min(Math.floor(score / 10), 5);
+        for (let i = 0; i < steps1; i++) w *= 0.9;
+        if (score <= 50) return w;
+        const steps2 = Math.min(Math.floor((score - 50) / 10), 4);
+        for (let i = 0; i < steps2; i++) w *= 0.7;
+        if (score <= 90) return w;
+        const steps3 = Math.floor((score - 90) / 10);
+        for (let i = 0; i < steps3; i++) w *= 0.5;
+        return w;
+    }
+
+    function pickWeightedItem() {
+        if (dynamicPool.length === 0) return -1;
+        // 过滤掉150分以上（已屏蔽）的卡片
+        let eligible = [...dynamicPool].filter(idx => allItems[idx].score < 150);
+        if (eligible.length === 0) return -1;
+        let weights = [];
+        let minScore = Infinity;
+        let minIdx = -1;
+        for (let idx of eligible) {
+            const item = allItems[idx];
+            if (item.score < minScore) { minScore = item.score; minIdx = idx; }
+        }
+        for (let idx of eligible) {
+            let w = getBaseWeight(allItems[idx].score);
+            if (idx === lastItemIndex) w *= 0.01;
+            if (idx === minIdx) w *= 2;
+            weights.push({ idx, weight: w });
+        }
+        let total = weights.reduce((sum, w) => sum + w.weight, 0);
+        let rand = Math.random() * total;
+        let accum = 0;
+        for (let w of weights) {
+            accum += w.weight;
+            if (rand <= accum) return w.idx;
+        }
+        return weights[weights.length - 1].idx;
+    }
+
+    function pickRandomItem() {
+        if (dynamicPool.length === 0) return -1;
+        // 过滤掉150分以上（已屏蔽）的卡片
+        let eligible = dynamicPool.filter(idx => allItems[idx].score < 150);
+        if (eligible.length === 0) return -1;
+        return eligible[Math.floor(Math.random() * eligible.length)];
+    }
+
+    function unlockNewItems() {
+        if (!masteryAlgorithmEnabled) return;
+        if (dynamicReserve.length === 0) return;
+        const item = allItems[currentItemIndex];
+        let unlocked = 0;
+        if (item.score >= 50 && !item.triggered50 && dynamicReserve.length > 0) {
+            dynamicPool.push(dynamicReserve.shift());
+            item.triggered50 = true;
+            unlocked++;
+        }
+        if (item.score >= 100 && !item.triggered100 && dynamicReserve.length > 0) {
+            dynamicPool.push(dynamicReserve.shift());
+            item.triggered100 = true;
+            unlocked++;
+        }
+        // 首次到达100分时记录掌握时间（不受后续扣分影响）
+        if (item.score >= 100 && !item.masteredAt) {
+            item.masteredAt = Date.now();
+        }
+        if (unlocked > 0) {
+            console.log(`解锁 ${unlocked} 个新元素，练习区: ${dynamicPool.length}，备用池: ${dynamicReserve.length}`);
+        }
+    }
+
+    function isGroupComplete() {
+        if (dynamicPool.length === 0) return false;
+        // 所有练习区卡片都达到150分（屏蔽线）才算完成
+        return dynamicPool.every(idx => allItems[idx].score >= 150);
+    }
+
+    // ---------- UI 更新 ----------
+
+    function formatDuration(totalSec) {
+        const sec = Math.max(0, Math.floor(totalSec));
+        const h = Math.floor(sec / 3600);
+        const m = Math.floor((sec % 3600) / 60);
+        const s = sec % 60;
+        return String(h).padStart(2, '0') + '时' + String(m).padStart(2, '0') + '分' + String(s).padStart(2, '0') + '秒';
+    }
+
+    function updateMasteryUI() {
+        if (!masteryAlgorithmEnabled) { masteryBadge.style.display = 'none'; return; }
+        if (currentItemIndex < 0 || !allItems[currentItemIndex]) { masteryBadge.style.display = 'none'; return; }
+        const item = allItems[currentItemIndex];
+        const pct = Math.min(100, item.score);
+        masteryBadge.innerText = `掌握度 ${pct}%`;
+        masteryBadge.className = 'mastery-badge ' + getMasteryLevel(item.score).className;
+        masteryBadge.style.display = 'block';
+    }
+
+    function updateStatsUI() {
+        // 已掌握：score ≥ 100 的数量（与首页对齐）
+        const mastered = allItems.filter(it => it.score >= 100).length;
+        document.getElementById('correctCount').innerText = mastered;
+        // 总指法：allItems.length（与首页对齐）
+        document.getElementById('totalCount').innerText = allItems.length;
+        // 总进度：Σmin(score,100) / (N×100) × 100%（与首页算法一致）
+        if (allItems.length > 0) {
+            const sumCapped = allItems.reduce((s, it) => s + Math.min(it.score, 100), 0);
+            const progress = (sumCapped / (allItems.length * 100) * 100);
+            document.getElementById('totalProgress').innerText = progress.toFixed(1) + '%';
+        } else {
+            document.getElementById('totalProgress').innerText = '0%';
+        }
+        document.getElementById('keyCount').innerText = stats.totalKeys;
+        document.getElementById('timeElapsed').innerHTML = formatDuration(stats.elapsedSec);
+        let speedVal = (stats.elapsedSec > 0 && stats.totalKeys > 0) ? (stats.totalKeys / stats.elapsedSec) : 0;
+        document.getElementById('speed').innerText = speedVal.toFixed(2);
+    }
+
+    function updateHomeStats() {
+        if (allItems.length === 0) {
+            document.getElementById('homeTotalCards').innerText = '0';
+            document.getElementById('homeMastered').innerText = '0';
+            document.getElementById('homeProgress').innerText = '0%';
+            document.getElementById('homeProgressBar').style.width = '0%';
+            document.getElementById('homeTotalTime').innerText = formatDuration(0);
+            document.getElementById('homeTotalKeys').innerText = '0';
+            document.getElementById('homeAvgTime').innerText = '—';
+            startPracticeBtn.disabled = true;
+            return;
+        }
+        startPracticeBtn.disabled = false;
+        const total = allItems.length;
+        const mastered = allItems.filter(it => it.score >= 100).length;
+        // 总进度 = Σ min(分数, 100) / (卡片数 × 100) × 100%
+        const sumCapped = allItems.reduce((s, it) => s + Math.min(it.score, 100), 0);
+        const progress = (sumCapped / (total * 100) * 100);
+        document.getElementById('homeTotalCards').innerText = total;
+        document.getElementById('homeMastered').innerText = mastered;
+        document.getElementById('homeProgress').innerText = progress.toFixed(1) + '%';
+        document.getElementById('homeProgressBar').style.width = Math.min(100, progress) + '%';
+
+        // 总练习时间（从 stats.elapsedSec 取，当前词库的）
+        const totalSec = stats.elapsedSec;
+        document.getElementById('homeTotalTime').innerText = formatDuration(totalSec);
+
+        // 总按键数
+        document.getElementById('homeTotalKeys').innerText = stats.totalKeys;
+
+        // 平均掌握时间：总时间 / 已掌握数
+        if (mastered > 0 && totalSec > 0) {
+            const avgSec = totalSec / mastered;
+            document.getElementById('homeAvgTime').innerText = formatDuration(avgSec);
+        } else {
+            document.getElementById('homeAvgTime').innerText = '—';
+        }
+    }
+
+    function updateDeckSelect() {
+        const list = getDeckList();
+        deckSelect.innerHTML = '';
+        for (const [id, deck] of Object.entries(list)) {
+            const opt = document.createElement('option');
+            opt.value = id;
+            opt.textContent = deck.name;
+            if (id === currentDeckId) opt.selected = true;
+            deckSelect.appendChild(opt);
+        }
+    }
+
+    // ---------- 持久化（按词库独立存档） ----------
+
+    function persistAll() {
+        try {
+            const save = {
+                allItems, dynamicPool, dynamicReserve,
+                currentItemIndex, stats, recordActive,
+                hasErrorFlag: hasErrorInCurrent,
+                lastItemIndex, initialPoolSize, masteryAlgorithmEnabled, letterGroupEnabled
+            };
+            localStorage.setItem('ime_progress_26_' + currentDeckId, JSON.stringify(save));
+            // 同时记录当前选中的词库 ID
+            localStorage.setItem('ime_current_deck_26', currentDeckId);
+        } catch(e) { console.warn(e); }
+    }
+
+    function loadDeckProgress(deckId) {
+        const raw = localStorage.getItem('ime_progress_26_' + deckId);
+        if (!raw) return false;
+        try {
+            const data = JSON.parse(raw);
+            if (data.allItems && Array.isArray(data.allItems)) {
+                allItems = data.allItems;
+                dynamicPool = data.dynamicPool || [];
+                dynamicReserve = data.dynamicReserve || [];
+                currentItemIndex = data.currentItemIndex !== undefined ? data.currentItemIndex : -1;
+                if (data.stats) stats = data.stats;
+                if (data.recordActive !== undefined) recordActive = data.recordActive;
+                if (data.hasErrorFlag !== undefined) hasErrorInCurrent = data.hasErrorFlag;
+                if (data.lastItemIndex !== undefined) lastItemIndex = data.lastItemIndex;
+                if (data.initialPoolSize !== undefined) initialPoolSize = data.initialPoolSize;
+                if (data.masteryAlgorithmEnabled !== undefined) masteryAlgorithmEnabled = data.masteryAlgorithmEnabled;
+                if (data.letterGroupEnabled !== undefined) {
+                    letterGroupEnabled = data.letterGroupEnabled;
+                    localStorage.setItem('ime_letter_group_26', letterGroupEnabled);
+                    updateLetterGroupSwitchUI();
+                }
+                if (currentItemIndex >= 0 && allItems[currentItemIndex]) {
+                    currentKey = allItems[currentItemIndex].key;
+                }
+                initialPoolInput.value = initialPoolSize;
+                updateMasterySwitchUI();
+                updateLetterGroupSwitchUI();
+                return true;
+            }
+        } catch(e) { console.warn(e); }
+        return false;
+    }
+
+    // 根据当前词库是否有汉字列，自动设置朗读开关
+    // 同时修补旧存档中缺失或为空的 hanzi 字段
+    function autoSetTtsByDeck() {
+        if (allItems.length === 0) return;
+        // 当前 allItems 没有汉字，但 rawTsv 可能有 → 从 rawTsv 补上
+        const currentHasHanzi = allItems.some(item => item.hanzi);
+        if (!currentHasHanzi) {
+            const deckList = getDeckList();
+            const deck = deckList[currentDeckId];
+            if (deck && deck.rawTsv) {
+                const freshItems = parseTsvToItems(deck.rawTsv);
+                const freshHasHanzi = freshItems.some(item => item.hanzi);
+                if (freshHasHanzi) {
+                    const keyToHanzi = {};
+                    for (const fi of freshItems) {
+                        if (fi.hanzi) keyToHanzi[fi.element + '|' + fi.key] = fi.hanzi;
+                    }
+                    for (const item of allItems) {
+                        const lookup = item.element + '|' + item.key;
+                        item.hanzi = keyToHanzi[lookup] || '';
+                    }
+                }
+            }
+        }
+        // 词库自带汉字列 → 开；无汉字列 → 关
+        const hasHanzi = allItems.some(item => item.hanzi);
+        ttsEnabled = hasHanzi;
+        ttsSwitchBtn.innerText = ttsEnabled ? '🔊 朗读: 开' : '🔇 朗读: 关';
+        ttsSwitchBtn.classList.toggle('active', ttsEnabled);
+        if (!ttsEnabled && synth) synth.cancel();
+    }
+
+    function switchDeck(deckId) {
+        // 先保存当前词库进度
+        if (allItems.length > 0) {
+            stopTimerAndCapture();
+            persistAll();
+        }
+        currentDeckId = deckId;
+        const deckList = getDeckList();
+        const deck = deckList[deckId];
+        if (!deck) return;
+
+        // 尝试加载该词库的存档
+        if (loadDeckProgress(deckId)) {
+            // 有存档，恢复
+        } else {
+            // 无存档，从 rawTsv 解析
+            allItems = parseTsvToItems(deck.rawTsv);
+            dynamicPool = [];
+            dynamicReserve = [];
+            currentItemIndex = -1;
+            stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+            recordActive = false;
+            hasErrorInCurrent = false;
+            lastItemIndex = -1;
+        }
+
+        // 根据词库是否有汉字列自动设置朗读开关
+        autoSetTtsByDeck();
+
+        // 同步记录按钮UI（recordActive 状态由 loadDeckProgress 或默认值决定）
+        recordSwitchBtn.innerText = recordActive ? '⏻ 记录: 开' : '⏻ 记录: 关';
+        recordSwitchBtn.classList.toggle('active', recordActive);
+        updateHomeStats();
+        updateDeckSelect();
+    }
+
+    // ---------- 出题与切换 ----------
+
+    function pickNextItem() {
+        if (dynamicPool.length === 0) {
+            currentItemIndex = -1;
+            currentKey = "";
+            return;
+        }
+        // 离开当前卡片时，重置 ded 标记
+        if (currentItemIndex >= 0 && allItems[currentItemIndex]) {
+            allItems[currentItemIndex].ded = false;
+        }
+        lastItemIndex = currentItemIndex;
+        currentItemIndex = masteryAlgorithmEnabled ? pickWeightedItem() : pickRandomItem();
+        if (currentItemIndex >= 0) {
+            currentKey = allItems[currentItemIndex].key;
+            // 首次出现在用户面前时记录时间戳（卡片被选中展示的那一刻）
+            if (!allItems[currentItemIndex].firstSeenAt) {
+                allItems[currentItemIndex].firstSeenAt = Date.now();
+            }
+        } else {
+            // 所有卡片都达到150分被屏蔽，或无可选卡片
+            currentKey = "";
+        }
+        hasErrorInCurrent = false;
+        errorMsgDiv.classList.remove('show');
+        errorMsgDiv.innerText = '';
+    }
+
+    function updateUIByCurrentItem() {
+        // 更新字母组指示器
+        const letterGroupIndicator = document.getElementById('letterGroupIndicator');
+        if (letterGroupEnabled && allItems.length > 0) {
+            const currentLetter = getCurrentLetterOfItem(currentItemIndex);
+            if (currentLetter) {
+                // 显示当前字母组的进度（该组已掌握/该组总数）
+                const letterIndices = getItemsByFirstLetter(currentLetter);
+                const mastered = letterIndices.filter(idx => allItems[idx].score >= 150).length;
+                const totalMastered = allItems.filter(item => item.score >= 150).length;
+                letterGroupIndicator.innerText = `🔤 ${currentLetter.toUpperCase()} 组 (${mastered}/${letterIndices.length}) · 总 ${totalMastered}/${allItems.length}`;
+                letterGroupIndicator.style.display = '';
+            } else {
+                letterGroupIndicator.innerText = '🔤 全部掌握';
+                letterGroupIndicator.style.display = '';
+            }
+        } else {
+            letterGroupIndicator.style.display = 'none';
+        }
+        if (currentItemIndex >= 0 && allItems[currentItemIndex]) {
+            const item = allItems[currentItemIndex];
+            currentElementDisplay.innerText = item.element;
+            // 卡片汉字显示：有hanzi就显示，没有就隐藏
+            if (item.hanzi) {
+                currentHanziDisplay.innerText = item.hanzi;
+                currentHanziDisplay.style.display = '';
+            } else {
+                currentHanziDisplay.innerText = '';
+                currentHanziDisplay.style.display = 'none';
+            }
+            // 朗读当前卡片
+            speakPinyin(item);
+        } else if (allItems.length > 0 && dynamicPool.length > 0) {
+            // 所有卡片都达到150分被屏蔽
+            currentElementDisplay.innerText = '🎉 全部掌握！';
+            currentHanziDisplay.style.display = 'none';
+        } else {
+            currentElementDisplay.innerText = '⚠️ 请导入词库';
+            currentHanziDisplay.style.display = 'none';
+        }
+        keyInput.value = '';
+        errorMsgDiv.classList.remove('show');
+        errorMsgDiv.innerText = '';
+        updateMasteryUI();
+        if (allItems.length === 0 || currentItemIndex < 0) {
+            keyInput.disabled = true;
+            keyInput.placeholder = currentItemIndex < 0 && allItems.length > 0 ? '全部掌握（150+）' : '无词库，请先导入';
+        } else {
+            keyInput.disabled = false;
+            keyInput.placeholder = '输入键位 (a-z , . / ;)';
+            keyInput.focus();
+        }
+    }
+
+    function moveToNextItem() {
+        if (dynamicPool.length === 0) return;
+        pickNextItem();
+        updateUIByCurrentItem();
+        persistAll(); // 每次切卡都存档
+        if (currentItemIndex >= 0 && allItems.length) keyInput.focus();
+    }
+
+    // ---------- 分数漂浮特效 ----------
+    function showScoreFloat(text, type) {
+        const area = document.querySelector('.practice-area');
+        const input = document.getElementById('keyInput');
+        const rect = input.getBoundingClientRect();
+        const areaRect = area.getBoundingClientRect();
+        const el = document.createElement('span');
+        el.className = 'score-float ' + type;
+        el.textContent = text;
+        // 定位到输入框正上方
+        el.style.left = (rect.left - areaRect.left + rect.width / 2) + 'px';
+        el.style.top = (rect.top - areaRect.top - 10) + 'px';
+        el.style.transform = 'translateX(-50%)';
+        area.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+    }
+
+    // ---------- 输入处理 ----------
+
+    function handleCorrectInput() {
+        if (isPaused) return;
+        if (isSwitching) return;
+        if (currentItemIndex < 0 || !allItems[currentItemIndex]) return;
+        isSwitching = true;
+        resetIdleTimer();
+        playCorrectSound();
+
+        const item = allItems[currentItemIndex];
+
+        if (recordActive) {
+            stats.totalElem += 1;
+            stats.totalKeys += currentKey.length;
+            if (!hasErrorInCurrent) stats.correctElem += 1;
+            updateStatsUI();
+        }
+
+        if (masteryAlgorithmEnabled) {
+            item.score += 10;
+            showScoreFloat('+10', 'correct');
+            unlockNewItems();
+            if (isGroupComplete()) {
+                alert('🎉 恭喜！本组所有元素已达到屏蔽线（150分），全部掌握！');
+            }
+        }
+
+        moveToNextItem();
+        isSwitching = false;
+    }
+
+    function handleMistakeInput() {
+        if (isPaused) return;
+        if (currentItemIndex < 0 || !allItems[currentItemIndex]) return;
+        resetIdleTimer();
+        playWrongSound();
+        const item = allItems[currentItemIndex];
+
+        errorMsgDiv.innerText = `❌ 正确键位: ${currentKey.split('').join(' ')}`;
+        errorMsgDiv.classList.add('show');
+
+        // 打错后再次朗读，帮助建立正确记忆
+        speakPinyin(item);
+
+        if (masteryAlgorithmEnabled) {
+            if (!item.ded) {
+                item.score -= 20;
+                if (item.score < 0) item.score = 0;
+                item.ded = true;
+                showScoreFloat('-20', 'wrong');
+            }
+        }
+
+        hasErrorInCurrent = true;
+        keyInput.value = '';
+        updateMasteryUI();
+        persistAll(); // 扣分也存档
+        keyInput.focus();
+    }
+
+    function onInputChange() {
+        if (isPaused) { keyInput.value = ''; return; }
+        if (currentItemIndex < 0 || !allItems[currentItemIndex]) return;
+        if (isSwitching) return;
+        const inputStr = keyInput.value.trim().toLowerCase();
+
+        if (inputStr === "") {
+            if (errorMsgDiv.classList.contains('show')) errorMsgDiv.classList.remove('show');
+            return;
+        }
+
+        if (inputStr === currentKey) { handleCorrectInput(); return; }
+
+        if (!currentKey.startsWith(inputStr)) {
+            handleMistakeInput();
+        } else {
+            if (errorMsgDiv.classList.contains('show')) errorMsgDiv.classList.remove('show');
+        }
+    }
+
+    // ---------- 动态分组初始化 ----------
+
+    function initDynamicPool() {
+        if (allItems.length === 0) return;
+        if (letterGroupEnabled) {
+            initLetterGroupPool();
+            return;
+        }
+        let indices = allItems.map((_, i) => i);
+        for (let i = indices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+        const n = Math.min(initialPoolSize, indices.length);
+        dynamicPool = indices.slice(0, n);
+        dynamicReserve = indices.slice(n);
+        for (let item of allItems) {
+            item.triggered50 = false;
+            item.triggered100 = false;
+        }
+        lastItemIndex = -1;
+        pickNextItem();
+    }
+
+    // 字母分组模式的练习池初始化：所有卡片按首字母a→b→c…排序，同组内打乱
+    // 与普通模式逻辑完全一致，只是排序方式不同，组间无缝衔接
+    function initLetterGroupPool() {
+        if (allItems.length === 0) return;
+        // 按首字母排序：同组内打乱，组间按a→b→c…顺序
+        const allLetters = getFirstLetters();
+        let sortedIndices = [];
+        for (const letter of allLetters) {
+            let groupIndices = getItemsByFirstLetter(letter);
+            // 同组内打乱
+            for (let i = groupIndices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [groupIndices[i], groupIndices[j]] = [groupIndices[j], groupIndices[i]];
+            }
+            sortedIndices = sortedIndices.concat(groupIndices);
+        }
+        // 和initDynamicPool完全一样的逻辑：取前initialPoolSize个进pool，其余进reserve
+        const n = Math.min(initialPoolSize, sortedIndices.length);
+        dynamicPool = sortedIndices.slice(0, n);
+        dynamicReserve = sortedIndices.slice(n);
+        for (let item of allItems) {
+            item.triggered50 = false;
+            item.triggered100 = false;
+        }
+        lastItemIndex = -1;
+        pickNextItem();
+    }
+
+    function initRandomPool() {
+        dynamicPool = allItems.map((_, i) => i);
+        dynamicReserve = [];
+        lastItemIndex = -1;
+        pickNextItem();
+    }
+
+    // ---------- 掌握度算法开关 ----------
+
+    function updateMasterySwitchUI() {
+        if (masteryAlgorithmEnabled) {
+            masterySwitchBtn.innerText = '🧠 掌握度算法: 开';
+            masterySwitchBtn.classList.add('active');
+        } else {
+            masterySwitchBtn.innerText = '🧠 掌握度算法: 关';
+            masterySwitchBtn.classList.remove('active');
+        }
+    }
+
+    function toggleMasteryAlgorithm() {
+        masteryAlgorithmEnabled = !masteryAlgorithmEnabled;
+        updateMasterySwitchUI();
+        persistAll();
+    }
+
+    // ---------- 字母分组功能 ----------
+
+    // 将带调号的拼音首字母归一化为基本ASCII字母
+    // 如 à→a, ē→e, ǒ→o, ù→u, ń→n 等
+    function normalizeFirstLetter(ch) {
+        const map = {
+            'ā':'a','á':'a','ǎ':'a','à':'a',
+            'ē':'e','é':'e','ě':'e','è':'e',
+            'ī':'i','í':'i','ǐ':'i','ì':'i',
+            'ō':'o','ó':'o','ǒ':'o','ò':'o',
+            'ū':'u','ú':'u','ǔ':'u','ù':'u',
+            'ǖ':'v','ǘ':'v','ǚ':'v','ǜ':'v',
+            'ń':'n','ň':'n','ǹ':'n',
+            'ḿ':'m',
+        };
+        const lower = ch.toLowerCase();
+        return map[lower] || lower;
+    }
+
+    // 获取所有卡片的唯一首字母列表（排序后，已归一化）
+    function getFirstLetters() {
+        const letters = new Set();
+        for (const item of allItems) {
+            if (item.element && item.element.length > 0) {
+                letters.add(normalizeFirstLetter(item.element[0]));
+            }
+        }
+        return [...letters].sort();
+    }
+
+    // 获取某个首字母下的所有卡片索引（使用归一化匹配）
+    function getItemsByFirstLetter(letter) {
+        const indices = [];
+        for (let i = 0; i < allItems.length; i++) {
+            if (allItems[i].element && allItems[i].element.length > 0 && normalizeFirstLetter(allItems[i].element[0]) === letter) {
+                indices.push(i);
+            }
+        }
+        return indices;
+    }
+
+    // 获取当前练习卡片所属的首字母（用于指示器显示）
+    function getCurrentLetterOfItem(idx) {
+        if (idx < 0 || !allItems[idx] || !allItems[idx].element || allItems[idx].element.length === 0) return null;
+        return normalizeFirstLetter(allItems[idx].element[0]);
+    }
+
+    function updateLetterGroupSwitchUI() {
+        if (letterGroupEnabled) {
+            letterGroupSwitchBtn.innerText = '🔤 字母排序: 开';
+            letterGroupSwitchBtn.classList.add('active');
+        } else {
+            letterGroupSwitchBtn.innerText = '🔤 字母排序: 关';
+            letterGroupSwitchBtn.classList.remove('active');
+        }
+    }
+
+    // 初始化字母分组UI
+    updateLetterGroupSwitchUI();
+
+    letterGroupSwitchBtn.addEventListener('click', () => {
+        letterGroupEnabled = !letterGroupEnabled;
+        localStorage.setItem('ime_letter_group_26', letterGroupEnabled);
+        // 读取最新的initialPoolSize
+        initialPoolSize = parseInt(initialPoolInput.value, 10) || 10;
+        updateLetterGroupSwitchUI();
+        // 如果在练习中切换，重新初始化练习池
+        if (allItems.length > 0 && dynamicPool.length > 0) {
+            if (letterGroupEnabled) {
+                initLetterGroupPool();
+            } else {
+                // 关闭字母分组，恢复原始逻辑
+                if (masteryAlgorithmEnabled) initDynamicPool();
+                else initRandomPool();
+            }
+            updateUIByCurrentItem();
+        }
+        persistAll();
+    });
+
+    // ---------- 计时器（重构：统一用 startTimer / stopTimerAndCapture） ----------
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerStartBase = Date.now();
+        timerInterval = setInterval(() => {
+            if (recordActive && timerStartBase) {
+                const deltaSec = (Date.now() - timerStartBase) / 1000;
+                updateStatsWithDynamicTime(stats.elapsedSec + deltaSec);
+            }
+        }, 200);
+    }
+
+    function updateStatsWithDynamicTime(dynamicSec) {
+        if (dynamicSec < 0) dynamicSec = 0;
+        document.getElementById('timeElapsed').innerHTML = formatDuration(dynamicSec);
+        let speedVal = (dynamicSec > 0 && stats.totalKeys > 0) ? (stats.totalKeys / dynamicSec) : 0;
+        document.getElementById('speed').innerText = speedVal.toFixed(2);
+    }
+
+    function stopTimerAndCapture() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+        if (timerStartBase) {
+            const delta = (Date.now() - timerStartBase) / 1000;
+            if (delta > 0) {
+                stats.elapsedSec += delta;
+                stats.elapsedSec = parseFloat(stats.elapsedSec.toFixed(2));
+            }
+            timerStartBase = null;
+        }
+        updateStatsUI();
+    }
+
+    function stopTimer() {
+        if (timerInterval || timerStartBase) stopTimerAndCapture();
+    }
+
+    function toggleRecord() {
+        if (recordActive) {
+            recordActive = false;
+            stopTimerAndCapture();
+            recordSwitchBtn.innerText = '⏻ 记录: 关';
+            recordSwitchBtn.classList.remove('active');
+            updateStatsUI();
+            persistAll();
+        } else {
+            recordActive = true;
+            stopTimerAndCapture(); // 先捕获残留时间
+            startTimer();          // 统一用 startTimer
+            recordSwitchBtn.innerText = '⏻ 记录: 开';
+            recordSwitchBtn.classList.add('active');
+            persistAll();
+        }
+    }
+
+    // ---------- 暂停/继续 ----------
+
+    function pausePractice() {
+        if (isPaused) return;
+        isPaused = true;
+        isAutoPaused = false;
+        // 停止计时器，捕获已过时间
+        stopTimerAndCapture();
+        stopIdleCheck();
+        clearAutoPauseCountdown();
+        // 显示遮罩（手动暂停：无特殊提示）
+        pauseOverlay.classList.add('active');
+        document.getElementById('autoPauseInfo').style.display = 'none';
+        document.getElementById('autoPauseCountdown').style.display = 'none';
+        pauseBtn.innerText = '▶️ 继续';
+        // 清空输入框，防止暂停时输入残留
+        keyInput.value = '';
+        keyInput.blur();
+        persistAll();
+    }
+
+    function resumePractice() {
+        if (!isPaused) return;
+        isPaused = false;
+        clearAutoPauseCountdown();
+        // 隐藏遮罩
+        pauseOverlay.classList.remove('active');
+        document.getElementById('autoPauseInfo').style.display = 'none';
+        document.getElementById('autoPauseCountdown').style.display = 'none';
+        pauseBtn.innerText = '⏸️ 暂停';
+        // 恢复计时器
+        if (recordActive) startTimer();
+        startIdleCheck();
+        keyInput.focus();
+    }
+
+    // ---------- 自动暂停相关 ----------
+
+    function clearAutoPauseCountdown() {
+        if (autoPauseInterval) {
+            clearInterval(autoPauseInterval);
+            autoPauseInterval = null;
+        }
+        autoPauseCountdown = 0;
+    }
+
+    function doAutoPause() {
+        // 停止计时，保存数据（isAutoPaused=true 表示这是自动暂停）
+        isPaused = true;
+        isAutoPaused = true;
+        stopTimerAndCapture();
+        stopIdleCheck();
+        persistAll();
+
+        // 显示遮罩（自动暂停：有提示和倒计时）
+        pauseOverlay.classList.add('active');
+        document.getElementById('autoPauseInfo').style.display = 'block';
+        document.getElementById('autoPauseInfo').innerHTML =
+            '由于您长时间未进行练习，<br>现已自动保存数据。';
+        document.getElementById('autoPauseCountdown').style.display = 'block';
+
+        // 开始 30 秒倒计时
+        autoPauseCountdown = 30;
+        const countdownEl = document.getElementById('autoPauseCountdown');
+        countdownEl.innerText = autoPauseCountdown + '秒后自动返回首页';
+
+        autoPauseInterval = setInterval(() => {
+            autoPauseCountdown--;
+            if (autoPauseCountdown <= 0) {
+                clearAutoPauseCountdown();
+                isPaused = false;
+                isAutoPaused = false;
+                pauseOverlay.classList.remove('active');
+                updateHomeStats();
+                showPage('home');
+            } else {
+                countdownEl.innerText = autoPauseCountdown + '秒后自动返回首页';
+            }
+        }, 1000);
+
+        // 清空输入框
+        keyInput.value = '';
+        keyInput.blur();
+    }
+
+    function togglePause() {
+        if (isPaused) resumePractice();
+        else pausePractice();
+    }
+
+    // ---------- 闲置自动返回 ----------
+
+    function resetIdleTimer() {
+        lastActivityTime = Date.now();
+    }
+
+    function startIdleCheck() {
+        stopIdleCheck();
+        resetIdleTimer();
+        idleCheckInterval = setInterval(() => {
+            if (isPaused) return; // 已暂停时不触发
+            const elapsed = (Date.now() - lastActivityTime) / 1000;
+            if (elapsed >= IDLE_TIMEOUT) {
+                // 60秒无操作 → 自动暂停 + 30秒返回倒计时
+                doAutoPause();
+            }
+        }, 2000);
+    }
+
+    function stopIdleCheck() {
+        if (idleCheckInterval) {
+            clearInterval(idleCheckInterval);
+            idleCheckInterval = null;
+        }
+    }
+
+    function resetProgress() {
+        stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+        for (let item of allItems) {
+            item.score = 0;
+            item.ded = false;
+            item.triggered50 = false;
+            item.triggered100 = false;
+        }
+        if (masteryAlgorithmEnabled) {
+            initDynamicPool();
+        } else {
+            initRandomPool();
+        }
+        updateUIByCurrentItem();
+        updateStatsUI();
+        if (recordActive) {
+            stopTimerAndCapture();
+            startTimer(); // 统一用 startTimer
+        } else {
+            updateStatsUI();
+        }
+        persistAll();
+        if (allItems.length) keyInput.focus();
+    }
+
+    // ---------- 导入 ----------
+
+    function importTxt(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            const items = parseTsvToItems(content);
+            if (items.length === 0) {
+                alert("未检测到有效数据，请确保格式: 拼音\\t键位(1-4个a-z) 或 拼音\\t键位\\t汉字");
+                return;
+            }
+            // 保存为新词库
+            const deckName = file.name.replace(/\.(txt|tsv)$/i, '');
+            const newId = addDeck(deckName, content);
+            // 切换到新词库
+            switchDeck(newId);
+        };
+        reader.readAsText(file, "UTF-8");
+    }
+
+    // ---------- 事件监听 ----------
+
+    importBtn.addEventListener('click', () => importFileInput.click());
+    importFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            importTxt(e.target.files[0]);
+            importFileInput.value = '';
+        }
+    });
+
+    deckSelect.addEventListener('change', () => {
+        switchDeck(deckSelect.value);
+    });
+
+    startPracticeBtn.addEventListener('click', () => {
+        if (allItems.length === 0) return;
+        // 点击开始练习时，重新检测汉字列并自动设置朗读开关
+        autoSetTtsByDeck();
+        initialPoolSize = parseInt(initialPoolInput.value, 10) || 10;
+        // 每次开始练习都重新初始化池，确保initialPoolSize和字母分组设置生效
+        if (masteryAlgorithmEnabled) initDynamicPool();
+        else initRandomPool();
+        // 自动开启记录并启动计时器
+        if (!recordActive) {
+            recordActive = true;
+            recordSwitchBtn.innerText = '⏻ 记录: 开';
+            recordSwitchBtn.classList.add('active');
+        }
+        // 确保计时器在运行（即使 recordActive 之前已是 true）
+        stopTimerAndCapture();
+        startTimer();
+        updateUIByCurrentItem();
+        updateStatsUI();
+        showPage('practice');
+        startIdleCheck();
+        persistAll();
+    });
+
+    backHomeBtn.addEventListener('click', () => {
+        if (isPaused) resumePractice();
+        stopIdleCheck();
+        stopTimerAndCapture();
+        persistAll();
+        updateHomeStats();
+        showPage('home');
+    });
+
+    recordSwitchBtn.addEventListener('click', toggleRecord);
+    keyInput.addEventListener('input', onInputChange);
+    keyInput.addEventListener('touchstart', () => keyInput.focus());
+    masterySwitchBtn.addEventListener('click', toggleMasteryAlgorithm);
+
+    // 暂停按钮
+    pauseBtn.addEventListener('click', togglePause);
+
+    // 点击遮罩继续
+    pauseOverlay.addEventListener('click', resumePractice);
+
+    // ESC 键暂停/继续，暂停时输入任意字符继续
+    document.addEventListener('keydown', (e) => {
+        // ESC：切换暂停
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            togglePause();
+            return;
+        }
+        // 暂停状态下，输入任意可打印字符 → 继续
+        if (isPaused && e.key.length === 1) {
+            e.preventDefault();
+            resumePractice();
+            // 把这个字符送入输入框
+            keyInput.value = e.key;
+            keyInput.focus();
+            onInputChange();
+        }
+    });
+
+    // ---------- 自动保存（仅保留页面关闭/切换场景） ----------
+
+    window.addEventListener('beforeunload', () => {
+        if (allItems.length > 0) { stopTimerAndCapture(); persistAll(); }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden' && allItems.length > 0) {
+            stopTimerAndCapture(); persistAll();
+        }
+    });
+
+    // ---------- 初始化 ----------
+    console.log('[DEBUG] Initialization start');
+    ensureBuiltinDeck();
+
+    // 读取上次选中的词库
+    const lastDeckId = localStorage.getItem('ime_current_deck_26');
+    const deckList = getDeckList();
+
+    if (lastDeckId && deckList[lastDeckId]) {
+        currentDeckId = lastDeckId;
+    } else {
+        currentDeckId = BUILTIN_DECK_ID;
+    }
+
+    if (loadDeckProgress(currentDeckId)) {
+        // 有存档，恢复
+        if (recordActive) startTimer();
+        else stopTimer();
+    } else {
+        // 无存档，从词库数据解析
+        const deck = deckList[currentDeckId];
+        if (deck) {
+            allItems = parseTsvToItems(deck.rawTsv);
+        } else {
+            allItems = loadBuiltinData();
+        }
+        dynamicPool = [];
+        dynamicReserve = [];
+        currentItemIndex = -1;
+        stats = { correctElem: 0, totalElem: 0, totalKeys: 0, elapsedSec: 0 };
+        recordActive = false;
+    }
+
+    initialPoolInput.value = initialPoolSize;
+    // 根据词库是否有汉字列自动设置朗读开关
+    autoSetTtsByDeck();
+    // 根据 recordActive 状态同步按钮 UI（存档可能记录为 true）
+    if (recordActive) {
+        recordSwitchBtn.innerText = '⏻ 记录: 开';
+        recordSwitchBtn.classList.add('active');
+    } else {
+        recordSwitchBtn.innerText = '⏻ 记录: 关';
+        recordSwitchBtn.classList.remove('active');
+    }
+    updateMasterySwitchUI();
+    updateLetterGroupSwitchUI();
+    updateHomeStats();
+    updateDeckSelect();
+    updateStatsUI();
+    showPage('home');
+</script>
+</body>
+</html>
