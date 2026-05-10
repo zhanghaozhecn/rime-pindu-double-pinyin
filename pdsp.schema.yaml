@@ -1,7 +1,7 @@
 schema:
   schema_id: pdsp
   name: 拼读双拼
-  version: 20260506
+  version: 20260510
   author:
   description: 51声介，44韵调（+ong-eng）
   dependencies:
@@ -12,8 +12,8 @@ switches:
     states: [ 中文, 西文 ]
   - name: full_shape
     states: [ 半角, 全角 ]
-  - name: simplification
-    states: [ 漢字, 汉字 ]
+  #- name: simplification
+  #  states: [ 漢字, 汉字 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
 
@@ -23,10 +23,11 @@ engine:
     - recognizer
     - key_binder
     - speller
-    - lua_processor@no_match_clear
+    - lua_processor@*no_match_clear
     - punctuator
     - selector
     - navigator
+    - lua_processor@*pin_fix_processor
     - express_editor
   segmentors:
     - ascii_segmentor
@@ -35,6 +36,7 @@ engine:
     - punct_segmentor
     - fallback_segmentor
   translators:
+    - lua_translator@*pin_fix_translator
     - punct_translator
     - table_translator
   filters:
@@ -77,6 +79,8 @@ key_binder:
     - { when: has_menu, accept: semicolon, send: 2 }
     #退格当清屏用
     - { when: composing, accept: BackSpace, send: Escape }
+    #固定首选
+    - { when: has_menu, accept: Tab, send: F20 }
 
 punctuator:
   import_preset: symbols_pd
