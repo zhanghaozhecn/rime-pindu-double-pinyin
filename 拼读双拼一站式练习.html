@@ -378,6 +378,10 @@ select {
 .float-score.correct { color: var(--color-correct); }
 .float-score.wrong { color: var(--color-wrong); }
 
+.timeout-hint {
+  text-align: center; font-size: 0.8rem; color: #aaa;
+  min-height: 1.3em; margin: 2px 0; transition: color 0.3s;
+}
 @keyframes floatUp {
   0% { opacity: 1; transform: translateY(0) scale(1); }
   100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
@@ -408,6 +412,10 @@ select {
 <!-- Module 1A: 声介键位 -->
 <div class="module active" id="m1a">
   <div class="module-title">声介键位记忆 — 12个不规则声介</div>
+  <div class="settings-row">
+    <label>速度门限(个/s):</label>
+    <input type="number" id="m1aSpeed" min="0.1" max="10" step="0.1" value="0.8" style="width:55px;">
+  </div>
   <div class="stats-row" id="m1aStats"></div>
   <div class="prompt-area">
     <div class="prompt-label">声介</div>
@@ -416,6 +424,7 @@ select {
   <div class="input-area">
     <input type="text" class="char-input" id="m1aInput" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
+  <div id="m1aTimeout" class="timeout-hint">Tab 跳过当前</div>
   <div class="keyboard-wrap" id="m1aKeyboard"></div>
   <div class="btn-row">
     <button class="btn btn-secondary" id="m1aHideKeysBtn">隐藏键位图</button>
@@ -427,6 +436,10 @@ select {
 <!-- Module 1B: 韵调键位 -->
 <div class="module" id="m1b">
   <div class="module-title">韵调键位记忆 — 按韵母组一次记4声调</div>
+  <div class="settings-row">
+    <label>速度门限(个/s):</label>
+    <input type="number" id="m1bSpeed" min="0.05" max="5" step="0.05" value="0.2" style="width:55px;">
+  </div>
   <div class="stats-row" id="m1bStats"></div>
   <div class="prompt-area">
     <div class="prompt-label">韵母</div>
@@ -441,6 +454,7 @@ select {
     <input type="text" class="char-input" data-idx="2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
     <input type="text" class="char-input" data-idx="3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
+  <div id="m1bTimeout" class="timeout-hint">Tab 跳过当前</div>
   <div class="keyboard-wrap" id="m1bKeyboard"></div>
   <div class="btn-row">
     <button class="btn btn-secondary" id="m1bHideKeysBtn">隐藏键位图</button>
@@ -498,25 +512,23 @@ select {
     <h3>拼读双拼一站式练习 — 使用说明</h3>
     <div style="font-size:0.85rem;line-height:1.7;max-height:450px;overflow-y:auto;">
 
-<p><b>声介键位</b> — 练习12个不规则声介的键位映射。显示声介名（如 zhu、ju），输入单个键位字母。采用间隔重复算法，已掌握的元素自动延后复习。可切换到"启用所有元素"模式强制全部出题。</p>
+<p><b>声介键位</b> — 练习12个不规则声介（归并到声母的无需练习）。显示声介名（如 zhu、ju），输入单个键位字母。新元素前3次出现时输入框内灰色提示正确键位。按 Tab 跳过当前元素。</p>
 
-<p><b>韵调键位</b> — 按韵母分组（11组），每组一次性输入4个声调的键位（如 a → s s o x）。键位图高亮当前韵母组。熟练后可点击"隐藏键位图"进行盲打。</p>
+<p><b>韵调键位</b> — 按韵母分组（11组），每组一次性输入4个声调的键位（如 a → s s o x）。键位图高亮当前韵母组，支持颜色区分手指。熟练后可隐藏键位图盲打。按 Tab 跳过当前韵母组。</p>
 
-<p><b>音节练习</b> — 显示拼音（支持数字和音标两种风格，右上角🔤切换），输入2字母拼读双拼编码。默认500个音节，10个一组，重复练习至准确率达标。支持导入自定义音节表（TSV格式：<code>拼音\t编码</code>）。打错会显示正确编码并保留提示直到本轮通过。</p>
+<p><b>熟练度门控</b> — 声介初始解锁3个元素，韵调初始2个。每个元素需满足：①最近5次至少对4次 ②平均速度达标（声介默认0.8个/s，韵调默认0.2个/s）。全部达标后自动解锁下一个元素。速度门限可随时调整，即时生效。计时超过上限（声介2s、韵调8s）自动截断，不影响解锁判定。</p>
 
-<p><b>字前两码</b> — 练习前500高频字的前两码（音节码）。10字一组乱序，带计时和速度统计。换组需同时满足重复次数和准确率双条件。支持导入自定义字表（TSV格式：<code>汉字\t编码</code>）。</p>
+<p><b>音节练习</b> — 显示拼音（支持数字和音标两种风格，右上角🔤切换），输入2字母拼读双拼编码。默认500个音节，10个一组乱序。支持导入自定义音节表（TSV格式：<code>拼音\t编码</code>）。打错显示正确编码并保留至本轮通过。</p>
 
-<p><b>错题模式</b> — 音节和字练习支持错题模式（📋按钮），仅练习出过错的条目，打完所有错题后自动退出。</p>
+<p><b>字前两码</b> — 练习前500高频字的前两码。10字一组乱序，带计时和速度统计。支持导入自定义字表（TSV格式：<code>汉字\t编码</code>）。</p>
 
-<p><b>准确率双条件</b> — 换组需满足：①重复次数（默认5次）②近N轮平均准确率≥阈值（默认95%）。未达标自动继续练习。</p>
+<p><b>双条件换组</b> — 音节和字换组需同时满足：①重复次数达标 ②近5轮平均准确率≥阈值（默认95%）。未达标自动继续练习。</p>
 
-<p><b>历史记录</b> — 右上角📊按钮查看每日速度、准确率、练习量趋势，支持声介/韵调/音节/字分别查看。</p>
+<p><b>错题模式</b> — 音节和字支持错题模式（📋按钮），仅练习出错条目。无错题时自动退出。</p>
 
-<p><b>主题</b> — 右上角🎨按钮切换8套配色方案。</p>
+<p><b>历史记录</b> — 右上角📊查看音节和字练习的每日速度、准确率、练习量趋势图。</p>
 
-<p><b>重置</b> — 每个模块底部"重置进度"按钮清除所有练习数据。</p>
-
-<p><b>编码规则</b> — 拼音拆分：还原 y→i、w→u、ü→v，展开 iu→iou、ui→uei、un→uen，零声母加 _。从声母+介音后切开，前半为声介，后半为韵调。查映射表得到2键编码。</p>
+<p><b>其他</b> — 右上角🎨切换8套配色 / ❓查看本说明。底部"重置进度"清除该模块全部数据。编码规则：拼音还原 y→i、w→u、ü→v，展开 iu→iou、ui→uei、un→uen，零声母加 _，声母+介音后切开，查映射表得2键编码。</p>
 
     </div>
     <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
@@ -532,8 +544,6 @@ select {
     <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;" id="historyTabs">
       <button class="btn btn-primary hist-tab" data-m="m2">音节</button>
       <button class="btn btn-secondary hist-tab" data-m="m3">字</button>
-      <button class="btn btn-secondary hist-tab" data-m="m1a">声介</button>
-      <button class="btn btn-secondary hist-tab" data-m="m1b">韵调</button>
     </div>
     <canvas id="historyChart" width="600" height="300" style="width:100%;max-width:600px;background:var(--bg-input);border-radius:8px;"></canvas>
     <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px;" id="historySummary"></div>
@@ -1996,50 +2006,93 @@ if (!m1aState || !m1aState.cards || m1aState.cards.length !== 12) {
     cards: IRREGULAR_SHENGJIE.map(sj => createCard(sj.id, sj.label, sj.key)),
     stats: { correct: 0, wrong: 0, total: 0 },
     forceMode: false,
+    activeCount: 3, speedThreshold: 0.8, perfData: {}
   };
 }
+if (m1aState.activeCount == null) m1aState.activeCount = 3;
+if (!m1aState.speedThreshold || m1aState.speedThreshold === 1.0) m1aState.speedThreshold = 0.8;
+if (!m1aState.perfData) m1aState.perfData = {};
+
 let m1aCurrentCard = null;
 let m1aDueCards = [];
 let m1aDueIdx = 0;
-let m1aInputFocused = true;
+let m1aShowTime = 0;
+let m1aPrevCardId = null;
+const M1A_TIME_CAP = 2;
+
+document.getElementById('m1aSpeed').addEventListener('change', function() {
+  m1aState.speedThreshold = Math.max(0.1, Math.min(10, parseFloat(this.value) || 0.8));
+  this.value = m1aState.speedThreshold;
+  m1aUpdateStats();
+  saveJSON('pdsp_m1a_sj_state', m1aState);
+});
+
+// Perf helpers
+function m1aRecordPerf(id, correct, timeMs) {
+  if (!m1aState.perfData[id]) m1aState.perfData[id] = { acc: [], times: [] };
+  const d = m1aState.perfData[id];
+  d.acc.push(correct);
+  d.times.push(timeMs);
+  if (d.acc.length > 5) { d.acc.shift(); d.times.shift(); }
+}
+
+function m1aCheckUnlock() {
+  if (m1aState.forceMode) return;
+  if (m1aState.activeCount >= m1aState.cards.length) return;
+  for (let i = 0; i < m1aState.activeCount; i++) {
+    const card = m1aState.cards[i];
+    const d = m1aState.perfData[card.id];
+    if (!d || d.acc.length < 5) return;
+    // Fixed: at least 4/5 correct
+    if (d.acc.filter(Boolean).length < 4) return;
+    // Adjustable: avg time ≤ 1000/speedThreshold ms
+    const avgTime = d.times.reduce((a,b) => a + b, 0) / d.times.length;
+    if (avgTime > 1000 / m1aState.speedThreshold) return;
+  }
+  m1aState.activeCount = Math.min(m1aState.activeCount + 1, m1aState.cards.length);
+  saveJSON('pdsp_m1a_sj_state', m1aState);
+}
 
 function m1aGetNext() {
-  m1aDueCards = getDueCards(m1aState.cards, m1aState.forceMode);
+  const pool = m1aState.forceMode ? m1aState.cards : m1aState.cards.slice(0, m1aState.activeCount);
+  m1aDueCards = getDueCards(pool, m1aState.forceMode);
   if (m1aDueCards.length === 0) {
-    // All cards reviewed — auto-enter force mode
-    m1aState.forceMode = true;
-    document.getElementById('m1aForceBtn').textContent = '启用所有元素 ✓';
-    document.getElementById('m1aForceBtn').style.background = 'var(--color-warn)';
-    m1aDueCards = shuffle([...m1aState.cards]);
+    m1aDueCards = shuffle([...pool]);
+  }
+  // Avoid consecutive same element
+  if (m1aDueCards.length > 1 && m1aDueCards[0].id === m1aPrevCardId) {
+    m1aDueCards.push(m1aDueCards.shift()); // move first to end
   }
   m1aDueIdx = 0;
   m1aCurrentCard = m1aDueCards[0];
+  m1aPrevCardId = m1aCurrentCard.id;
 }
 
 function m1aShow() {
   if (!m1aCurrentCard) m1aGetNext();
+  m1aShowTime = Date.now();
   document.getElementById('m1aPrompt').textContent = m1aCurrentCard.element;
-  const sj = IRREGULAR_SHENGJIE.find(s => s.id === m1aCurrentCard.id);
-  const hint = sj && sj.hint ? ' (' + sj.hint + ')' : '';
-  document.getElementById('m1aPrompt').nextElementSibling &&
-    (document.getElementById('m1aPrompt').nextElementSibling.textContent = '');
-
-  const expectedKey = m1aCurrentCard.expectedKey;
-  renderKeyboard('m1aKeyboard', 'shengjie', [expectedKey], 0);
-  document.getElementById('m1aInput').value = '';
-  document.getElementById('m1aInput').className = 'char-input';
-  document.getElementById('m1aInput').focus();
+  renderKeyboard('m1aKeyboard', 'shengjie', [m1aCurrentCard.expectedKey], 0);
+  const inp = document.getElementById('m1aInput');
+  inp.value = '';
+  inp.className = 'char-input';
+  // Gray hint for new elements (first 3 appearances)
+  const d = m1aState.perfData[m1aCurrentCard.id];
+  const showCount = d ? d.acc.length : 0;
+  inp.placeholder = showCount < 3 ? m1aCurrentCard.expectedKey : '';
+  inp.focus();
   m1aUpdateStats();
 }
 
 function m1aUpdateStats() {
-  const mastered = m1aState.cards.filter(c => c.repetitions >= 3 && c.easeFactor >= 2.1).length;
+  const active = m1aState.activeCount;
   const total = m1aState.cards.length;
   document.getElementById('m1aStats').innerHTML =
-    `<span>掌握: ${mastered}/${total}</span>` +
+    `<span>已解锁: ${active}/${total}</span>` +
     `<span>正确率: ${m1aState.stats.total > 0 ? Math.round(m1aState.stats.correct/m1aState.stats.total*100) : 0}%</span>` +
-    `<span>待复习: ${getDueCards(m1aState.cards, false).length}</span>` +
-    (m1aState.forceMode ? '<span style="color:var(--color-warn)">强制模式</span>' : '');
+    `<span>速度门限: ≥${m1aState.speedThreshold.toFixed(1)}个/s</span>` +
+    `<span style="font-size:0.75rem;color:var(--text-muted);">(4/5)</span>` +
+    (m1aState.forceMode ? '<span style="color:var(--color-warn)">强制</span>' : '');
 }
 
 function m1aHandleInput(e) {
@@ -2048,31 +2101,43 @@ function m1aHandleInput(e) {
   e.target.value = val;
 
   const correct = val === m1aCurrentCard.expectedKey;
+  const elapsed = Math.min((Date.now() - m1aShowTime) / 1000, M1A_TIME_CAP);
+  m1aRecordPerf(m1aCurrentCard.id, correct, elapsed * 1000);
+  m1aState.stats.total++;
+
   if (correct) {
-    m1aState.stats.correct++; m1aState.stats.total++;
+    m1aState.stats.correct++;
     updateCardSM2(m1aCurrentCard, 5);
-
     e.target.classList.add('correct');
-    m1aInputFocused = true;
-  } else {
-    m1aState.stats.wrong++; m1aState.stats.total++;
-    updateCardSM2(m1aCurrentCard, 0);
-
-    e.target.classList.add('wrong');
-    m1aInputFocused = false;
-  }
-
-  setTimeout(() => {
-    if (m1aInputFocused) {
+    m1aCheckUnlock();
+    setTimeout(() => {
       m1aDueIdx++;
       if (m1aDueIdx >= m1aDueCards.length) m1aGetNext();
       else m1aCurrentCard = m1aDueCards[m1aDueIdx];
-    } // else: retry same card
-    m1aInputFocused = true;
-    m1aShow();
-    saveJSON('pdsp_m1a_sj_state', m1aState);
-  }, correct ? 300 : 600);
+      m1aShow();
+      saveJSON('pdsp_m1a_sj_state', m1aState);
+    }, 250);
+  } else {
+    m1aState.stats.wrong++;
+    updateCardSM2(m1aCurrentCard, 0);
+    e.target.classList.add('wrong');
+    setTimeout(() => {
+      m1aShow();
+      saveJSON('pdsp_m1a_sj_state', m1aState);
+    }, 500);
+  }
 }
+
+// M1A Tab key: skip current element
+document.getElementById('m1aInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    m1aDueIdx++;
+    if (m1aDueIdx >= m1aDueCards.length) m1aGetNext();
+    else m1aCurrentCard = m1aDueCards[m1aDueIdx];
+    m1aShow();
+  }
+});
 
 document.getElementById('m1aInput').addEventListener('input', m1aHandleInput);
 let m1aKeysVisible = true;
@@ -2096,6 +2161,7 @@ document.getElementById('m1aResetBtn').addEventListener('click', () => {
     cards: IRREGULAR_SHENGJIE.map(sj => createCard(sj.id, sj.label, sj.key)),
     stats: { correct: 0, wrong: 0, total: 0 },
     forceMode: false,
+    activeCount: 3, speedThreshold: 0.8, perfData: {}
   };
   document.getElementById('m1aForceBtn').textContent = '启用所有元素';
   document.getElementById('m1aForceBtn').style.background = '';
@@ -2141,27 +2207,67 @@ if (!m1bState || !m1bState.cards || m1bState.cards.length !== 11) {
     cards: RHYME_GROUPS.map(g => createGroupCard(g.rhyme, g.rhyme, g.keys)),
     stats: { correct: 0, wrong: 0, total: 0 },
     forceMode: false,
+    activeCount: 2, speedThreshold: 0.2, perfData: {}
   };
 }
+if (m1bState.activeCount == null) m1bState.activeCount = 2;
+if (!m1bState.speedThreshold || m1bState.speedThreshold > 0.5) m1bState.speedThreshold = 0.2;
+if (!m1bState.perfData) m1bState.perfData = {};
+
 let m1bCurrentCard = null;
 let m1bDueCards = [];
 let m1bDueIdx = 0;
-let m1bInputIdx = 0; // which tone (0-3) user is currently typing
+let m1bInputIdx = 0;
+let m1bShowTime = 0;
+let m1bPrevCardId = null;
+const M1B_TIME_CAP = 8;
+
+document.getElementById('m1bSpeed').addEventListener('change', function() {
+  m1bState.speedThreshold = Math.max(0.05, Math.min(5, parseFloat(this.value) || 0.2));
+  this.value = m1bState.speedThreshold;
+  m1bUpdateStats();
+  saveJSON('pdsp_m1b_yd_state', m1bState);
+});
+
+function m1bRecordPerf(id, correct, timeMs) {
+  if (!m1bState.perfData[id]) m1bState.perfData[id] = { acc: [], times: [] };
+  const d = m1bState.perfData[id];
+  d.acc.push(correct); d.times.push(timeMs);
+  if (d.acc.length > 5) { d.acc.shift(); d.times.shift(); }
+}
+
+function m1bCheckUnlock() {
+  if (m1bState.forceMode) return;
+  if (m1bState.activeCount >= m1bState.cards.length) return;
+  for (let i = 0; i < m1bState.activeCount; i++) {
+    const card = m1bState.cards[i];
+    const d = m1bState.perfData[card.id];
+    if (!d || d.acc.length < 5) return;
+    if (d.acc.filter(Boolean).length < 4) return;
+    const avgTime = d.times.reduce((a,b) => a + b, 0) / d.times.length;
+    if (avgTime > 1000 / m1bState.speedThreshold) return;
+  }
+  m1bState.activeCount = Math.min(m1bState.activeCount + 1, m1bState.cards.length);
+  saveJSON('pdsp_m1b_yd_state', m1bState);
+}
 
 function m1bGetNext() {
-  m1bDueCards = getDueCards(m1bState.cards, m1bState.forceMode);
+  const pool = m1bState.forceMode ? m1bState.cards : m1bState.cards.slice(0, m1bState.activeCount);
+  m1bDueCards = getDueCards(pool, m1bState.forceMode);
   if (m1bDueCards.length === 0) {
-    m1bState.forceMode = true;
-    document.getElementById('m1bForceBtn').textContent = '启用所有元素 ✓';
-    document.getElementById('m1bForceBtn').style.background = 'var(--color-warn)';
-    m1bDueCards = shuffle([...m1bState.cards]);
+    m1bDueCards = shuffle([...pool]);
+  }
+  if (m1bDueCards.length > 1 && m1bDueCards[0].id === m1bPrevCardId) {
+    m1bDueCards.push(m1bDueCards.shift());
   }
   m1bDueIdx = 0;
   m1bCurrentCard = m1bDueCards[0];
+  m1bPrevCardId = m1bCurrentCard.id;
 }
 
 function m1bShow() {
   if (!m1bCurrentCard) m1bGetNext();
+  m1bShowTime = Date.now();
   m1bInputIdx = 0;
   document.getElementById('m1bPrompt').textContent = m1bCurrentCard.rhyme;
 
@@ -2176,12 +2282,12 @@ function m1bShow() {
 }
 
 function m1bUpdateStats() {
-  const mastered = m1bState.cards.filter(c => c.repetitions >= 3 && c.easeFactor >= 2.1).length;
   document.getElementById('m1bStats').innerHTML =
-    `<span>掌握: ${mastered}/11</span>` +
+    `<span>已解锁: ${m1bState.activeCount}/11</span>` +
     `<span>正确率: ${m1bState.stats.total > 0 ? Math.round(m1bState.stats.correct/m1bState.stats.total*100) : 0}%</span>` +
-    `<span>待复习: ${getDueCards(m1bState.cards, false).length}</span>` +
-    (m1bState.forceMode ? '<span style="color:var(--color-warn)">强制模式</span>' : '');
+    `<span>速度门限: ≥${m1bState.speedThreshold.toFixed(2)}个/s</span>` +
+    `<span style="font-size:0.75rem;color:var(--text-muted);">(4/5)</span>` +
+    (m1bState.forceMode ? '<span style="color:var(--color-warn)">强制</span>' : '');
 }
 
 function m1bHandleInput(e) {
@@ -2196,10 +2302,12 @@ function m1bHandleInput(e) {
     input.classList.add('correct');
     m1bInputIdx++;
     if (m1bInputIdx >= 4) {
-      // All 4 correct
+      const elapsed = Math.min((Date.now() - m1bShowTime) / 1000, M1B_TIME_CAP);
+      m1bRecordPerf(m1bCurrentCard.id, true, elapsed * 1000);
       m1bState.stats.correct++; m1bState.stats.total++;
       updateCardSM2(m1bCurrentCard, 5);
-  
+      m1bCheckUnlock();
+
       const allInputs = document.querySelectorAll('#m1bInputs input');
       allInputs.forEach(inp => inp.classList.add('correct'));
       setTimeout(() => {
@@ -2221,7 +2329,8 @@ function m1bHandleInput(e) {
         `${['1声','2声','3声','4声'][m1bInputIdx]} ${['2声','3声','4声'].slice(m1bInputIdx+1).join(' ')}`;
     }
   } else {
-    // Wrong keystroke — clear and retry (don't count as item yet)
+    const badElapsed = Math.min((Date.now() - m1bShowTime) / 1000, M1B_TIME_CAP);
+    m1bRecordPerf(m1bCurrentCard.id, false, badElapsed * 1000);
     updateCardSM2(m1bCurrentCard, 0);
 
     input.classList.add('wrong');
@@ -2243,17 +2352,14 @@ document.querySelectorAll('#m1bInputs input').forEach(inp => {
   inp.addEventListener('input', m1bHandleInput);
 });
 
-// Handle Enter key in M1B inputs to skip to next
+// M1B Tab key: skip current rhyme group
 document.getElementById('m1bInputs').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    const focused = document.activeElement;
-    if (focused && focused.dataset.idx !== undefined) {
-      const idx = parseInt(focused.dataset.idx);
-      if (idx < 3) {
-        const next = document.querySelector(`#m1bInputs input[data-idx="${idx+1}"]`);
-        if (next) next.focus();
-      }
-    }
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    m1bDueIdx++;
+    if (m1bDueIdx >= m1bDueCards.length) m1bGetNext();
+    else m1bCurrentCard = m1bDueCards[m1bDueIdx];
+    m1bShow();
   }
 });
 
@@ -2263,6 +2369,7 @@ document.getElementById('m1bResetBtn').addEventListener('click', () => {
     cards: RHYME_GROUPS.map(g => createGroupCard(g.rhyme, g.rhyme, g.keys)),
     stats: { correct: 0, wrong: 0, total: 0 },
     forceMode: false,
+    activeCount: 2, speedThreshold: 0.2, perfData: {}
   };
   document.getElementById('m1bForceBtn').textContent = '启用所有元素';
   document.getElementById('m1bForceBtn').style.background = '';
@@ -3127,6 +3234,19 @@ function switchTab(tabId) {
   if (tabId === 'm3' && m3Groups.length > 0 && !document.getElementById('m3Grid').children.length) {
     m3StartRound();
   }
+  // Reset M1 timer on tab switch to prevent cross-tab timeout
+  if (tabId === 'm1a') {
+    m1aDueIdx++;
+    if (m1aDueIdx >= m1aDueCards.length) m1aGetNext();
+    else m1aCurrentCard = m1aDueCards[m1aDueIdx];
+    m1aShow();
+  }
+  if (tabId === 'm1b') {
+    m1bDueIdx++;
+    if (m1bDueIdx >= m1bDueCards.length) m1bGetNext();
+    else m1bCurrentCard = m1bDueCards[m1bDueIdx];
+    m1bShow();
+  }
 }
 
 document.getElementById('tabBar').addEventListener('click', (e) => {
@@ -3143,10 +3263,12 @@ function init() {
   switchTab(activeTab);
 
   // M1A
+  document.getElementById('m1aSpeed').value = m1aState.speedThreshold;
   m1aGetNext();
   m1aShow();
 
   // M1B
+  document.getElementById('m1bSpeed').value = m1bState.speedThreshold;
   m1bGetNext();
   m1bShow();
 
