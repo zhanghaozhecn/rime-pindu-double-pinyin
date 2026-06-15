@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼读双拼一站式练习</title>
+<style>
+/* ===== CSS Variables & Themes (from V6) ===== */
+:root {
+  --bg-main: #f5f5f5; --bg-panel: #ffffff; --bg-input: #f0f0f0;
+  --text-main: #333333; --text-muted: #888888; --text-accent: #3b82f6;
+  --border-section: #e0e0e0; --border-input: #cccccc;
+  --btn-primary: #3b82f6; --btn-primary-text: #ffffff;
+  --btn-hover: #2563eb; --btn-secondary: #e5e7eb;
+  --shadow-panel: 0 2px 8px rgba(0,0,0,0.08);
+  --color-correct: #22c55e; --color-wrong: #ef4444; --color-warn: #f59e0b;
+  --key-bg: #ffffff; --key-highlight: #3b82f6; --key-other: #d0d0d0;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-dark {
+  --bg-main: #1a1a2e; --bg-panel: #16213e; --bg-input: #0f3460;
+  --text-main: #e0e0e0; --text-muted: #888888; --text-accent: #60a5fa;
+  --border-section: #2a3a5e; --border-input: #334155;
+  --btn-primary: #3b82f6; --btn-primary-text: #ffffff;
+  --btn-hover: #60a5fa; --btn-secondary: #334155;
+  --shadow-panel: 0 2px 8px rgba(0,0,0,0.3);
+  --key-bg: #1e293b; --key-other: #334155;
+}
+
+.theme-forest {
+  --bg-main: #ecfdf5; --bg-panel: #ffffff; --bg-input: #d1fae5;
+  --text-main: #064e3b; --text-muted: #6b7280;
+  --text-accent: #059669; --border-section: #a7f3d0; --border-input: #6ee7b7;
+  --btn-primary: #059669; --btn-primary-text: #ffffff;
+  --btn-hover: #047857; --btn-secondary: #d1fae5;
+  --shadow-panel: 0 2px 8px rgba(5,150,105,0.1);
+  --color-correct: #10b981; --color-wrong: #ef4444;
+  --key-bg: #ffffff; --key-highlight: #059669; --key-other: #cbd5e1;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-ocean {
+  --bg-main: #eff6ff; --bg-panel: #ffffff; --bg-input: #dbeafe;
+  --text-main: #1e3a5f; --text-muted: #6b7280;
+  --text-accent: #2563eb; --border-section: #bfdbfe; --border-input: #93c5fd;
+  --btn-primary: #2563eb; --btn-primary-text: #ffffff;
+  --btn-hover: #1d4ed8; --btn-secondary: #dbeafe;
+  --shadow-panel: 0 2px 8px rgba(37,99,235,0.1);
+  --color-correct: #22c55e; --color-wrong: #ef4444;
+  --key-bg: #ffffff; --key-highlight: #2563eb; --key-other: #cbd5e1;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-sakura {
+  --bg-main: #fdf2f8; --bg-panel: #ffffff; --bg-input: #fce7f3;
+  --text-main: #831843; --text-muted: #9ca3af;
+  --text-accent: #db2777; --border-section: #fbcfe8; --border-input: #f9a8d4;
+  --btn-primary: #db2777; --btn-primary-text: #ffffff;
+  --btn-hover: #be185d; --btn-secondary: #fce7f3;
+  --shadow-panel: 0 2px 8px rgba(219,39,119,0.1);
+  --color-correct: #22c55e; --color-wrong: #ef4444;
+  --key-bg: #ffffff; --key-highlight: #db2777; --key-other: #e5e7eb;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-coffee {
+  --bg-main: #faf7f2; --bg-panel: #ffffff; --bg-input: #f5efe4;
+  --text-main: #4a3728; --text-muted: #9ca3af;
+  --text-accent: #92400e; --border-section: #e7d7c4; --border-input: #d4b896;
+  --btn-primary: #92400e; --btn-primary-text: #ffffff;
+  --btn-hover: #78350f; --btn-secondary: #f5efe4;
+  --shadow-panel: 0 2px 8px rgba(146,64,14,0.1);
+  --color-correct: #22c55e; --color-wrong: #ef4444;
+  --key-bg: #ffffff; --key-highlight: #92400e; --key-other: #e5e7eb;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-ink {
+  --bg-main: #f8fafc; --bg-panel: #ffffff; --bg-input: #f1f5f9;
+  --text-main: #0f172a; --text-muted: #94a3b8;
+  --text-accent: #475569; --border-section: #cbd5e1; --border-input: #94a3b8;
+  --btn-primary: #334155; --btn-primary-text: #ffffff;
+  --btn-hover: #1e293b; --btn-secondary: #e2e8f0;
+  --shadow-panel: 0 2px 8px rgba(0,0,0,0.06);
+  --color-correct: #22c55e; --color-wrong: #ef4444;
+  --key-bg: #ffffff; --key-highlight: #334155; --key-other: #cbd5e1;
+  --key-current: #f59e0b; --key-target: #8b5cf6;
+}
+
+.theme-cyber {
+  --bg-main: #0d0d0d; --bg-panel: #1a1a1a; --bg-input: #2a2a2a;
+  --text-main: #00ff41; --text-muted: #666666; --text-accent: #00ff41;
+  --border-section: #333333; --border-input: #444444;
+  --btn-primary: #00ff41; --btn-primary-text: #0d0d0d;
+  --btn-hover: #00cc33; --btn-secondary: #2a2a2a;
+  --shadow-panel: 0 2px 8px rgba(0,255,65,0.15);
+  --color-correct: #00ff41; --color-wrong: #ff0040;
+  --key-bg: #1a1a1a; --key-highlight: #00ff41; --key-other: #333333;
+  --key-current: #ffff00; --key-target: #ff00ff;
+}
+
+/* ===== Global Layout ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+/* ===== Skin Button ===== */
+.skin-btn {
+  position: fixed; top: 12px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg-panel); border: 2px solid var(--border-section);
+  cursor: pointer; font-size: 1.2rem; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+.skin-btn:hover { transform: scale(1.1); }
+
+.skin-panel {
+  position: fixed; top: 54px; right: 16px;
+  background: var(--bg-panel); border: 1px solid var(--border-section);
+  border-radius: 12px; padding: 12px; z-index: 99;
+  box-shadow: var(--shadow-panel);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.skin-panel.hidden { display: none; }
+
+.skin-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+}
+.skin-dot.active { border-color: var(--btn-primary); transform: scale(1.15); }
+.skin-dot:hover { transform: scale(1.1); }
+
+/* ===== Tab Switcher ===== */
+.tab-bar {
+  display: flex; gap: 4px; margin-bottom: 16px;
+  background: var(--bg-panel); border-radius: 12px;
+  padding: 4px; box-shadow: var(--shadow-panel);
+}
+.tab-btn {
+  flex: 1; padding: 10px 6px; border: none; border-radius: 9px;
+  background: transparent; color: var(--text-muted);
+  font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  background: var(--btn-primary); color: var(--btn-primary-text);
+  font-weight: 600;
+}
+.tab-btn:hover:not(.active) { color: var(--text-main); }
+
+/* ===== Module Container ===== */
+.module {
+  display: none;
+  background: var(--bg-panel); border-radius: 12px;
+  padding: 20px; box-shadow: var(--shadow-panel);
+  transition: background 0.3s;
+}
+.module.active { display: block; }
+
+.module-title {
+  font-size: 1.1rem; font-weight: 600; margin-bottom: 16px;
+  color: var(--text-main);
+}
+
+/* ===== Keyboard Diagram ===== */
+.keyboard-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  margin: 16px 0; gap: 4px;
+}
+.keyboard-row {
+  display: flex; gap: 2px;
+}
+.keyboard-row.offset { padding-left: 16px; }
+
+.key-key {
+  width: 56px; height: 76px; border-radius: 8px;
+  background: var(--key-bg); border: 2px solid #999;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; cursor: pointer;
+  font-family: 'Courier New', monospace; transition: all 0.2s;
+  user-select: none; position: relative;
+}
+.key-key .key-letter { font-size: 1.1rem; font-weight: 800; color: #222; }
+.key-key .key-label { font-size: 0.7rem; color: #333; margin-top: 1px; line-height: 1.2; text-align: center; font-weight: 600; }
+
+.key-key.highlight {
+  background: var(--key-highlight); color: #fff; border-color: var(--key-highlight);
+  transform: scale(1.06); box-shadow: 0 0 10px rgba(59,130,246,0.4);
+}
+.key-key.highlight .key-letter { color: #fff; }
+.key-key.highlight .key-label { color: #fff; }
+
+.key-key.current-step {
+  background: var(--key-current); color: #000; border-color: var(--key-current);
+  animation: pulse 0.6s ease-in-out infinite;
+}
+.key-key.current-step .key-letter { color: #000; }
+
+.key-key.target-highlight {
+  background: var(--key-target); color: #fff; border-color: var(--key-target);
+}
+.key-key.target-highlight .key-letter { color: #fff; }
+.key-key.target-highlight .key-label { color: #fff; }
+
+.key-key.dim { opacity: 0.45; }
+
+/* Finger zone colors — subtle bottom border */
+.key-key.finger-pinky  { border-bottom: 3px solid #ef5350; }  /* 小指 */
+.key-key.finger-ring   { border-bottom: 3px solid #ff9800; }  /* 无名指 */
+.key-key.finger-middle { border-bottom: 3px solid #4caf50; }  /* 中指 */
+.key-key.finger-index  { border-bottom: 3px solid #2196f3; }  /* 食指 */
+
+.key-key.correct-flash {
+  background: var(--color-correct); color: #fff; border-color: var(--color-correct);
+}
+.key-key.wrong-flash {
+  background: var(--color-wrong); color: #fff; border-color: var(--color-wrong);
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--key-current); }
+  50% { box-shadow: 0 0 16px var(--key-current); }
+}
+
+/* ===== Stats Bar ===== */
+.stats-row {
+  display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0;
+  font-size: 0.85rem; color: var(--text-muted);
+}
+.stats-row span { white-space: nowrap; }
+
+/* ===== Practice Items ===== */
+.prompt-area {
+  text-align: center; margin: 16px 0;
+}
+.prompt-label {
+  font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;
+}
+.prompt-display {
+  font-size: 2rem; font-weight: 700; letter-spacing: 0.1em;
+}
+
+.input-area {
+  display: flex; gap: 8px; justify-content: center; margin: 12px 0;
+}
+.char-input {
+  width: 48px; height: 56px; text-align: center;
+  font-size: 1.5rem; font-family: 'Courier New', monospace;
+  border: 2px solid var(--border-input); border-radius: 8px;
+  background: var(--bg-input); color: var(--text-main);
+  outline: none; transition: border-color 0.2s;
+}
+.char-input:focus { border-color: var(--btn-primary); }
+.char-input.correct { border-color: var(--color-correct); background: rgba(34,197,94,0.1); }
+.char-input.wrong { border-color: var(--color-wrong); background: rgba(239,68,68,0.1); animation: shake 0.3s; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ===== Module 2 - Syllable List ===== */
+.syllable-list { display: flex; flex-direction: column; gap: 6px; }
+.syllable-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 6px 10px; border-radius: 6px;
+  background: var(--bg-input); transition: background 0.2s;
+}
+.syllable-row.current { background: var(--bg-panel); border: 2px solid var(--btn-primary); }
+.syllable-row.done-correct { background: rgba(34,197,94,0.08); }
+.syllable-row.done-wrong { background: rgba(239,68,68,0.08); }
+.syllable-pinyin { width: 80px; font-size: 1.1rem; font-weight: 500; text-align: right; }
+.syllable-input { width: 60px; height: 36px; text-align: center; font-size: 1.1rem; font-family: 'Courier New', monospace; border: 2px solid var(--border-input); border-radius: 6px; background: var(--bg-panel); color: var(--text-main); outline: none; }
+.syllable-input:focus { border-color: var(--btn-primary); }
+.syllable-result { font-size: 0.85rem; width: 60px; }
+
+/* ===== Module 3 - Character Grid ===== */
+.char-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+.char-cell {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 10px 4px; border-radius: 8px;
+  background: var(--bg-input); transition: background 0.2s;
+}
+.char-cell .chinese { font-size: 1.6rem; font-weight: 600; margin-bottom: 6px; }
+.char-cell .char-input-wrap { width: 100%; }
+.char-cell .char-input-wrap input {
+  width: 100%; height: 36px; text-align: center; font-size: 1.1rem;
+  font-family: 'Courier New', monospace; border: 2px solid var(--border-input);
+  border-radius: 6px; background: var(--bg-panel); color: var(--text-main);
+  outline: none;
+}
+.char-cell .char-input-wrap input:focus { border-color: var(--btn-primary); }
+.char-cell .char-input-wrap input.correct { border-color: var(--color-correct); background: rgba(34,197,94,0.08); }
+.char-cell .char-input-wrap input.wrong { border-color: var(--color-wrong); background: rgba(239,68,68,0.08); animation: shake 0.3s; }
+
+/* ===== Buttons ===== */
+.btn {
+  padding: 8px 20px; border: none; border-radius: 8px;
+  font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+}
+.btn-primary { background: var(--btn-primary); color: var(--btn-primary-text); }
+.btn-primary:hover { background: var(--btn-hover); }
+.btn-secondary { background: var(--btn-secondary); color: var(--text-main); }
+.btn-secondary:hover { opacity: 0.8; }
+
+.btn-row { display: flex; gap: 8px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+
+/* ===== Import Modal ===== */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center; z-index: 200;
+}
+.modal-overlay.hidden { display: none; }
+.modal-box {
+  background: var(--bg-panel); border-radius: 12px; padding: 24px;
+  max-width: 500px; width: 90%; box-shadow: var(--shadow-panel);
+}
+.modal-box h3 { margin-bottom: 12px; }
+.modal-box textarea {
+  width: 100%; height: 200px; font-family: 'Courier New', monospace;
+  font-size: 0.85rem; border: 1px solid var(--border-input); border-radius: 8px;
+  padding: 8px; background: var(--bg-input); color: var(--text-main);
+  resize: vertical; outline: none;
+}
+.modal-box .btn-row { justify-content: flex-end; margin-top: 12px; }
+
+/* ===== Settings ===== */
+.settings-row {
+  display: flex; gap: 12px; align-items: center; margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.settings-row label { font-size: 0.85rem; color: var(--text-muted); }
+.settings-row input[type="number"] {
+  width: 60px; height: 32px; text-align: center; font-size: 0.9rem;
+  border: 1px solid var(--border-input); border-radius: 6px;
+  background: var(--bg-input); color: var(--text-main); outline: none;
+}
+select {
+  height: 32px; border: 1px solid var(--border-input); border-radius: 6px;
+  background: var(--bg-input); color: var(--text-main); font-size: 0.9rem;
+  padding: 0 8px; outline: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .container { padding: 8px; }
+  .tab-btn { font-size: 0.72rem; padding: 8px 3px; }
+  .key-key { width: 36px; height: 48px; }
+  .key-key .key-letter { font-size: 0.85rem; }
+  .key-key .key-label { font-size: 0.5rem; }
+  .keyboard-row.offset { padding-left: 10px; }
+  .char-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .char-cell .chinese { font-size: 1.2rem; }
+  .module { padding: 12px; }
+}
+
+.float-score {
+  position: fixed; pointer-events: none; font-size: 1.5rem; font-weight: 700;
+  z-index: 300; animation: floatUp 0.8s ease-out forwards;
+}
+.float-score.correct { color: var(--color-correct); }
+.float-score.wrong { color: var(--color-wrong); }
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+}
+</style>
+</head>
+<body>
+
+<!-- Skin Button -->
+<div class="skin-btn" id="skinBtn" title="切换主题">🎨</div>
+<!-- Pinyin Style Toggle -->
+<div class="skin-btn" id="pinyinStyleBtn" title="切换拼音风格" style="top:54px;">🔤</div>
+<!-- Help Button -->
+<div class="skin-btn" id="helpBtn" title="使用说明" style="top:96px;">❓</div>
+<!-- History Button -->
+<div class="skin-btn" id="historyBtn" title="练习历史" style="top:138px;">📊</div>
+<div class="skin-panel hidden" id="skinPanel"></div>
+
+<div class="container">
+<!-- Tab Bar -->
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="m1a">声介键位</button>
+  <button class="tab-btn" data-tab="m1b">韵调键位</button>
+  <button class="tab-btn" data-tab="m2">音节练习</button>
+  <button class="tab-btn" data-tab="m3">字前两码</button>
+</div>
+
+<!-- Module 1A: 声介键位 -->
+<div class="module active" id="m1a">
+  <div class="module-title">声介键位记忆 — 12个不规则声介</div>
+  <div class="stats-row" id="m1aStats"></div>
+  <div class="prompt-area">
+    <div class="prompt-label">声介</div>
+    <div class="prompt-display" id="m1aPrompt">zhu</div>
+  </div>
+  <div class="input-area">
+    <input type="text" class="char-input" id="m1aInput" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  </div>
+  <div class="keyboard-wrap" id="m1aKeyboard"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" id="m1aHideKeysBtn">隐藏键位图</button>
+    <button class="btn btn-secondary" id="m1aResetBtn">重置进度</button>
+    <button class="btn btn-secondary" id="m1aForceBtn">启用所有元素</button>
+  </div>
+</div>
+
+<!-- Module 1B: 韵调键位 -->
+<div class="module" id="m1b">
+  <div class="module-title">韵调键位记忆 — 按韵母组一次记4声调</div>
+  <div class="stats-row" id="m1bStats"></div>
+  <div class="prompt-area">
+    <div class="prompt-label">韵母</div>
+    <div class="prompt-display" id="m1bPrompt">a</div>
+  </div>
+  <div style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">
+    <span id="m1bToneLabel">1声 2声 3声 4声</span>
+  </div>
+  <div class="input-area" id="m1bInputs">
+    <input type="text" class="char-input" data-idx="0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <input type="text" class="char-input" data-idx="1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <input type="text" class="char-input" data-idx="2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <input type="text" class="char-input" data-idx="3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  </div>
+  <div class="keyboard-wrap" id="m1bKeyboard"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" id="m1bHideKeysBtn">隐藏键位图</button>
+    <button class="btn btn-secondary" id="m1bResetBtn">重置进度</button>
+    <button class="btn btn-secondary" id="m1bForceBtn">启用所有元素</button>
+  </div>
+</div>
+
+<!-- Module 2: 音节练习 -->
+<div class="module" id="m2">
+  <div class="module-title">音节练习</div>
+  <div class="settings-row">
+    <label>组大小:</label>
+    <input type="number" id="m2Count" min="1" max="50" value="10">
+    <label>重复次数:</label>
+    <input type="number" id="m2Reps" min="1" max="20" value="5">
+    <label>准确率:</label>
+    <input type="number" id="m2Threshold" min="50" max="100" value="95" style="width:50px;">%
+    <button class="btn btn-secondary" id="m2WrongModeBtn">📋 错题模式</button>
+    <button class="btn btn-secondary" id="m2ImportBtn">📥 导入</button>
+    <span style="font-size:0.8rem;color:var(--text-muted);" id="m2DataInfo">默认500条</span>
+  </div>
+  <div class="stats-row" id="m2Stats"></div>
+  <div class="char-grid" id="m2List"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" id="m2ResetBtn">重置进度</button>
+  </div>
+</div>
+
+<!-- Module 3: 字前两码 -->
+<div class="module" id="m3">
+  <div class="module-title">字前两码练习</div>
+  <div class="settings-row">
+    <label>组大小:</label>
+    <input type="number" id="m3GroupSize" min="2" max="20" value="10">
+    <label>重复次数:</label>
+    <input type="number" id="m3Reps" min="1" max="20" value="5">
+    <label>准确率:</label>
+    <input type="number" id="m3Threshold" min="50" max="100" value="95" style="width:50px;">%
+    <button class="btn btn-secondary" id="m3WrongModeBtn">📋 错题模式</button>
+    <button class="btn btn-secondary" id="m3ImportBtn">📥 导入</button>
+    <span style="font-size:0.8rem;color:var(--text-muted);" id="m3DataInfo">默认500字</span>
+  </div>
+  <div class="stats-row" id="m3Stats"></div>
+  <div class="char-grid" id="m3Grid"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" id="m3ResetBtn">重置进度</button>
+  </div>
+</div>
+</div>
+
+<!-- Help Modal -->
+<div class="modal-overlay hidden" id="helpModal">
+  <div class="modal-box" style="max-width:600px;">
+    <h3>拼读双拼一站式练习 — 使用说明</h3>
+    <div style="font-size:0.85rem;line-height:1.7;max-height:450px;overflow-y:auto;">
+
+<p><b>声介键位</b> — 练习12个不规则声介的键位映射。显示声介名（如 zhu、ju），输入单个键位字母。采用间隔重复算法，已掌握的元素自动延后复习。可切换到"启用所有元素"模式强制全部出题。</p>
+
+<p><b>韵调键位</b> — 按韵母分组（11组），每组一次性输入4个声调的键位（如 a → s s o x）。键位图高亮当前韵母组。熟练后可点击"隐藏键位图"进行盲打。</p>
+
+<p><b>音节练习</b> — 显示拼音（支持数字和音标两种风格，右上角🔤切换），输入2字母拼读双拼编码。默认500个音节，10个一组，重复练习至准确率达标。支持导入自定义音节表（TSV格式：<code>拼音\t编码</code>）。打错会显示正确编码并保留提示直到本轮通过。</p>
+
+<p><b>字前两码</b> — 练习前500高频字的前两码（音节码）。10字一组乱序，带计时和速度统计。换组需同时满足重复次数和准确率双条件。支持导入自定义字表（TSV格式：<code>汉字\t编码</code>）。</p>
+
+<p><b>错题模式</b> — 音节和字练习支持错题模式（📋按钮），仅练习出过错的条目，打完所有错题后自动退出。</p>
+
+<p><b>准确率双条件</b> — 换组需满足：①重复次数（默认5次）②近N轮平均准确率≥阈值（默认95%）。未达标自动继续练习。</p>
+
+<p><b>历史记录</b> — 右上角📊按钮查看每日速度、准确率、练习量趋势，支持声介/韵调/音节/字分别查看。</p>
+
+<p><b>主题</b> — 右上角🎨按钮切换8套配色方案。</p>
+
+<p><b>重置</b> — 每个模块底部"重置进度"按钮清除所有练习数据。</p>
+
+<p><b>编码规则</b> — 拼音拆分：还原 y→i、w→u、ü→v，展开 iu→iou、ui→uei、un→uen，零声母加 _。从声母+介音后切开，前半为声介，后半为韵调。查映射表得到2键编码。</p>
+
+    </div>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
+      <button class="btn btn-secondary" id="helpClose">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div class="modal-overlay hidden" id="historyModal">
+  <div class="modal-box" style="max-width:640px;">
+    <h3>练习历史</h3>
+    <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;" id="historyTabs">
+      <button class="btn btn-primary hist-tab" data-m="m2">音节</button>
+      <button class="btn btn-secondary hist-tab" data-m="m3">字</button>
+      <button class="btn btn-secondary hist-tab" data-m="m1a">声介</button>
+      <button class="btn btn-secondary hist-tab" data-m="m1b">韵调</button>
+    </div>
+    <canvas id="historyChart" width="600" height="300" style="width:100%;max-width:600px;background:var(--bg-input);border-radius:8px;"></canvas>
+    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px;" id="historySummary"></div>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
+      <button class="btn btn-secondary" id="historyClose">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-overlay hidden" id="importModal">
+  <div class="modal-box">
+    <h3 id="importTitle">导入数据</h3>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;" id="importHint"></p>
+    <textarea id="importText" placeholder="每行一条，格式：文字&#9;编码"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="importCancel">取消</button>
+      <button class="btn btn-primary" id="importConfirm">确认导入</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ============================================================
+// SECTION A: DATA DEFINITIONS
+// ============================================================
+
+// ---- 12 Irregular ShengJie (only ones needing practice) ----
+const IRREGULAR_SHENGJIE = [
+  { id:'_',  label:'_ (零声母)', key:'o', hint:'a/o/e开头' },
+  { id:'zh', label:'zh', key:'e' },
+  { id:'ch', label:'ch', key:'o', hint:'与零声母共用O' },
+  { id:'sh', label:'sh', key:'a' },
+  { id:'di', label:'di', key:'y' },
+  { id:'li', label:'li', key:'w' },
+  { id:'gu', label:'gu', key:'r' },
+  { id:'shu',label:'shu',key:'t' },
+  { id:'zhu',label:'zhu',key:'s' },
+  { id:'chu',label:'chu',key:'c' },
+  { id:'jv', label:'ju', key:'g', hint:'与qu共用G' },
+  { id:'qv', label:'qu', key:'g', hint:'与ju共用G' },
+];
+
+// ---- 11 Rhyme Groups with 4 tones each ----
+const RHYME_GROUPS = [
+  { rhyme:'_', label:'零韵母/er', keys:['o','l','j','k'] },
+  { rhyme:'a',  label:'a',  keys:['s','s','o','x'] },
+  { rhyme:'ai', label:'ai', keys:['c','c','c','p'] },
+  { rhyme:'an', label:'an', keys:['i','i','f','d'] },
+  { rhyme:'ang',label:'ang',keys:['y','w','y','h'] },
+  { rhyme:'ao', label:'ao', keys:['e','e','e','v'] },
+  { rhyme:'e',  label:'e',  keys:['a','u','r','m'] },
+  { rhyme:'ei', label:'ei', keys:['q','a','q','z'] },
+  { rhyme:'en', label:'en/eng',keys:['n','g','b','p'] },
+  { rhyme:'ong',label:'ong',keys:['h','h','h','w'] },
+  { rhyme:'ou', label:'ou', keys:['u','u','a','t'] },
+];
+
+// ---- Complete ShengJie Map (for encoding engine) ----
+const SHENGJIE_MAP = {
+  '_':'o','b':'b','p':'p','m':'m','f':'f','d':'d','t':'t',
+  'n':'n','l':'l','g':'g','k':'k','h':'h','ji':'j','qi':'q',
+  'xi':'x','zh':'e','ch':'o','sh':'a','z':'z','c':'c','s':'s',
+  'r':'r','jv':'g','qv':'g','xv':'x','di':'y','li':'w','gu':'r',
+  'shu':'t','zhu':'s','chu':'c','_i':'i','_u':'u','_v':'v',
+  'bi':'b','pi':'p','mi':'m','du':'d','tu':'t','nu':'n','lu':'l',
+  'ni':'n','nv':'n','lv':'l','ku':'k','hu':'h','ru':'r','su':'s',
+  'zu':'z','cu':'c','bu':'b','pu':'p','mu':'m','fu':'f','ti':'t',
+};
+
+// ---- Complete YunDiao Map ----
+const YUNDIAO_MAP = {
+  '_1':'o','_2':'l','_3':'j','_4':'k',
+  'a1':'s','a2':'s','a3':'o','a4':'x',
+  'ai1':'c','ai2':'c','ai3':'c','ai4':'p',
+  'an1':'i','an2':'i','an3':'f','an4':'d',
+  'ang1':'y','ang2':'w','ang3':'y','ang4':'h',
+  'ao1':'e','ao2':'e','ao3':'e','ao4':'v',
+  'e1':'a','e2':'u','e3':'r','e4':'m',
+  'ei1':'q','ei2':'a','ei3':'q','ei4':'z',
+  'en1':'n','en2':'g','en3':'b','en4':'p',
+  'ong1':'h','ong2':'h','ong3':'h','ong4':'w',
+  'ou1':'u','ou2':'u','ou3':'a','ou4':'t',
+};
+
+// ---- Rhyme-to-keys lookup for keyboard highlighting ----
+const RHYME_KEYS = {};
+RHYME_GROUPS.forEach(g => { RHYME_KEYS[g.rhyme] = g.keys; });
+
+// ---- Default Syllable Data (from 导入一站式练习-音节.txt, 500 entries) ----
+const DEFAULT_SYLLABLES_FULL = [  ["sh\u00ec","ak"],
+  ["b\u00f9","bk"],
+  ["d\u0113","da"],
+  ["y\u012b","io"],
+  ["y\u01d2u","ia"],
+  ["sh\u00ed","al"],
+  ["z\u00e0i","zp"],
+  ["h\u00e9","hu"],
+  ["l\u0113","la"],
+  ["r\u00e9n","rg"],
+  ["y\u01d0","ij"],
+  ["g\u00e8","gm"],
+  ["d\u00e0o","dv"],
+  ["zh\u014dng","eh"],
+  ["g\u014dng","gh"],
+  ["zh\u00ec","ek"],
+  ["w\u00e8i","uz"],
+  ["l\u00ec","wk"],
+  ["w\u01d2","ur"],
+  ["j\u00ec","jk"],
+  ["y\u00ec","ik"],
+  ["d\u00e0","dx"],
+  ["ch\u00e9ng","og"],
+  ["ji\u0101","js"],
+  ["j\u012b","jo"],
+  ["zh\u00e8","em"],
+  ["l\u01d0","wj"],
+  ["sh\u00e0ng","ah"],
+  ["k\u011b","kr"],
+  ["d\u00ec","yk"],
+  ["y\u00e0o","iv"],
+  ["zh\u012b","eo"],
+  ["hu\u00ec","hz"],
+  ["x\u00edng","xg"],
+  ["sh\u0113ng","an"],
+  ["ji\u00e0n","jd"],
+  ["n\u00e9ng","ng"],
+  ["zu\u00f2","zm"],
+  ["xi\u00e0n","xd"],
+  ["x\u012bn","xn"],
+  ["yu\u00e1n","vi"],
+  ["l\u00e1i","lc"],
+  ["t\u0101","ts"],
+  ["y\u00f2ng","iw"],
+  ["ji\u00f9","jt"],
+  ["h\u00f2u","ht"],
+  ["h\u01ceo","he"],
+  ["j\u00ed","jl"],
+  ["gu\u00f3","ru"],
+  ["z\u00ec","zk"],
+  ["y\u011b","ir"],
+  ["y\u00fa","vl"],
+  ["w\u00e9i","ua"],
+  ["du\u00ec","dz"],
+  ["ni\u00e1n","ni"],
+  ["h\u00e1i","hc"],
+  ["xu\u00e9","xu"],
+  ["j\u012bng","jn"],
+  ["sh\u00f9","tk"],
+  ["ch\u016b","co"],
+  ["x\u012b","xo"],
+  ["xi\u00e0","xx"],
+  ["j\u00f9","gk"],
+  ["du\u014d","da"],
+  ["hu\u00e0","hx"],
+  ["w\u00f9","uk"],
+  ["gu\u00f2","rm"],
+  ["j\u00ecn","jp"],
+  ["t\u00ed","tl"],
+  ["y\u00e8","im"],
+  ["h\u011bn","hb"],
+  ["zh\u00e8ng","ep"],
+  ["d\u014du","du"],
+  ["m\u00e9i","ma"],
+  ["f\u0101","fs"],
+  ["y\u01d4","vj"],
+  ["gu\u0101n","ri"],
+  ["q\u00ed","ql"],
+  ["f\u0101ng","fy"],
+  ["di\u01cen","yf"],
+  ["r\u00fa","rl"],
+  ["m\u00edng","mg"],
+  ["m\u0113","ma"],
+  ["ch\u00e1ng","ow"],
+  ["xi\u00e0ng","xh"],
+  ["m\u011bi","mq"],
+  ["yu\u00e8","vm"],
+  ["qi\u00e1n","qi"],
+  ["y\u00f9","vk"],
+  ["zh\u00f9","sk"],
+  ["y\u00f3u","iu"],
+  ["m\u0113n","mn"],
+  ["s\u012b","so"],
+  ["di\u00e0n","yd"],
+  ["f\u00f9","fk"],
+  ["d\u00f2ng","dw"],
+  ["xi\u01ceo","xe"],
+  ["f\u0113n","fn"],
+  ["b\u011bn","bb"],
+  ["g\u0101o","ge"],
+  ["mi\u00e0n","md"],
+  ["zu\u00ec","zz"],
+  ["zh\u00ed","el"],
+  ["n\u01d0","nj"],
+  ["sh\u01d0","aj"],
+  ["k\u00e0n","kd"],
+  ["zh\u01d0","ej"],
+  ["sh\u00e8","am"],
+  ["ji\u0101n","ji"],
+  ["y\u012bn","in"],
+  ["ju\u00e9","gu"],
+  ["\u00e9r","ol"],
+  ["xi\u01ceng","xy"],
+  ["p\u00edng","pg"],
+  ["shu\u014d","ta"],
+  ["z\u012b","zo"],
+  ["qu\u00e1n","gi"],
+  ["b\u00e8i","bz"],
+  ["x\u00ecng","xp"],
+  ["j\u01d0","jj"],
+  ["z\u01d0","zj"],
+  ["d\u00e0n","dd"],
+  ["d\u00e0i","dp"],
+  ["w\u00e9n","ug"],
+  ["j\u012bn","jn"],
+  ["q\u00f9","gk"],
+  ["f\u01ce","fo"],
+  ["ji\u00e0o","jv"],
+  ["sh\u01d2u","aa"],
+  ["t\u00f3ng","th"],
+  ["b\u01d0","bj"],
+  ["ti\u0101n","ti"],
+  ["su\u01d2","sr"],
+  ["x\u00ec","xk"],
+  ["ji\u00e9","ju"],
+  ["y\u00e1n","ii"],
+  ["sh\u00e9n","ag"],
+  ["d\u00ecng","yp"],
+  ["k\u0101i","kc"],
+  ["q\u00ec","qk"],
+  ["t\u01d0","tj"],
+  ["q\u01d0","qj"],
+  ["f\u00fa","fl"],
+  ["sh\u0113n","an"],
+  ["xi\u0101ng","xy"],
+  ["hu\u00f2","hm"],
+  ["b\u01ceo","be"],
+  ["g\u01cen","gf"],
+  ["b\u00ecng","bp"],
+  ["d\u011bng","db"],
+  ["ji\u00e0","jx"],
+  ["r\u00ec","rk"],
+  ["d\u00f9","dk"],
+  ["zh\u00f2ng","ew"],
+  ["zh\u01d4","sj"],
+  ["sh\u012b","ao"],
+  ["r\u00e1n","ri"],
+  ["n\u00e1n","ni"],
+  ["w\u01ceng","uy"],
+  ["p\u01d0n","pb"],
+  ["xi\u0113","xa"],
+  ["h\u00f9","hk"],
+  ["sh\u016b","to"],
+  ["q\u00edng","qg"],
+  ["m\u00f9","mk"],
+  ["ji\u0101ng","jy"],
+  ["zh\u011b","er"],
+  ["j\u00ecng","jp"],
+  ["l\u00f9","lk"],
+  ["li\u00e0ng","wh"],
+  ["k\u00e8","km"],
+  ["q\u012b","qo"],
+  ["r\u00e8n","rp"],
+  ["n\u00e0","nx"],
+  ["ch\u01ceng","oy"],
+  ["c\u00ec","ck"],
+  ["gu\u01d2","rr"],
+  ["t\u00f3u","tu"],
+  ["ji\u0101o","je"],
+  ["t\u00e0i","tp"],
+  ["zh\u00e0n","ed"],
+  ["w\u00e8n","up"],
+  ["n\u00e8i","nz"],
+  ["q\u016b","go"],
+  ["f\u0113ng","fn"],
+  ["t\u014dng","th"],
+  ["bi\u00e0n","bd"],
+  ["sh\u00f2u","at"],
+  ["ch\u0113","oa"],
+  ["xi\u00e0o","xv"],
+  ["q\u012bng","qn"],
+  ["qi\u00fa","qu"],
+  ["ch\u012b","oo"],
+  ["s\u00f9","sk"],
+  ["x\u016b","xo"],
+  ["c\u00e1i","cc"],
+  ["ch\u01cen","of"],
+  ["w\u00e0i","up"],
+  ["g\u00e8ng","gp"],
+  ["ji\u0113","ja"],
+  ["g\u00f2u","gt"],
+  ["d\u00e9","du"],
+  ["li\u00fa","wu"],
+  ["y\u00e0ng","ih"],
+  ["g\u01d4","rj"],
+  ["b\u00e0o","bv"],
+  ["zh\u0113n","en"],
+  ["w\u00fa","ul"],
+  ["r\u00f9","rk"],
+  ["z\u00e9","zu"],
+  ["y\u012bng","in"],
+  ["ji\u011b","jr"],
+  ["b\u00ec","bk"],
+  ["d\u0101ng","dy"],
+  ["li\u00e1n","wi"],
+  ["r\u00f3ng","rh"],
+  ["g\u00e9","gu"],
+  ["ji\u01cen","jf"],
+  ["f\u0113i","fq"],
+  ["zh\u0113","ea"],
+  ["k\u01ceo","ke"],
+  ["l\u01dc","lk"],
+  ["m\u00f3","mu"],
+  ["bi\u00e9","bu"],
+  ["zh\u014du","eu"],
+  ["cu\u00f2","cm"],
+  ["x\u00ecn","xp"],
+  ["shu\u01d0","tq"],
+  ["t\u00e8","tm"],
+  ["d\u0101n","di"],
+  ["w\u00e1n","ui"],
+  ["qu\u00e8","gm"],
+  ["ji\u00e8","jm"],
+  ["c\u0101n","ci"],
+  ["x\u00ed","xl"],
+  ["d\u00e1","ds"],
+  ["bi\u01ceo","be"],
+  ["c\u00e8","cm"],
+  ["l\u00e8i","lz"],
+  ["sh\u0101ng","ay"],
+  ["t\u00fa","tl"],
+  ["hu\u00ed","ha"],
+  ["x\u01d0","xj"],
+  ["n\u01da","nj"],
+  ["xi\u0101o","xe"],
+  ["gu\u01cen","rf"],
+  ["d\u014dng","dh"],
+  ["r\u00e0ng","rh"],
+  ["ch\u00ed","ol"],
+  ["c\u00f3ng","ch"],
+  ["xi\u0101n","xi"],
+  ["zh\u01d2ng","eh"],
+  ["l\u01ceo","le"],
+  ["b\u0101","bs"],
+  ["f\u00e1ng","fw"],
+  ["d\u01ceo","de"],
+  ["j\u016bn","gn"],
+  ["xu\u01cen","xf"],
+  ["\u0101n","oi"],
+  ["\u00e0n","od"],
+  ["b\u00e0n","bd"],
+  ["k\u01d2u","ka"],
+  ["d\u00fa","dl"],
+  ["y\u01d0ng","ib"],
+  ["b\u0101o","be"],
+  ["y\u00f2u","it"],
+  ["zh\u01ceng","ey"],
+  ["f\u00e8n","fp"],
+  ["su\u00e0n","sd"],
+  ["y\u00ecng","ip"],
+  ["hu\u00f3","hu"],
+  ["p\u00e1i","pc"],
+  ["g\u011bi","gq"],
+  ["c\u01d0","cj"],
+  ["li\u01ceng","wy"],
+  ["m\u00edn","mg"],
+  ["k\u0113","ka"],
+  ["s\u00e8","sm"],
+  ["m\u01ce","mo"],
+  ["h\u01cei","hc"],
+  ["w\u01d4","uj"],
+  ["y\u01cen","if"],
+  ["sh\u01ceo","ae"],
+  ["g\u0101i","gc"],
+  ["z\u01d2ng","zh"],
+  ["ch\u01d4","cj"],
+  ["g\u0113n","gn"],
+  ["bi\u0101n","bi"],
+  ["\u00e0i","op"],
+  ["y\u00f9n","vp"],
+  ["d\u01ce","do"],
+  ["j\u01d0ng","jb"],
+  ["y\u00ed","il"],
+  ["sh\u014du","au"],
+  ["t\u01d2ng","th"],
+  ["ch\u00e1","os"],
+  ["y\u01d0n","ib"],
+  ["x\u00f9","xk"],
+  ["ku\u00e0i","kp"],
+  ["zh\u01cen","ef"],
+  ["t\u00e1i","tc"],
+  ["h\u00e1ng","hw"],
+  ["tu\u012b","tq"],
+  ["q\u01d4","gj"],
+  ["gu\u012b","rq"],
+  ["y\u00edng","ig"],
+  ["ti\u00e1o","te"],
+  ["f\u00e0n","fd"],
+  ["xi\u01cen","xf"],
+  ["w\u0113i","uq"],
+  ["b\u0101n","bi"],
+  ["f\u00e8i","fz"],
+  ["m\u01cei","mc"],
+  ["bi\u0101o","be"],
+  ["hu\u0101n","hi"],
+  ["zh\u0101ng","ey"],
+  ["yu\u00e0n","vd"],
+  ["du\u00e0n","dd"],
+  ["qi\u00e1ng","qw"],
+  ["li\u00e0n","wd"],
+  ["zhu\u0101ng","sy"],
+  ["f\u00e0ng","fh"],
+  ["h\u00e0o","hv"],
+  ["hu\u00e1n","hi"],
+  ["j\u01d0n","jb"],
+  ["m\u00e9n","mg"],
+  ["m\u0101","ms"],
+  ["y\u014du","iu"],
+  ["y\u00e0n","id"],
+  ["b\u01cen","bf"],
+  ["chu\u00e1n","ci"],
+  ["lu\u00f2","lm"],
+  ["sh\u0101n","ai"],
+  ["s\u00ec","sk"],
+  ["ji\u01d4","ja"],
+  ["\u0101","os"],
+  ["q\u01d0ng","qb"],
+  ["y\u00e1ng","iw"],
+  ["z\u00fa","zl"],
+  ["hu\u00e1","hs"],
+  ["z\u01d4","zj"],
+  ["li\u00e8","wm"],
+  ["x\u012bng","xn"],
+  ["x\u00f9n","xp"],
+  ["zhu\u0101n","si"],
+  ["l\u00edn","wg"],
+  ["s\u0101n","si"],
+  ["c\u00e0i","cp"],
+  ["f\u01cen","ff"],
+  ["g\u00f9","rk"],
+  ["pi\u00e0n","pd"],
+  ["g\u01cei","gc"],
+  ["\u00e8r","ok"],
+  ["zh\u0113ng","en"],
+  ["z\u00e0o","zv"],
+  ["zh\u00e0o","ev"],
+  ["w\u00e0ng","uh"],
+  ["l\u0101","ls"],
+  ["z\u011bn","zb"],
+  ["zh\u01d4n","sb"],
+  ["l\u00f9n","lp"],
+  ["sh\u01d4","tj"],
+  ["b\u011bi","bq"],
+  ["z\u0113ng","zn"],
+  ["li\u00e0o","wv"],
+  ["b\u014d","ba"],
+  ["zh\u011bng","eb"],
+  ["b\u01ce","bo"],
+  ["l\u00ed","wl"],
+  ["p\u00e9ng","pg"],
+  ["t\u012bng","tn"],
+  ["li\u00e1ng","ww"],
+  ["hu\u00e0n","hd"],
+  ["ku\u00e0ng","kh"],
+  ["h\u00f3ng","hh"],
+  ["d\u012b","yo"],
+  ["g\u0113","ga"],
+  ["b\u00e1i","bc"],
+  ["chu\u00e0ng","ch"],
+  ["gu\u0101ng","ry"],
+  ["ji\u01ceng","jy"],
+  ["p\u00e8i","pz"],
+  ["s\u00e0i","sp"],
+  ["c\u01cei","cc"],
+  ["h\u00e1n","hi"],
+  ["k\u014dng","kh"],
+  ["gu\u01ceng","ry"],
+  ["\u011br","oj"],
+  ["g\u00f2ng","gw"],
+  ["l\u01d0ng","wb"],
+  ["b\u00f3","bu"],
+  ["hu\u0101","hs"],
+  ["xi\u011b","xr"],
+  ["xi\u00e8","xm"],
+  ["ch\u0101o","oe"],
+  ["c\u00e9ng","cg"],
+  ["xi\u016b","xu"],
+  ["li\u00e1o","we"],
+  ["ku\u00f2","km"],
+  ["c\u00ed","cl"],
+  ["l\u00edng","wg"],
+  ["ch\u0113ng","on"],
+  ["b\u0101ng","by"],
+  ["zh\u00e8n","ep"],
+  ["w\u00e1ng","uw"],
+  ["zhu\u01cen","sf"],
+  ["n\u01ce","no"],
+  ["di\u00e0o","yv"],
+  ["qi\u011b","qr"],
+  ["t\u00edng","tg"],
+  ["l\u00e1n","li"],
+  ["g\u00e0o","gv"],
+  ["w\u011bi","uq"],
+  ["r\u00e8","rm"],
+  ["l\u01da","lj"],
+  ["y\u01ceng","iy"],
+  ["hu\u00e1ng","hw"],
+  ["m\u00f2","mm"],
+  ["z\u01d2u","za"],
+  ["xi\u00e9","xu"],
+  ["f\u01d4","fj"],
+  ["sh\u0101","as"],
+  ["ch\u014dng","oh"],
+  ["ch\u00fa","cl"],
+  ["hu\u01d2","hr"],
+  ["qi\u0101n","qi"],
+  ["c\u00fan","cg"],
+  ["l\u00ecng","wp"],
+  ["p\u01d4","pj"],
+  ["ch\u00f9","ck"],
+  ["zh\u01ceo","ee"],
+  ["ji\u01ceo","je"],
+  ["m\u00ec","mk"],
+  ["y\u0101","is"],
+  ["r\u00f2u","rt"],
+  ["w\u01cen","uf"],
+  ["lu\u00f3","lu"],
+  ["m\u00e0n","md"],
+  ["ch\u00f3ng","oh"],
+  ["m\u01cen","mf"],
+  ["y\u00e0","ix"],
+  ["ji\u016b","ju"],
+  ["ji\u00e0ng","jh"],
+  ["mi\u01cen","mf"],
+  ["x\u00fan","xg"],
+  ["sh\u00e8ng","ap"],
+  ["g\u0101ng","gy"],
+  ["m\u00e0i","mp"],
+  ["pi\u00e0o","pv"],
+  ["yu\u0113","va"],
+  ["g\u016b","ro"],
+  ["tu\u00e1n","ti"],
+  ["m\u01d0","mj"],
+  ["zhu\u00e0ng","sh"],
+  ["ch\u00e9n","og"],
+  ["t\u00e1ng","tw"],
+  ["z\u01ceo","ze"],
+  ["su\u00ed","sa"],
+  ["q\u012bn","qn"],
+  ["j\u00fa","gl"],
+  ["s\u00f2ng","sw"],
+  ["\u00e9","ou"],
+  ["h\u016b","ho"],
+  ["l\u00e8","lm"],
+  ["d\u01d0","yj"],
+  ["g\u0101n","gi"],
+  ["k\u00f2ng","kw"],
+  ["p\u00ed","pl"],
+  ["ku\u01cen","kf"],
+  ["h\u00fa","hl"],
+  ["w\u00e0n","ud"],
+  ["m\u01d4","mj"],
+  ["t\u00e1n","ti"],
+  ["h\u0113","ha"],
+  ["g\u00e0i","gp"],
+  ["x\u01d4","xj"],
+  ["j\u01d4","gj"],
+  ["y\u00edn","ig"],
+  ["f\u016b","fo"],
+  ["d\u00f2u","dt"],
+  ["ti\u00e1n","ti"],
+  ["h\u0113i","hq"],
+  ["k\u0101ng","ky"],
+  ["shu\u00ec","tz"],
+  ["p\u00edn","pg"],
+  ["h\u0101","hs"],
+  ["m\u00ecng","mp"],
+  ["h\u00e0n","hd"],
+  ["l\u00f3ng","lh"],
+  ["j\u016b","go"],
+  ["f\u01d2u","fa"],
+  ["b\u01cei","bc"],
+  ["k\u01ce","ko"],
+  ["s\u01d0","sj"],
+  ["y\u0101o","ie"],
+  ["li\u01ceo","we"],
+  ["gu\u00ec","rz"],
+  ["z\u014dng","zh"],
+  ["chu\u0101n","ci"],
+  ["w\u0113n","un"]];
+
+// ---- Default Top 500 Characters (from 导入一站式练习-前500字.txt, 500 entries) ----
+const DEFAULT_TOP500 = [  {c:"\u7684",k:"da"},
+  {c:"\u4e86",k:"la"},
+  {c:"\u5728",k:"zp"},
+  {c:"\u662f",k:"ak"},
+  {c:"\u548c",k:"hu"},
+  {c:"\u4e00",k:"io"},
+  {c:"\u8fd9",k:"em"},
+  {c:"\u6709",k:"ia"},
+  {c:"\u4ed6",k:"ts"},
+  {c:"\u6211",k:"ur"},
+  {c:"\u4e5f",k:"ir"},
+  {c:"\u4e0d",k:"bk"},
+  {c:"\u5c31",k:"jt"},
+  {c:"\u5730",k:"yk"},
+  {c:"\u7740",k:"ea"},
+  {c:"\u4e2d",k:"eh"},
+  {c:"\u4e0a",k:"ah"},
+  {c:"\u8bf4",k:"ta"},
+  {c:"\u90fd",k:"du"},
+  {c:"\u4eba",k:"rg"},
+  {c:"\u4e2a",k:"gm"},
+  {c:"\u5bf9",k:"dz"},
+  {c:"\u79cd",k:"eh"},
+  {c:"\u628a",k:"bo"},
+  {c:"\u4e3a",k:"ua"},
+  {c:"\u8981",k:"iv"},
+  {c:"\u4f60",k:"nj"},
+  {c:"\u800c",k:"ol"},
+  {c:"\u6765",k:"lc"},
+  {c:"\u53c8",k:"it"},
+  {c:"\u4e0e",k:"vj"},
+  {c:"\u4ece",k:"ch"},
+  {c:"\u5e74",k:"ni"},
+  {c:"\u5230",k:"dv"},
+  {c:"\u8fd8",k:"hc"},
+  {c:"\u5b83",k:"ts"},
+  {c:"\u5927",k:"dx"},
+  {c:"\u7b49",k:"db"},
+  {c:"\u5979",k:"ts"},
+  {c:"\u4e24",k:"wy"},
+  {c:"\u53bb",k:"gk"},
+  {c:"\u91cc",k:"wj"},
+  {c:"\u5f97",k:"du"},
+  {c:"\u65f6",k:"al"},
+  {c:"\u591a",k:"da"},
+  {c:"\u7528",k:"iw"},
+  {c:"\u90a3",k:"nx"},
+  {c:"\u4ee5",k:"ij"},
+  {c:"\u6240",k:"sr"},
+  {c:"\u5f88",k:"hb"},
+  {c:"\u4f7f",k:"aj"},
+  {c:"\u4f46",k:"dd"},
+  {c:"\u5c0f",k:"xe"},
+  {c:"\u4e4b",k:"eo"},
+  {c:"\u80fd",k:"ng"},
+  {c:"\u4e0b",k:"xx"},
+  {c:"\u6216",k:"hm"},
+  {c:"\u770b",k:"kd"},
+  {c:"\u88ab",k:"bz"},
+  {c:"\u4e09",k:"si"},
+  {c:"\u4f1a",k:"hz"},
+  {c:"\u597d",k:"he"},
+  {c:"\u53ef",k:"kr"},
+  {c:"\u540e",k:"ht"},
+  {c:"\u7ed9",k:"gq"},
+  {c:"\u5411",k:"xh"},
+  {c:"\u7531",k:"iu"},
+  {c:"\u5982",k:"rl"},
+  {c:"\u5462",k:"na"},
+  {c:"\u4e8e",k:"vl"},
+  {c:"\u5176",k:"ql"},
+  {c:"\u8fc7",k:"rm"},
+  {c:"\u5e76",k:"bp"},
+  {c:"\u53ea",k:"ej"},
+  {c:"\u5c06",k:"jy"},
+  {c:"\u65b0",k:"xn"},
+  {c:"\u60f3",k:"xy"},
+  {c:"\u51e0",k:"jj"},
+  {c:"\u66f4",k:"gp"},
+  {c:"\u5df2",k:"ij"},
+  {c:"\u5f53",k:"dy"},
+  {c:"\u5374",k:"gm"},
+  {c:"\u518d",k:"zp"},
+  {c:"\u6700",k:"zz"},
+  {c:"\u624d",k:"cc"},
+  {c:"\u51fa",k:"co"},
+  {c:"\u5219",k:"zu"},
+  {c:"\u4eec",k:"mn"},
+  {c:"\u5404",k:"gm"},
+  {c:"\u50cf",k:"xh"},
+  {c:"\u5427",k:"bs"},
+  {c:"\u4e8c",k:"ok"},
+  {c:"\u6b21",k:"ck"},
+  {c:"\u6708",k:"vm"},
+  {c:"\u505a",k:"zm"},
+  {c:"\u6210",k:"og"},
+  {c:"\u56db",k:"sk"},
+  {c:"\u8d70",k:"za"},
+  {c:"\u540c",k:"th"},
+  {c:"\u6761",k:"te"},
+  {c:"\u9ad8",k:"ge"},
+  {c:"\u5417",k:"ms"},
+  {c:"\u5373",k:"jl"},
+  {c:"\u5929",k:"ti"},
+  {c:"\u53eb",k:"jv"},
+  {c:"\u8001",k:"le"},
+  {c:"\u6bd4",k:"bj"},
+  {c:"\u8d77",k:"qj"},
+  {c:"\u5185",k:"nz"},
+  {c:"\u70b9",k:"yf"},
+  {c:"\u8f83",k:"jv"},
+  {c:"\u8ba9",k:"rh"},
+  {c:"\u65e5",k:"rk"},
+  {c:"\u4e8b",k:"ak"},
+  {c:"\u771f",k:"en"},
+  {c:"\u957f",k:"ow"},
+  {c:"\u6027",k:"xp"},
+  {c:"\u4f5c",k:"zm"},
+  {c:"\u8005",k:"er"},
+  {c:"\u6ca1",k:"ma"},
+  {c:"\u5bb6",k:"js"},
+  {c:"\u524d",k:"qi"},
+  {c:"\u6c34",k:"tq"},
+  {c:"\u5403",k:"oo"},
+  {c:"\u8bdd",k:"hx"},
+  {c:"\u4e94",k:"uj"},
+  {c:"\u8ddf",k:"gn"},
+  {c:"\u89c1",k:"jd"},
+  {c:"\u53ca",k:"jl"},
+  {c:"\u5440",k:"is"},
+  {c:"\u6bcf",k:"mq"},
+  {c:"\u542c",k:"tn"},
+  {c:"\u95ee",k:"up"},
+  {c:"\u5916",k:"up"},
+  {c:"\u4f4d",k:"uz"},
+  {c:"\u6b63",k:"ep"},
+  {c:"\u6253",k:"do"},
+  {c:"\u5168",k:"gi"},
+  {c:"\u513f",k:"ol"},
+  {c:"\u5e94",k:"in"},
+  {c:"\u5934",k:"tu"},
+  {c:"\u65e0",k:"ul"},
+  {c:"\u672c",k:"bb"},
+  {c:"\u8c01",k:"aa"},
+  {c:"\u53d7",k:"at"},
+  {c:"\u5e26",k:"dp"},
+  {c:"\u554a",k:"os"},
+  {c:"\u5148",k:"xi"},
+  {c:"\u56fe",k:"tl"},
+  {c:"\u58f0",k:"an"},
+  {c:"\u624b",k:"aa"},
+  {c:"\u8fde",k:"wi"},
+  {c:"\u6cd5",k:"fo"},
+  {c:"\u5341",k:"al"},
+  {c:"\u53e6",k:"wp"},
+  {c:"\u5206",k:"fn"},
+  {c:"\u95f4",k:"ji"},
+  {c:"\u56e0",k:"in"},
+  {c:"\u6307",k:"ej"},
+  {c:"\u8be5",k:"gc"},
+  {c:"\u7b11",k:"xv"},
+  {c:"\u66fe",k:"cg"},
+  {c:"\u7c7b",k:"lz"},
+  {c:"\u5feb",k:"kp"},
+  {c:"\u5199",k:"xr"},
+  {c:"\u65e2",k:"jk"},
+  {c:"\u6b64",k:"cj"},
+  {c:"\u6309",k:"od"},
+  {c:"\u5f20",k:"ey"},
+  {c:"\u603b",k:"zh"},
+  {c:"\u627e",k:"ee"},
+  {c:"\u5b66",k:"xu"},
+  {c:"\u8bb2",k:"jy"},
+  {c:"\u5750",k:"zm"},
+  {c:"\u5f00",k:"kc"},
+  {c:"\u653e",k:"fh"},
+  {c:"\u5c81",k:"sz"},
+  {c:"\u592a",k:"tp"},
+  {c:"\u9053",k:"dv"},
+  {c:"\u6781",k:"jl"},
+  {c:"\u5c11",k:"ae"},
+  {c:"\u4ef6",k:"jd"},
+  {c:"\u53e5",k:"gk"},
+  {c:"\u6570",k:"tj"},
+  {c:"\u516d",k:"wt"},
+  {c:"\u5fc3",k:"xn"},
+  {c:"\u81f3",k:"ek"},
+  {c:"\u5143",k:"vi"},
+  {c:"\u53d8",k:"bd"},
+  {c:"\u975e",k:"fq"},
+  {c:"\u4fbf",k:"bd"},
+  {c:"\u540d",k:"mg"},
+  {c:"\u8bf7",k:"qb"},
+  {c:"\u5e72",k:"gd"},
+  {c:"\u5360",k:"ed"},
+  {c:"\u94b1",k:"qi"},
+  {c:"\u5904",k:"ck"},
+  {c:"\u90e8",k:"bk"},
+  {c:"\u60a8",k:"ng"},
+  {c:"\u4f4e",k:"yo"},
+  {c:"\u7b2c",k:"yk"},
+  {c:"\u62ff",k:"ns"},
+  {c:"\u6b7b",k:"sj"},
+  {c:"\u516b",k:"bs"},
+  {c:"\u534a",k:"bd"},
+  {c:"\u7ecf",k:"jn"},
+  {c:"\u5c42",k:"cg"},
+  {c:"\u4f4f",k:"sk"},
+  {c:"\u526f",k:"fk"},
+  {c:"\u91cf",k:"wh"},
+  {c:"\u573a",k:"oy"},
+  {c:"\u5757",k:"kp"},
+  {c:"\u4e66",k:"to"},
+  {c:"\u7ad9",k:"ed"},
+  {c:"\u4e9b",k:"xa"},
+  {c:"\u5b57",k:"zk"},
+  {c:"\u8fd1",k:"jp"},
+  {c:"\u5f80",k:"uy"},
+  {c:"\u81ea",k:"zk"},
+  {c:"\u95e8",k:"mg"},
+  {c:"\u54ea",k:"no"},
+  {c:"\u65e9",k:"ze"},
+  {c:"\u9879",k:"xh"},
+  {c:"\u4ecd",k:"rg"},
+  {c:"\u5f3a",k:"qw"},
+  {c:"\u5149",k:"ry"},
+  {c:"\u4e03",k:"qo"},
+  {c:"\u7ea6",k:"va"},
+  {c:"\u82b1",k:"hs"},
+  {c:"\u7c73",k:"mj"},
+  {c:"\u7f8e",k:"mq"},
+  {c:"\u96be",k:"ni"},
+  {c:"\u67d0",k:"ma"},
+  {c:"\u884c",k:"xg"},
+  {c:"\u5012",k:"de"},
+  {c:"\u522b",k:"bu"},
+  {c:"\u5e38",k:"ow"},
+  {c:"\u53e3",k:"ka"},
+  {c:"\u751f",k:"an"},
+  {c:"\u6bb5",k:"dd"},
+  {c:"\u6839",k:"gn"},
+  {c:"\u671b",k:"uh"},
+  {c:"\u5f0f",k:"ak"},
+  {c:"\u6c14",k:"qk"},
+  {c:"\u4e70",k:"mc"},
+  {c:"\u521a",k:"gy"},
+  {c:"\u641e",k:"ge"},
+  {c:"\u7231",k:"op"},
+  {c:"\u867d",k:"sq"},
+  {c:"\u9762",k:"md"},
+  {c:"\u672a",k:"uz"},
+  {c:"\u56de",k:"ha"},
+  {c:"\u75c5",k:"bp"},
+  {c:"\u91cd",k:"ew"},
+  {c:"\u533a",k:"go"},
+  {c:"\u8fdb",k:"jp"},
+  {c:"\u9664",k:"cl"},
+  {c:"\u9760",k:"kv"},
+  {c:"\u4e07",k:"ud"},
+  {c:"\u8def",k:"lk"},
+  {c:"\u7ea2",k:"hh"},
+  {c:"\u8dd1",k:"pe"},
+  {c:"\u65e7",k:"jt"},
+  {c:"\u6b65",k:"bk"},
+  {c:"\u6015",k:"px"},
+  {c:"\u5316",k:"hx"},
+  {c:"\u70ed",k:"rm"},
+  {c:"\u767e",k:"bc"},
+  {c:"\u8fdc",k:"vf"},
+  {c:"\u4f53",k:"tj"},
+  {c:"\u5ea7",k:"zm"},
+  {c:"\u8c08",k:"ti"},
+  {c:"\u8138",k:"wf"},
+  {c:"\u636e",k:"gk"},
+  {c:"\u7269",k:"uk"},
+  {c:"\u53d1",k:"fs"},
+  {c:"\u767d",k:"bc"},
+  {c:"\u529b",k:"wk"},
+  {c:"\u753b",k:"hx"},
+  {c:"\u7ba1",k:"rf"},
+  {c:"\u961f",k:"dz"},
+  {c:"\u738b",k:"uw"},
+  {c:"\u6d3e",k:"pp"},
+  {c:"\u7701",k:"ab"},
+  {c:"\u8bcd",k:"cl"},
+  {c:"\u7adf",k:"jp"},
+  {c:"\u8fb9",k:"bi"},
+  {c:"\u8bba",k:"lp"},
+  {c:"\u4fe1",k:"xp"},
+  {c:"\u98ce",k:"fn"},
+  {c:"\u53cc",k:"ty"},
+  {c:"\u52a8",k:"dw"},
+  {c:"\u53cd",k:"ff"},
+  {c:"\u82e5",k:"rm"},
+  {c:"\u4ec5",k:"jb"},
+  {c:"\u529e",k:"bd"},
+  {c:"\u7a7f",k:"ci"},
+  {c:"\u5fd9",k:"mw"},
+  {c:"\u7ebf",k:"xd"},
+  {c:"\u8d8a",k:"vm"},
+  {c:"\u5973",k:"nj"},
+  {c:"\u6d3b",k:"hu"},
+  {c:"\u9a6c",k:"mo"},
+  {c:"\u5b50",k:"zj"},
+  {c:"\u6df1",k:"an"},
+  {c:"\u9ed1",k:"hq"},
+  {c:"\u52a0",k:"js"},
+  {c:"\u5382",k:"oy"},
+  {c:"\u5171",k:"gw"},
+  {c:"\u8d28",k:"ek"},
+  {c:"\u968f",k:"sa"},
+  {c:"\u62c9",k:"ls"},
+  {c:"\u5236",k:"ek"},
+  {c:"\u5566",k:"ls"},
+  {c:"\u5165",k:"rk"},
+  {c:"\u6545",k:"rk"},
+  {c:"\u53f7",k:"hv"},
+  {c:"\u5e95",k:"yj"},
+  {c:"\u7b97",k:"sd"},
+  {c:"\u8fbe",k:"ds"},
+  {c:"\u652f",k:"eo"},
+  {c:"\u9001",k:"sw"},
+  {c:"\u671f",k:"qo"},
+  {c:"\u53bf",k:"xd"},
+  {c:"\u89d2",k:"je"},
+  {c:"\u5e02",k:"ak"},
+  {c:"\u79f0",k:"on"},
+  {c:"\u9898",k:"tl"},
+  {c:"\u4e5d",k:"ja"},
+  {c:"\u5c71",k:"ai"},
+  {c:"\u6478",k:"ma"},
+  {c:"\u79bb",k:"wl"},
+  {c:"\u77ed",k:"df"},
+  {c:"\u8239",k:"ci"},
+  {c:"\u671d",k:"oe"},
+  {c:"\u8f6c",k:"sf"},
+  {c:"\u773c",k:"if"},
+  {c:"\u53d6",k:"gj"},
+  {c:"\u521d",k:"co"},
+  {c:"\u674e",k:"wj"},
+  {c:"\u7fa4",k:"gg"},
+  {c:"\u56fd",k:"ru"},
+  {c:"\u9c7c",k:"vl"},
+  {c:"\u7559",k:"wu"},
+  {c:"\u5ea6",k:"dk"},
+  {c:"\u8868",k:"be"},
+  {c:"\u54e9",k:"wo"},
+  {c:"\u706b",k:"hr"},
+  {c:"\u5dee",k:"ox"},
+  {c:"\u5531",k:"oh"},
+  {c:"\u56e2",k:"ti"},
+  {c:"\u811a",k:"je"},
+  {c:"\u6c42",k:"qu"},
+  {c:"\u578b",k:"xg"},
+  {c:"\u6279",k:"po"},
+  {c:"\u54ed",k:"ko"},
+  {c:"\u7247",k:"pd"},
+  {c:"\u897f",k:"xo"},
+  {c:"\u500d",k:"bz"},
+  {c:"\u7ec4",k:"zj"},
+  {c:"\u5356",k:"mp"},
+  {c:"\u8f66",k:"oa"},
+  {c:"\u5747",k:"gn"},
+  {c:"\u504f",k:"pi"},
+  {c:"\u5343",k:"qi"},
+  {c:"\u70df",k:"ii"},
+  {c:"\u539f",k:"vi"},
+  {c:"\u7761",k:"tz"},
+  {c:"\u6d41",k:"wu"},
+  {c:"\u5468",k:"eu"},
+  {c:"\u6025",k:"jl"},
+  {c:"\u53f0",k:"tc"},
+  {c:"\u795e",k:"ag"},
+  {c:"\u6811",k:"tk"},
+  {c:"\u63a5",k:"ja"},
+  {c:"\u559d",k:"ha"},
+  {c:"\u65b9",k:"fy"},
+  {c:"\u5988",k:"ms"},
+  {c:"\u558a",k:"hf"},
+  {c:"\u591c",k:"im"},
+  {c:"\u501f",k:"jm"},
+  {c:"\u94c1",k:"tr"},
+  {c:"\u8df3",k:"tv"},
+  {c:"\u5355",k:"di"},
+  {c:"\u9ec4",k:"hw"},
+  {c:"\u4e1c",k:"dh"},
+  {c:"\u8bb0",k:"jk"},
+  {c:"\u4ee4",k:"wp"},
+  {c:"\u7387",k:"lk"},
+  {c:"\u6ee1",k:"mf"},
+  {c:"\u54cd",k:"xy"},
+  {c:"\u725b",k:"nu"},
+  {c:"\u519b",k:"gn"},
+  {c:"\u6bdb",k:"me"},
+  {c:"\u9897",k:"ka"},
+  {c:"\u4ee3",k:"dp"},
+  {c:"\u65ad",k:"dd"},
+  {c:"\u5475",k:"ha"},
+  {c:"\u73ed",k:"bi"},
+  {c:"\u91d1",k:"jn"},
+  {c:"\u4e14",k:"qr"},
+  {c:"\u670d",k:"fl"},
+  {c:"\u5f04",k:"nw"},
+  {c:"\u843d",k:"lm"},
+  {c:"\u5f62",k:"xg"},
+  {c:"\u7ec6",k:"xk"},
+  {c:"\u6293",k:"ss"},
+  {c:"\u7cfb",k:"xk"},
+  {c:"\u76f4",k:"el"},
+  {c:"\u5de6",k:"zr"},
+  {c:"\u5634",k:"zq"},
+  {c:"\u88c5",k:"sy"},
+  {c:"\u9700",k:"xo"},
+  {c:"\u8282",k:"ju"},
+  {c:"\u561b",k:"ms"},
+  {c:"\u5357",k:"ni"},
+  {c:"\u5b9a",k:"yp"},
+  {c:"\u5c5e",k:"tj"},
+  {c:"\u80a1",k:"rj"},
+  {c:"\u9876",k:"yb"},
+  {c:"\u7167",k:"ev"},
+  {c:"\u503c",k:"el"},
+  {c:"\u8eab",k:"an"},
+  {c:"\u98de",k:"fq"},
+  {c:"\u822c",k:"bi"},
+  {c:"\u5305",k:"be"},
+  {c:"\u6751",k:"cn"},
+  {c:"\u66ff",k:"tk"},
+  {c:"\u5e2e",k:"by"},
+  {c:"\u8bfb",k:"dl"},
+  {c:"\u987b",k:"xo"},
+  {c:"\u649e",k:"sh"},
+  {c:"\u72b6",k:"sh"},
+  {c:"\u6446",k:"bc"},
+  {c:"\u62cd",k:"pc"},
+  {c:"\u7acb",k:"wk"},
+  {c:"\u5317",k:"bq"},
+  {c:"\u51b7",k:"lb"},
+  {c:"\u542b",k:"hi"},
+  {c:"\u6e05",k:"qn"},
+  {c:"\u80cc",k:"bz"},
+  {c:"\u6559",k:"jv"},
+  {c:"\u5408",k:"hu"},
+  {c:"\u6389",k:"yv"},
+  {c:"\u6392",k:"pc"},
+  {c:"\u996d",k:"fd"},
+  {c:"\u4e71",k:"ld"},
+  {c:"\u571f",k:"tj"},
+  {c:"\u5c01",k:"fn"},
+  {c:"\u6237",k:"hk"},
+  {c:"\u53f6",k:"im"},
+  {c:"\u7b14",k:"bj"},
+  {c:"\u4f9b",k:"gh"},
+  {c:"\u82e6",k:"kj"},
+  {c:"\u54b1",k:"zi"},
+  {c:"\u6362",k:"hd"},
+  {c:"\u505c",k:"tg"},
+  {c:"\u620f",k:"xk"},
+  {c:"\u6bcd",k:"mj"},
+  {c:"\u77f3",k:"al"},
+  {c:"\u57ce",k:"og"},
+  {c:"\u4e91",k:"vg"},
+  {c:"\u67b6",k:"jx"},
+  {c:"\u70e6",k:"fi"},
+  {c:"\u4efb",k:"rp"},
+  {c:"\u5c3d",k:"jp"},
+  {c:"\u8840",k:"xm"},
+  {c:"\u538b",k:"is"},
+  {c:"\u4e3b",k:"sj"},
+  {c:"\u8bbe",k:"am"},
+  {c:"\u8f7b",k:"qn"},
+  {c:"\u5c4a",k:"jm"},
+  {c:"\u6302",k:"rx"},
+  {c:"\u5668",k:"qk"},
+  {c:"\u72d7",k:"ga"},
+  {c:"\u62b1",k:"bv"},
+  {c:"\u611f",k:"gf"},
+  {c:"\u65a4",k:"jn"},
+  {c:"\u5377",k:"gf"},
+  {c:"\u77a7",k:"qe"},
+  {c:"\u5706",k:"vi"},
+  {c:"\u574f",k:"hp"},
+  {c:"\u51b0",k:"bn"},
+  {c:"\u76d6",k:"gp"},
+  {c:"\u7834",k:"pm"},
+  {c:"\u6d77",k:"hc"},
+  {c:"\u4f8b",k:"wk"},
+  {c:"\u62a5",k:"bv"},
+  {c:"\u5428",k:"dn"},
+  {c:"\u6536",k:"au"},
+  {c:"\u949f",k:"eh"},
+  {c:"\u5fd8",k:"uh"},
+  {c:"\u4ebf",k:"ik"},
+  {c:"\u6613",k:"ik"},
+  {c:"\u4ea6",k:"ik"},
+  {c:"\u8349",k:"ce"},
+  {c:"\u515a",k:"dy"},
+  {c:"\u4f59",k:"vl"},
+  {c:"\u5f52",k:"rq"},
+  {c:"\u5565",k:"as"}];
+
+
+
+// ============================================================
+// SECTION A2: PINYIN STYLE CONVERSION
+// ============================================================
+
+let pinyinStyle = localStorage.getItem('pdsp_pinyin_style') || 'number'; // 'number' | 'mark'
+
+function togglePinyinStyle() {
+  pinyinStyle = pinyinStyle === 'number' ? 'mark' : 'number';
+  localStorage.setItem('pdsp_pinyin_style', pinyinStyle);
+  updatePinyinStyleBtn();
+  // Re-render visible module
+  if (activeTab === 'm1b') m1bShow();
+  if (activeTab === 'm2') m2Render();
+}
+
+function updatePinyinStyleBtn() {
+  const btn = document.getElementById('pinyinStyleBtn');
+  btn.textContent = pinyinStyle === 'number' ? '🔤' : 'áō';
+  btn.title = pinyinStyle === 'number' ? '拼音风格: 数字 (shi4) — 点击切换' : '拼音风格: 音标 (shì) — 点击切换';
+}
+
+// Numbered tone → tone marks with proper pinyin placement
+function numbersToMarks(s) {
+  const toneMarks = { 'a1':'ā','a2':'á','a3':'ǎ','a4':'à','o1':'ō','o2':'ó','o3':'ǒ','o4':'ò','e1':'ē','e2':'é','e3':'ě','e4':'è','i1':'ī','i2':'í','i3':'ǐ','i4':'ì','u1':'ū','u2':'ú','u3':'ǔ','u4':'ù','v1':'ǖ','v2':'ǘ','v3':'ǚ','v4':'ǜ' };
+  return s.replace(/^(.*?)(\d)$/, (m, base, tone) => {
+    // Standard pinyin tone placement: a > e > o > last vowel of i/u/v pair
+    let targetIdx;
+    if (base.includes('a')) targetIdx = base.indexOf('a');
+    else if (base.includes('e')) targetIdx = base.indexOf('e');
+    else if (base.includes('o')) targetIdx = base.indexOf('o');
+    else {
+      const vowels = [...base.matchAll(/[iuv]/g)];
+      targetIdx = vowels.length >= 2 ? base.indexOf(vowels[vowels.length - 1]) : base.search(/[iuv]/);
+    }
+    if (targetIdx < 0) return s;
+    const targetVowel = base[targetIdx];
+    const key = targetVowel + tone;
+    return base.substring(0, targetIdx) + (toneMarks[key] || targetVowel) + base.substring(targetIdx + 1);
+  });
+}
+
+// Tone marks → numbered: 'shì' → 'shi4'
+function marksToNumbers(s) {
+  const base = {'ā':'a','á':'a','ǎ':'a','à':'a','ō':'o','ó':'o','ǒ':'o','ò':'o','ē':'e','é':'e','ě':'e','è':'e','ī':'i','í':'i','ǐ':'i','ì':'i','ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'v','ǘ':'v','ǚ':'v','ǜ':'v'};
+  const tone = {'ā':'1','á':'2','ǎ':'3','à':'4','ō':'1','ó':'2','ǒ':'3','ò':'4','ē':'1','é':'2','ě':'3','è':'4','ī':'1','í':'2','ǐ':'3','ì':'4','ū':'1','ú':'2','ǔ':'3','ù':'4','ǖ':'1','ǘ':'2','ǚ':'3','ǜ':'4'};
+  let r = '', t = '';
+  for (const ch of s) {
+    if (base[ch]) { r += base[ch]; t = tone[ch]; }
+    else r += ch;
+  }
+  return r + t;
+}
+
+// Display a pinyin string in the current style (handles both input formats)
+function fmtPinyin(s) {
+  const numbered = normalizeToNumbers(s);
+  if (pinyinStyle === 'mark') {
+    // Zero rhyme: _1 _2 _3 _4 → tone symbols only
+    if (/^_\d$/.test(numbered)) {
+      const toneSymbols = { '_1':'ˉ','_2':'ˊ','_3':'ˇ','_4':'ˋ' };
+      return toneSymbols[numbered] || numbered;
+    }
+    return numbersToMarks(numbered);
+  }
+  return numbered;
+}
+
+// Normalize imported data to numbered format regardless of input style
+function normalizeToNumbers(s) {
+  // Detect if it has tone marks
+  if (/[āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ]/.test(s)) return marksToNumbers(s);
+  return s;
+}
+
+document.getElementById('pinyinStyleBtn').addEventListener('click', togglePinyinStyle);
+updatePinyinStyleBtn();
+
+// ============================================================
+// SECTION B: ENCODING ENGINE
+// ============================================================
+
+function pinyinToCode(pinyin) {
+  let s = pinyin.trim().toLowerCase();
+  // Phase A: Normalization (14 rules, order matters)
+  s = s.replace(/5/g, '1');
+  s = s.replace(/^ê(\d)/, 'ei$1');  // only ê (e-circumflex), not regular e
+  s = s.replace(/^m(\d)/, 'mu$1');
+  s = s.replace(/^(h?)[nm](g?)(\d)/, '$1en$2$3');
+  s = s.replace(/^fiao(\d)/, 'fao$1');
+  s = s.replace(/^wong(\d)/, 'weng$1');
+  s = s.replace(/yu/g, 'v');
+  s = s.replace(/yi?/g, 'i');
+  s = s.replace(/wu?/g, 'u');
+  s = s.replace(/([jqx])u/g, '$1v');
+  s = s.replace(/([iuv])n/g, '$1en');
+  s = s.replace(/iu(\d)/g, 'iou$1');
+  s = s.replace(/ui(\d)/g, 'uei$1');
+  s = s.replace(/^([aoeiuv])/, '_$1');
+
+  // Phase B: Split
+  const splitRe = /^(zh|ch|sh|[bpmfdtnlgkhjqxzcsr_])([iuv]?)(.*?\d)/;
+  const m = s.match(splitRe);
+  if (!m) return '??';
+
+  let sj = m[1] + m[2];  // 声介
+  let yd = m[3];          // 韵调
+
+  // Phase C: ShengJie post-processing
+  sj = sj.replace(/^([bpmf])u$/, '$1');
+  sj = sj.replace(/^(zh|ch|sh|[zcsr])i$/, '$1');
+
+  // Phase D: YunDiao post-processing
+  yd = yd.replace(/^o(\d)/, 'e$1');
+  yd = yd.replace(/^er(\d)/, '$1');
+  yd = yd.replace(/^eng(\d)/, 'en$1');
+  yd = yd.replace(/^(\d)$/, '_$1');
+
+  // Phase E: Lookup
+  const sk = SHENGJIE_MAP[sj] || '?';
+  const yk = YUNDIAO_MAP[yd] || '?';
+  return sk + yk;
+}
+
+// Parse TSV text to [pinyin, code] pairs (always stored as numbered pinyin)
+function parseSyllableText(text) {
+  return text.trim().split(/[\r\n]+/).filter(Boolean).map(line => {
+    const parts = line.split('\t');
+    const pinyinRaw = (parts[0] || '').trim();
+    const pinyin = normalizeToNumbers(pinyinRaw);
+    return [pinyin, (parts[1] || '').trim().slice(0, 2)];
+  }).filter(p => p[0] && p[1]);
+}
+
+// Parse TSV text to [{c, k}] pairs
+function parseCharText(text) {
+  return text.trim().split(/[\r\n]+/).filter(Boolean).map(line => {
+    const parts = line.split('\t');
+    return { c: parts[0] || '', k: (parts[1] || '').trim().slice(0, 2) };
+  }).filter(p => p.c && p.k);
+}
+
+// ============================================================
+// SECTION C: KEYBOARD RENDERING
+// ============================================================
+
+const KEYBOARD_LAYOUT = [
+  ['q','w','e','r','t','y','u','i','o','p'],
+  ['a','s','d','f','g','h','j','k','l'],
+  ['z','x','c','v','b','n','m'],
+];
+
+// Finger zone: 'pinky','ring','middle','indexL','indexR'
+const FINGER_MAP = {
+  q:'pinky',a:'pinky',z:'pinky',
+  w:'ring',s:'ring',x:'ring',
+  e:'middle',d:'middle',c:'middle',
+  r:'index',f:'index',v:'index',t:'index',g:'index',b:'index',
+  y:'index',h:'index',n:'index',u:'index',j:'index',m:'index',
+  i:'middle',k:'middle',
+  o:'ring',l:'ring',
+  p:'pinky',
+};
+
+function fingerClass(key) {
+  const f = FINGER_MAP[key];
+  if (f === 'pinky') return 'finger-pinky';
+  if (f === 'ring') return 'finger-ring';
+  if (f === 'middle') return 'finger-middle';
+  return 'finger-index';
+}
+
+// Key labels: which shengjie/yundiao elements map to each key
+function getKeyLabels(mode) {
+  const labels = {};
+  'qwertyuiopasdfghjklzxcvbnm'.split('').forEach(k => { labels[k] = []; });
+
+  if (mode === 'shengjie') {
+    IRREGULAR_SHENGJIE.forEach(sj => {
+      if (!labels[sj.key].includes(sj.label)) labels[sj.key].push(sj.label);
+    });
+  } else if (mode === 'yundiao') {
+    for (const [yd, key] of Object.entries(YUNDIAO_MAP)) {
+      const display = fmtPinyin(yd);
+      if (!labels[key].includes(display)) labels[key].push(display);
+    }
+  }
+  return labels;
+}
+
+function renderKeyboard(containerId, mode, highlights, currentStep) {
+  const container = document.getElementById(containerId);
+  const labels = getKeyLabels(mode);
+
+  let html = '';
+  KEYBOARD_LAYOUT.forEach((row, ri) => {
+    const rowClass = ri === 1 ? 'keyboard-row offset' : 'keyboard-row';
+    html += `<div class="${rowClass}">`;
+    row.forEach(key => {
+      const rawLabels = labels[key] || [];
+      let labelHtml = '';
+      if (rawLabels.length === 4) {
+        labelHtml = `<span class="key-label" style="font-size:0.6rem;line-height:1.2;">${rawLabels[0]} ${rawLabels[1]}<br>${rawLabels[2]} ${rawLabels[3]}</span>`;
+      } else if (rawLabels.length === 3) {
+        labelHtml = `<span class="key-label" style="font-size:0.6rem;line-height:1.2;">${rawLabels[0]} ${rawLabels[1]}<br>${rawLabels[2]}</span>`;
+      } else if (rawLabels.length > 0) {
+        const t = rawLabels.join(' ');
+        const fs = t.length > 8 ? 'font-size:0.55rem;' : '';
+        labelHtml = `<span class="key-label" style="${fs}">${t}</span>`;
+      }
+      let cls = 'key-key ' + fingerClass(key);
+      if (highlights && highlights.includes(key)) {
+        if (currentStep !== undefined && highlights[currentStep] === key) {
+          cls += ' current-step';
+        } else if (highlights.includes(key)) {
+          cls += ' target-highlight';
+        }
+      } else if (highlights && highlights.length > 0) {
+        cls += ' dim';
+      }
+      html += `<div class="${cls}" data-key="${key}">
+        <span class="key-letter">${key.toUpperCase()}</span>
+        ${labelHtml}
+      </div>`;
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// ============================================================
+// SECTION D: SM-2 SCHEDULER
+// ============================================================
+
+function createCard(id, element, expectedKey) {
+  return {
+    id, element, expectedKey,
+    easeFactor: 2.5,
+    interval: 0,
+    nextReview: 0,
+    repetitions: 0,
+    lapses: 0,
+  };
+}
+
+function createGroupCard(id, rhyme, keys) {
+  return {
+    id, rhyme, keys,
+    easeFactor: 2.5,
+    interval: 0,
+    nextReview: 0,
+    repetitions: 0,
+    lapses: 0,
+  };
+}
+
+function scaleInterval(interval) {
+  if (interval <= 0) return 1; // minutes
+  if (interval === 1) return 1; // 1 min
+  if (interval < 1) return 10; // <1 day → 10 min
+  return interval * 24 * 60; // days → minutes
+}
+
+function updateCardSM2(card, quality) {
+  // quality: 5=perfect, 4=correct with hesitation, 0=wrong
+  if (quality >= 4) {
+    if (card.repetitions === 0) card.interval = 1;
+    else if (card.repetitions === 1) card.interval = 6;
+    else card.interval = Math.round(card.interval * card.easeFactor);
+    card.repetitions++;
+    card.easeFactor = Math.max(1.3, card.easeFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
+  } else {
+    card.repetitions = 0;
+    card.interval = 1;
+    card.lapses++;
+    card.easeFactor = Math.max(1.3, card.easeFactor - 0.2);
+  }
+  card.nextReview = Date.now() + scaleInterval(card.interval) * 60000;
+  return card;
+}
+
+function getDueCards(cards, forceMode) {
+  const now = Date.now();
+  if (forceMode) return shuffle([...cards]);
+
+  const due = [];
+  const newCards = [];
+  const lapsed = [];
+
+  cards.forEach(c => {
+    if (c.nextReview === 0) newCards.push(c);
+    else if (c.repetitions === 0 && c.lapses > 0) lapsed.push(c);
+    else if (c.nextReview <= now) due.push(c);
+  });
+
+  return [...newCards, ...lapsed, ...due.sort((a,b) => a.nextReview - b.nextReview)];
+}
+
+const DEFAULT_SETTINGS = {
+  m2Count: 5,
+  m3GroupSize: 10,
+  m3Reps: 5
+};
+
+// ============================================================
+// SECTION E: UTILITIES
+// ============================================================
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function chunk(arr, size) {
+  const groups = [];
+  for (let i = 0; i < arr.length; i += size) {
+    groups.push(arr.slice(i, i + size));
+  }
+  return groups;
+}
+
+function loadJSON(key, def) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : def;
+  } catch(e) { return def; }
+}
+
+function saveJSON(key, data) {
+  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
+}
+
+function showFloatScore(x, y, isCorrect) {
+  const el = document.createElement('div');
+  el.className = 'float-score ' + (isCorrect ? 'correct' : 'wrong');
+  el.textContent = isCorrect ? '+10' : '-20';
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+// Shared state for M2/M3 dual-condition advancement (must be before module code)
+let m2RecentAccuracies = [];
+let m3RecentAccuracies = [];
+
+function shouldAdvanceGroup(recentAccs, reps, accuracyThreshold) {
+  if (recentAccs.length < reps) return false;
+  const lastN = recentAccs.slice(-reps);
+  const avg = lastN.reduce((a, b) => a + b, 0) / lastN.length;
+  return avg >= accuracyThreshold;
+}
+
+// ============================================================
+// SECTION G: MODULE 1A — 声介键位
+// ============================================================
+
+let m1aState = loadJSON('pdsp_m1a_sj_state', null);
+if (!m1aState || !m1aState.cards || m1aState.cards.length !== 12) {
+  m1aState = {
+    cards: IRREGULAR_SHENGJIE.map(sj => createCard(sj.id, sj.label, sj.key)),
+    stats: { correct: 0, wrong: 0, total: 0 },
+    forceMode: false,
+  };
+}
+let m1aCurrentCard = null;
+let m1aDueCards = [];
+let m1aDueIdx = 0;
+let m1aInputFocused = true;
+
+function m1aGetNext() {
+  m1aDueCards = getDueCards(m1aState.cards, m1aState.forceMode);
+  if (m1aDueCards.length === 0) {
+    // All cards reviewed — auto-enter force mode
+    m1aState.forceMode = true;
+    document.getElementById('m1aForceBtn').textContent = '启用所有元素 ✓';
+    document.getElementById('m1aForceBtn').style.background = 'var(--color-warn)';
+    m1aDueCards = shuffle([...m1aState.cards]);
+  }
+  m1aDueIdx = 0;
+  m1aCurrentCard = m1aDueCards[0];
+}
+
+function m1aShow() {
+  if (!m1aCurrentCard) m1aGetNext();
+  document.getElementById('m1aPrompt').textContent = m1aCurrentCard.element;
+  const sj = IRREGULAR_SHENGJIE.find(s => s.id === m1aCurrentCard.id);
+  const hint = sj && sj.hint ? ' (' + sj.hint + ')' : '';
+  document.getElementById('m1aPrompt').nextElementSibling &&
+    (document.getElementById('m1aPrompt').nextElementSibling.textContent = '');
+
+  const expectedKey = m1aCurrentCard.expectedKey;
+  renderKeyboard('m1aKeyboard', 'shengjie', [expectedKey], 0);
+  document.getElementById('m1aInput').value = '';
+  document.getElementById('m1aInput').className = 'char-input';
+  document.getElementById('m1aInput').focus();
+  m1aUpdateStats();
+}
+
+function m1aUpdateStats() {
+  const mastered = m1aState.cards.filter(c => c.repetitions >= 3 && c.easeFactor >= 2.1).length;
+  const total = m1aState.cards.length;
+  document.getElementById('m1aStats').innerHTML =
+    `<span>掌握: ${mastered}/${total}</span>` +
+    `<span>正确率: ${m1aState.stats.total > 0 ? Math.round(m1aState.stats.correct/m1aState.stats.total*100) : 0}%</span>` +
+    `<span>待复习: ${getDueCards(m1aState.cards, false).length}</span>` +
+    (m1aState.forceMode ? '<span style="color:var(--color-warn)">强制模式</span>' : '');
+}
+
+function m1aHandleInput(e) {
+  const val = e.target.value.toLowerCase().replace(/[^a-z]/g, '');
+  if (!val) return;
+  e.target.value = val;
+
+  const correct = val === m1aCurrentCard.expectedKey;
+  if (correct) {
+    m1aState.stats.correct++; m1aState.stats.total++;
+    updateCardSM2(m1aCurrentCard, 5);
+
+    e.target.classList.add('correct');
+    m1aInputFocused = true;
+  } else {
+    m1aState.stats.wrong++; m1aState.stats.total++;
+    updateCardSM2(m1aCurrentCard, 0);
+
+    e.target.classList.add('wrong');
+    m1aInputFocused = false;
+  }
+
+  setTimeout(() => {
+    if (m1aInputFocused) {
+      m1aDueIdx++;
+      if (m1aDueIdx >= m1aDueCards.length) m1aGetNext();
+      else m1aCurrentCard = m1aDueCards[m1aDueIdx];
+    } // else: retry same card
+    m1aInputFocused = true;
+    m1aShow();
+    saveJSON('pdsp_m1a_sj_state', m1aState);
+  }, correct ? 300 : 600);
+}
+
+document.getElementById('m1aInput').addEventListener('input', m1aHandleInput);
+let m1aKeysVisible = true;
+let m1bKeysVisible = true;
+
+document.getElementById('m1aHideKeysBtn').addEventListener('click', () => {
+  m1aKeysVisible = !m1aKeysVisible;
+  document.getElementById('m1aKeyboard').style.display = m1aKeysVisible ? '' : 'none';
+  document.getElementById('m1aHideKeysBtn').textContent = m1aKeysVisible ? '隐藏键位图' : '显示键位图';
+});
+
+document.getElementById('m1bHideKeysBtn').addEventListener('click', () => {
+  m1bKeysVisible = !m1bKeysVisible;
+  document.getElementById('m1bKeyboard').style.display = m1bKeysVisible ? '' : 'none';
+  document.getElementById('m1bHideKeysBtn').textContent = m1bKeysVisible ? '隐藏键位图' : '显示键位图';
+});
+
+document.getElementById('m1aResetBtn').addEventListener('click', () => {
+  if (!confirm('确定要重置声介练习的所有进度吗？此操作不可恢复。')) return;
+  m1aState = {
+    cards: IRREGULAR_SHENGJIE.map(sj => createCard(sj.id, sj.label, sj.key)),
+    stats: { correct: 0, wrong: 0, total: 0 },
+    forceMode: false,
+  };
+  document.getElementById('m1aForceBtn').textContent = '启用所有元素';
+  document.getElementById('m1aForceBtn').style.background = '';
+  saveJSON('pdsp_m1a_sj_state', m1aState);
+  m1aGetNext();
+  m1aShow();
+});
+
+document.getElementById('m1aForceBtn').addEventListener('click', () => {
+  m1aState.forceMode = !m1aState.forceMode;
+  const btn = document.getElementById('m1aForceBtn');
+  if (m1aState.forceMode) {
+    btn.textContent = '启用所有元素 ✓';
+    btn.style.background = 'var(--color-warn)';
+  } else {
+    btn.textContent = '启用所有元素';
+    btn.style.background = '';
+  }
+  m1aGetNext();
+  m1aShow();
+  saveJSON('pdsp_m1a_sj_state', m1aState);
+});
+
+// Keyboard click support for M1A
+document.getElementById('m1aKeyboard').addEventListener('click', (e) => {
+  const keyEl = e.target.closest('.key-key');
+  if (!keyEl) return;
+  const key = keyEl.dataset.key;
+  if (key) {
+    const input = document.getElementById('m1aInput');
+    input.value = key;
+    input.dispatchEvent(new Event('input'));
+  }
+});
+
+// ============================================================
+// SECTION H: MODULE 1B — 韵调键位
+// ============================================================
+
+let m1bState = loadJSON('pdsp_m1b_yd_state', null);
+if (!m1bState || !m1bState.cards || m1bState.cards.length !== 11) {
+  m1bState = {
+    cards: RHYME_GROUPS.map(g => createGroupCard(g.rhyme, g.rhyme, g.keys)),
+    stats: { correct: 0, wrong: 0, total: 0 },
+    forceMode: false,
+  };
+}
+let m1bCurrentCard = null;
+let m1bDueCards = [];
+let m1bDueIdx = 0;
+let m1bInputIdx = 0; // which tone (0-3) user is currently typing
+
+function m1bGetNext() {
+  m1bDueCards = getDueCards(m1bState.cards, m1bState.forceMode);
+  if (m1bDueCards.length === 0) {
+    m1bState.forceMode = true;
+    document.getElementById('m1bForceBtn').textContent = '启用所有元素 ✓';
+    document.getElementById('m1bForceBtn').style.background = 'var(--color-warn)';
+    m1bDueCards = shuffle([...m1bState.cards]);
+  }
+  m1bDueIdx = 0;
+  m1bCurrentCard = m1bDueCards[0];
+}
+
+function m1bShow() {
+  if (!m1bCurrentCard) m1bGetNext();
+  m1bInputIdx = 0;
+  document.getElementById('m1bPrompt').textContent = m1bCurrentCard.rhyme;
+
+  const inputs = document.querySelectorAll('#m1bInputs input');
+  inputs.forEach(inp => { inp.value = ''; inp.className = 'char-input'; });
+  inputs[0].focus();
+
+  const allKeys = m1bCurrentCard.keys;
+  renderKeyboard('m1bKeyboard', 'yundiao', allKeys, m1bInputIdx);
+  document.getElementById('m1bToneLabel').textContent = '1声 2声 3声 4声';
+  m1bUpdateStats();
+}
+
+function m1bUpdateStats() {
+  const mastered = m1bState.cards.filter(c => c.repetitions >= 3 && c.easeFactor >= 2.1).length;
+  document.getElementById('m1bStats').innerHTML =
+    `<span>掌握: ${mastered}/11</span>` +
+    `<span>正确率: ${m1bState.stats.total > 0 ? Math.round(m1bState.stats.correct/m1bState.stats.total*100) : 0}%</span>` +
+    `<span>待复习: ${getDueCards(m1bState.cards, false).length}</span>` +
+    (m1bState.forceMode ? '<span style="color:var(--color-warn)">强制模式</span>' : '');
+}
+
+function m1bHandleInput(e) {
+  const input = e.target;
+  const val = input.value.toLowerCase().replace(/[^a-z]/g, '');
+  if (!val) return;
+  input.value = val;
+  const idx = parseInt(input.dataset.idx);
+  const expectedKey = m1bCurrentCard.keys[idx];
+
+  if (val === expectedKey) {
+    input.classList.add('correct');
+    m1bInputIdx++;
+    if (m1bInputIdx >= 4) {
+      // All 4 correct
+      m1bState.stats.correct++; m1bState.stats.total++;
+      updateCardSM2(m1bCurrentCard, 5);
+  
+      const allInputs = document.querySelectorAll('#m1bInputs input');
+      allInputs.forEach(inp => inp.classList.add('correct'));
+      setTimeout(() => {
+        m1bDueIdx++;
+        if (m1bDueIdx >= m1bDueCards.length) m1bGetNext();
+        else m1bCurrentCard = m1bDueCards[m1bDueIdx];
+        m1bShow();
+        saveJSON('pdsp_m1b_yd_state', m1bState);
+      }, 500);
+    } else {
+      // Move to next tone
+      const nextInput = document.querySelector(`#m1bInputs input[data-idx="${m1bInputIdx}"]`);
+      if (nextInput) nextInput.focus();
+      // Update keyboard highlight
+      const allKeys = m1bCurrentCard.keys;
+      renderKeyboard('m1bKeyboard', 'yundiao', allKeys, m1bInputIdx);
+      document.getElementById('m1bToneLabel').innerHTML =
+        `<span style="color:var(--color-correct)">${Array(m1bInputIdx).fill('✓').join('')}</span> ` +
+        `${['1声','2声','3声','4声'][m1bInputIdx]} ${['2声','3声','4声'].slice(m1bInputIdx+1).join(' ')}`;
+    }
+  } else {
+    // Wrong keystroke — clear and retry (don't count as item yet)
+    updateCardSM2(m1bCurrentCard, 0);
+
+    input.classList.add('wrong');
+    input.value = '';
+    // Reset all inputs for retry
+    setTimeout(() => {
+      m1bInputIdx = 0;
+      const inputs = document.querySelectorAll('#m1bInputs input');
+      inputs.forEach(inp => { inp.value = ''; inp.className = 'char-input'; });
+      inputs[0].focus();
+      const allKeys = m1bCurrentCard.keys;
+      renderKeyboard('m1bKeyboard', 'yundiao', allKeys, 0);
+      document.getElementById('m1bToneLabel').textContent = '1声 2声 3声 4声';
+    }, 400);
+  }
+}
+
+document.querySelectorAll('#m1bInputs input').forEach(inp => {
+  inp.addEventListener('input', m1bHandleInput);
+});
+
+// Handle Enter key in M1B inputs to skip to next
+document.getElementById('m1bInputs').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const focused = document.activeElement;
+    if (focused && focused.dataset.idx !== undefined) {
+      const idx = parseInt(focused.dataset.idx);
+      if (idx < 3) {
+        const next = document.querySelector(`#m1bInputs input[data-idx="${idx+1}"]`);
+        if (next) next.focus();
+      }
+    }
+  }
+});
+
+document.getElementById('m1bResetBtn').addEventListener('click', () => {
+  if (!confirm('确定要重置韵调练习的所有进度吗？此操作不可恢复。')) return;
+  m1bState = {
+    cards: RHYME_GROUPS.map(g => createGroupCard(g.rhyme, g.rhyme, g.keys)),
+    stats: { correct: 0, wrong: 0, total: 0 },
+    forceMode: false,
+  };
+  document.getElementById('m1bForceBtn').textContent = '启用所有元素';
+  document.getElementById('m1bForceBtn').style.background = '';
+  saveJSON('pdsp_m1b_yd_state', m1bState);
+  m1bGetNext();
+  m1bShow();
+});
+
+document.getElementById('m1bForceBtn').addEventListener('click', () => {
+  m1bState.forceMode = !m1bState.forceMode;
+  const btn = document.getElementById('m1bForceBtn');
+  if (m1bState.forceMode) {
+    btn.textContent = '启用所有元素 ✓';
+    btn.style.background = 'var(--color-warn)';
+  } else {
+    btn.textContent = '启用所有元素';
+    btn.style.background = '';
+  }
+  m1bGetNext();
+  m1bShow();
+  saveJSON('pdsp_m1b_yd_state', m1bState);
+});
+
+// Keyboard click for M1B
+document.getElementById('m1bKeyboard').addEventListener('click', (e) => {
+  const keyEl = e.target.closest('.key-key');
+  if (!keyEl) return;
+  const key = keyEl.dataset.key;
+  if (key && m1bInputIdx < 4) {
+    const input = document.querySelector(`#m1bInputs input[data-idx="${m1bInputIdx}"]`);
+    if (input) {
+      input.value = key;
+      input.dispatchEvent(new Event('input'));
+    }
+  }
+});
+
+// ============================================================
+// SECTION I: MODULE 2 — 音节练习 (grouped, shuffled, 5x per group)
+// ============================================================
+
+let m2State = loadJSON('pdsp_m2_state', null);
+// Migrate old state format (count → groupSize)
+if (!m2State || m2State.count !== undefined) {
+  m2State = {
+    groupSize: (m2State && m2State.count) || 10,
+    reps: (m2State && m2State.reps) || 5,
+    accuracyThreshold: (m2State && m2State.accuracyThreshold) || 95,
+    groupIndex: (m2State && m2State.groupIndex) || 0,
+    rounds: (m2State && m2State.rounds) || {},
+    stats: (m2State && m2State.stats) || { correct: 0, wrong: 0, total: 0 },
+    errorCounts: (m2State && m2State.errorCounts) || {},
+    wrongMode: false
+  };
+}
+if (m2State.accuracyThreshold == null) m2State.accuracyThreshold = 95;
+if (!m2State.errorCounts) m2State.errorCounts = {};
+if (m2State.wrongMode == null) m2State.wrongMode = false;
+let m2Data = loadJSON('pdsp_m2_data', null);
+if (!m2Data) m2Data = DEFAULT_SYLLABLES_FULL.slice();
+let m2Groups = [];
+let m2CurrentGroup = [];
+let m2CurrentRound = 0;
+let m2RoundOrder = [];
+let m2Inputs = {};
+let m2CorrectThisRound = {};
+let m2FirstAttempt = { correct: 0, wrong: 0 }; // first-try accuracy per round
+let m2RoundStartTime = 0;
+let m2TimerStarted = false;
+let m2LastRoundTime = 0;  // seconds
+let m2LastRoundSpeed = 0; // keys/sec
+
+function m2BuildGroups() {
+  let data = [...m2Data];
+  if (m2State.wrongMode) {
+    data = data.filter(item => (m2State.errorCounts[item[0]] || 0) > 0);
+    if (data.length === 0) {
+      alert('没有错题，请先正常练习积累错题。');
+      m2State.wrongMode = false;
+      updateWrongModeBtn('m2', false);
+      data = [...m2Data];
+    }
+  }
+  m2Groups = chunk(data, m2State.groupSize);
+  if (m2State.groupIndex >= m2Groups.length) m2State.groupIndex = 0;
+}
+
+function updateWrongModeBtn(module, active) {
+  const btn = document.getElementById(module + 'WrongModeBtn');
+  if (active) {
+    btn.textContent = '📋 错题模式 ✓';
+    btn.style.background = 'var(--color-warn)';
+  } else {
+    btn.textContent = '📋 错题模式';
+    btn.style.background = '';
+  }
+}
+
+function m2StartRound() {
+  m2CurrentGroup = m2Groups[m2State.groupIndex] || [];
+  m2CurrentRound = m2State.rounds[m2State.groupIndex] || 0;
+  m2RoundOrder = shuffle([...Array(m2CurrentGroup.length).keys()]);
+  m2Inputs = {};
+  m2CorrectThisRound = {};
+  m2FirstAttempt = { correct: 0, wrong: 0 };
+  m2RoundStartTime = 0;
+  m2TimerStarted = false;
+  m2Render();
+}
+
+function m2CheckAllCorrect() {
+  return m2CurrentGroup.every((_, i) => {
+    return m2Inputs[i] && m2Inputs[i].length === 2 && m2Inputs[i] === m2CurrentGroup[i][1];
+  });
+}
+
+function m2Render() {
+  const grid = document.getElementById('m2List');
+  let html = '';
+  m2RoundOrder.forEach((origIdx) => {
+    const [py, code] = m2CurrentGroup[origIdx];
+    const val = m2Inputs[origIdx] || '';
+    const isCorrect = m2CorrectThisRound[origIdx] === true;
+    const isWrong = m2CorrectThisRound[origIdx] === false;
+    html += `<div class="char-cell">
+      <span class="chinese">${fmtPinyin(py)}</span>
+      <div class="char-input-wrap">
+        <input type="text" class="char-input${isCorrect ? ' correct' : ''}${isWrong ? ' wrong' : ''}"
+          data-idx="${origIdx}" maxlength="2"
+          value="${val}" ${isCorrect ? 'disabled' : ''}
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <span style="font-size:0.75rem;color:var(--color-wrong);min-height:1.1em;">${isWrong ? '→ '+code : ''}</span>
+    </div>`;
+  });
+  grid.innerHTML = html;
+  setTimeout(() => {
+    const first = grid.querySelector('input:not([disabled])');
+    if (first) first.focus();
+  }, 50);
+  m2UpdateStats();
+}
+
+function m2UpdateStats() {
+  const info = m2Data === DEFAULT_SYLLABLES_FULL ? `默认${DEFAULT_SYLLABLES_FULL.length}条` : `已导入${m2Data.length}条`;
+  const timeStr = m2LastRoundTime > 0 ? `${m2LastRoundTime.toFixed(1)}s` : '-';
+  const speedStr = m2LastRoundSpeed > 0 ? `${m2LastRoundSpeed.toFixed(1)}键/s` : '-';
+  document.getElementById('m2DataInfo').textContent = info;
+  const m2acc5 = m2RecentAccuracies.length > 0 ? (m2RecentAccuracies.slice(-5).reduce((a,b)=>a+b,0)/Math.min(5,m2RecentAccuracies.length)).toFixed(0) : '-';
+  const m2th = m2State.accuracyThreshold || 95;
+  document.getElementById('m2Stats').innerHTML =
+    `<span>第 ${m2State.groupIndex + 1}/${m2Groups.length} 组</span>` +
+    `<span>第 ${m2CurrentRound + 1}/${m2State.reps} 轮</span>` +
+    `<span>准确率: ${m2State.stats.total > 0 ? Math.round(m2State.stats.correct/m2State.stats.total*100) : 0}%</span>` +
+    `<span>近5轮: ${m2acc5}%/${m2th}%</span>` +
+    `<span>| 上轮: ${timeStr} ${speedStr}</span>` +
+    (m2State.wrongMode ? '<span style="color:var(--color-warn)">[错题]</span>' : '');
+}
+
+document.getElementById('m2List').addEventListener('input', (e) => {
+  if (!e.target.classList.contains('char-input')) return;
+  const idx = parseInt(e.target.dataset.idx);
+  if (e.target.disabled) return;
+  const val = e.target.value.toLowerCase().replace(/[^a-z]/g, '').slice(0, 2);
+  e.target.value = val;
+  if (val.length < 2) return;
+
+  const [py, code] = m2CurrentGroup[idx];
+  const correct = val === code;
+  // Start timer on first input of the round
+  if (!m2TimerStarted) {
+    m2RoundStartTime = Date.now();
+    m2TimerStarted = true;
+  }
+
+  m2Inputs[idx] = val;
+  m2State.stats.total++;
+  if (correct) {
+    m2State.stats.correct++;
+    const isFirstTry = m2CorrectThisRound[idx] === undefined;
+    if (isFirstTry) m2FirstAttempt.correct++;
+    m2CorrectThisRound[idx] = true;
+
+    m2Render(); // re-render to show green
+    saveJSON('pdsp_m2_state', m2State);
+
+    if (m2CheckAllCorrect()) {
+      const elapsed = (Date.now() - m2RoundStartTime) / 1000;
+      const keyCount = m2CurrentGroup.length * 2;
+      m2LastRoundTime = elapsed;
+      m2LastRoundSpeed = elapsed > 0 ? keyCount / elapsed : 0;
+
+      // Round accuracy = first-attempt correct / total first attempts
+      const totalFirst = m2FirstAttempt.correct + m2FirstAttempt.wrong;
+      const roundAcc = totalFirst > 0 ? m2FirstAttempt.correct / totalFirst * 100 : 100;
+      m2RecentAccuracies.push(roundAcc);
+      if (m2RecentAccuracies.length > 10) m2RecentAccuracies.shift();
+
+      m2CurrentRound++;
+      m2State.rounds[m2State.groupIndex] = m2CurrentRound;
+      const threshold = (m2State.accuracyThreshold != null) ? m2State.accuracyThreshold : 95;
+      const shouldAdv = m2CurrentRound >= m2State.reps && shouldAdvanceGroup(m2RecentAccuracies, m2State.reps, threshold);
+
+      if (shouldAdv) {
+        recordRound('m2', m2State.stats.correct, m2State.stats.total, elapsed, m2CurrentGroup.length);
+        m2State.groupIndex++;
+        if (m2State.groupIndex >= m2Groups.length) m2State.groupIndex = 0;
+        m2State.rounds[m2State.groupIndex] = 0;
+        m2RecentAccuracies = [];
+      }
+      m2Render();
+      saveJSON('pdsp_m2_state', m2State);
+      setTimeout(() => m2StartRound(), 600);
+    } else {
+      setTimeout(() => {
+        const next = document.querySelector('#m2List input:not([disabled])');
+        if (next) next.focus();
+      }, 100);
+    }
+  } else {
+    m2State.stats.wrong++;
+    m2RecordError(py);
+    const isFirstTry = m2CorrectThisRound[idx] === undefined;
+    if (isFirstTry) m2FirstAttempt.wrong++;
+    m2CorrectThisRound[idx] = false;
+    m2Inputs[idx] = '';
+    m2Render();
+    saveJSON('pdsp_m2_state', m2State);
+    setTimeout(() => {
+      const inp = document.querySelector(`#m2List input[data-idx="${idx}"]`);
+      if (inp) inp.focus();
+    }, 50);
+  }
+});
+
+document.getElementById('m2ResetBtn').addEventListener('click', () => {
+  if (!confirm('确定要重置音节练习的所有进度吗？此操作不可恢复。')) return;
+  m2LastRoundTime = 0; m2LastRoundSpeed = 0;
+  m2RecentAccuracies = [];
+  m2State = {
+    groupSize: m2State.groupSize || 10, reps: m2State.reps || 5,
+    accuracyThreshold: m2State.accuracyThreshold || 95,
+    groupIndex: 0, rounds: {},
+    stats: { correct: 0, wrong: 0, total: 0 },
+    errorCounts: {}, wrongMode: false
+  };
+  updateWrongModeBtn('m2', false);
+  saveJSON('pdsp_m2_state', m2State);
+  m2BuildGroups();
+  m2StartRound();
+});
+
+document.getElementById('m3ResetBtn').addEventListener('click', () => {
+  if (!confirm('确定要重置字练习的所有进度吗？此操作不可恢复。')) return;
+  m3LastRoundTime = 0; m3LastRoundSpeed = 0;
+  m3RecentAccuracies = [];
+  m3State = {
+    groupIndex: 0, rounds: {},
+    stats: { correct: 0, wrong: 0, total: 0 },
+    groupSize: m3State.groupSize, reps: m3State.reps,
+    accuracyThreshold: m3State.accuracyThreshold,
+    errorCounts: {}, wrongMode: false
+  };
+  updateWrongModeBtn('m3', false);
+  saveJSON('pdsp_m3_state', m3State);
+  m3BuildGroups();
+  m3StartRound();
+});
+
+document.getElementById('m2Count').addEventListener('change', (e) => {
+  m2State.groupSize = Math.max(1, Math.min(50, parseInt(e.target.value) || 5));
+  m2State.groupIndex = 0; m2State.rounds = {};
+  m2BuildGroups(); m2StartRound();
+  saveJSON('pdsp_m2_state', m2State);
+});
+
+document.getElementById('m2Reps').addEventListener('change', (e) => {
+  m2State.reps = Math.max(1, Math.min(20, parseInt(e.target.value) || 5));
+  m2State.rounds = {};
+  m2RecentAccuracies = [];
+  m2StartRound();
+  saveJSON('pdsp_m2_state', m2State);
+});
+
+document.getElementById('m2Threshold').addEventListener('change', (e) => {
+  m2State.accuracyThreshold = Math.max(50, Math.min(100, parseInt(e.target.value) || 95));
+  saveJSON('pdsp_m2_state', m2State);
+});
+
+document.getElementById('m2WrongModeBtn').addEventListener('click', () => {
+  m2State.wrongMode = !m2State.wrongMode;
+  updateWrongModeBtn('m2', m2State.wrongMode);
+  m2State.groupIndex = 0; m2State.rounds = {};
+  m2BuildGroups();
+  m2StartRound();
+  saveJSON('pdsp_m2_state', m2State);
+});
+
+// M2 Import
+let importTarget = null;
+document.getElementById('m2ImportBtn').addEventListener('click', () => {
+  importTarget = 'm2';
+  document.getElementById('importTitle').textContent = '导入音节数据';
+  document.getElementById('importHint').textContent = '格式：拼音\t编码（一行一条）';
+  document.getElementById('importText').value = '';
+  document.getElementById('importModal').classList.remove('hidden');
+});
+
+// ============================================================
+// SECTION J: MODULE 3 — 字前两码
+// ============================================================
+
+let m3State = loadJSON('pdsp_m3_state', { groupIndex: 0, rounds: {}, stats: { correct: 0, wrong: 0, total: 0 }, groupSize: 10, reps: 5, accuracyThreshold: 95, errorCounts: {}, wrongMode: false });
+if (m3State.accuracyThreshold == null) m3State.accuracyThreshold = 95;
+if (!m3State.errorCounts) m3State.errorCounts = {};
+if (m3State.wrongMode == null) m3State.wrongMode = false;
+let m3Data = loadJSON('pdsp_m3_data', null);
+if (!m3Data) m3Data = DEFAULT_TOP500.slice();
+let m3Groups = [];
+let m3CurrentGroup = [];
+let m3CurrentRound = 0;
+let m3RoundOrder = [];
+let m3Inputs = {};
+let m3WrongFlags = {};
+let m3FirstAttempt = { correct: 0, wrong: 0 };
+let m3RoundStartTime = 0;
+let m3TimerStarted = false;
+let m3LastRoundTime = 0;
+let m3LastRoundSpeed = 0;
+
+function m3BuildGroups() {
+  let data = [...m3Data];
+  if (m3State.wrongMode) {
+    data = data.filter(item => (m3State.errorCounts[item.c] || 0) > 0);
+    if (data.length === 0) {
+      alert('没有错题，请先正常练习积累错题。');
+      m3State.wrongMode = false;
+      updateWrongModeBtn('m3', false);
+      data = [...m3Data];
+    }
+  }
+  m3Groups = chunk(data, m3State.groupSize);
+  if (m3State.groupIndex >= m3Groups.length) m3State.groupIndex = 0;
+}
+
+function m3StartRound() {
+  m3CurrentGroup = m3Groups[m3State.groupIndex] || [];
+  m3CurrentRound = m3State.rounds[m3State.groupIndex] || 0;
+  m3RoundOrder = shuffle([...Array(m3CurrentGroup.length).keys()]);
+  m3Inputs = {};
+  m3WrongFlags = {};
+  m3FirstAttempt = { correct: 0, wrong: 0 };
+  m3RoundStartTime = 0;
+  m3TimerStarted = false;
+  m3Render();
+}
+
+function m3Render() {
+  const grid = document.getElementById('m3Grid');
+  let html = '';
+  m3RoundOrder.forEach((origIdx) => {
+    const item = m3CurrentGroup[origIdx];
+    const val = m3Inputs[origIdx] || '';
+    const isCorrect = val.length === 2 && val === item.k;
+    const isWrong = m3WrongFlags[origIdx] === true;
+    html += `<div class="char-cell">
+      <span class="chinese">${item.c}</span>
+      <div class="char-input-wrap">
+        <input type="text" class="char-input${isCorrect ? ' correct' : ''}${isWrong ? ' wrong' : ''}"
+          data-idx="${origIdx}" maxlength="2"
+          value="${val}" ${isCorrect ? 'disabled' : ''}
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <span style="font-size:0.75rem;color:var(--color-wrong);min-height:1.1em;">${isWrong ? '→ '+item.k : ''}</span>
+    </div>`;
+  });
+  grid.innerHTML = html;
+  setTimeout(() => {
+    const firstEmpty = grid.querySelector('input:not([disabled])');
+    if (firstEmpty) firstEmpty.focus();
+  }, 50);
+  m3UpdateStats();
+}
+
+function m3CheckAllDone() {
+  return m3CurrentGroup.every((item, i) => {
+    return m3Inputs[i] && m3Inputs[i].length === 2 && m3Inputs[i] === item.k;
+  });
+}
+
+function m3UpdateStats() {
+  const timeStr = m3LastRoundTime > 0 ? `${m3LastRoundTime.toFixed(1)}s` : '-';
+  const speedStr = m3LastRoundSpeed > 0 ? `${m3LastRoundSpeed.toFixed(1)}键/s` : '-';
+  const info = m3Data === DEFAULT_TOP500 ? `默认${DEFAULT_TOP500.length}字` : `已导入${m3Data.length}字`;
+  document.getElementById('m3DataInfo').textContent = info;
+  const m3acc5 = m3RecentAccuracies.length > 0 ? (m3RecentAccuracies.slice(-5).reduce((a,b)=>a+b,0)/Math.min(5,m3RecentAccuracies.length)).toFixed(0) : '-';
+  const m3th = m3State.accuracyThreshold || 95;
+  document.getElementById('m3Stats').innerHTML =
+    `<span>第 ${m3State.groupIndex + 1}/${m3Groups.length} 组</span>` +
+    `<span>第 ${m3CurrentRound + 1}/${m3State.reps} 轮</span>` +
+    `<span>准确率: ${m3State.stats.total > 0 ? Math.round(m3State.stats.correct/m3State.stats.total*100) : 0}%</span>` +
+    `<span>近5轮: ${m3acc5}%/${m3th}%</span>` +
+    `<span>| 上轮: ${timeStr} ${speedStr}</span>` +
+    (m3State.wrongMode ? '<span style="color:var(--color-warn)">[错题]</span>' : '');
+}
+
+document.getElementById('m3Grid').addEventListener('input', (e) => {
+  if (!e.target.classList.contains('char-input')) return;
+  const idx = parseInt(e.target.dataset.idx);
+  const item = m3CurrentGroup[idx];
+  if (!item) return;
+  if (e.target.classList.contains('correct')) return; // already done
+  const val = e.target.value.toLowerCase().replace(/[^a-z]/g, '').slice(0, 2);
+  e.target.value = val;
+  if (val.length < 2) return;
+
+  // Start timer on first input of the round
+  if (!m3TimerStarted) {
+    m3RoundStartTime = Date.now();
+    m3TimerStarted = true;
+  }
+
+  const correct = val === item.k;
+  m3Inputs[idx] = val;
+  m3State.stats.total++;
+  if (correct) {
+    m3State.stats.correct++;
+    const isFirstTry = !m3WrongFlags[idx];
+    if (isFirstTry) m3FirstAttempt.correct++;
+    delete m3WrongFlags[idx];
+
+    m3Render();
+    saveJSON('pdsp_m3_state', m3State);
+
+    if (m3CheckAllDone()) {
+      const elapsed = (Date.now() - m3RoundStartTime) / 1000;
+      const keyCount = m3CurrentGroup.length * 2;
+      m3LastRoundTime = elapsed;
+      m3LastRoundSpeed = elapsed > 0 ? keyCount / elapsed : 0;
+
+      const totalFirst = m3FirstAttempt.correct + m3FirstAttempt.wrong;
+      const roundAcc = totalFirst > 0 ? m3FirstAttempt.correct / totalFirst * 100 : 100;
+      m3RecentAccuracies.push(roundAcc);
+      if (m3RecentAccuracies.length > 10) m3RecentAccuracies.shift();
+
+      m3CurrentRound++;
+      m3State.rounds[m3State.groupIndex] = m3CurrentRound;
+      const threshold = (m3State.accuracyThreshold != null) ? m3State.accuracyThreshold : 95;
+      const shouldAdv = m3CurrentRound >= m3State.reps && shouldAdvanceGroup(m3RecentAccuracies, m3State.reps, threshold);
+
+      if (shouldAdv) {
+        recordRound('m3', m3State.stats.correct, m3State.stats.total, elapsed, m3CurrentGroup.length);
+        m3State.groupIndex++;
+        if (m3State.groupIndex >= m3Groups.length) m3State.groupIndex = 0;
+        m3State.rounds[m3State.groupIndex] = 0;
+        m3RecentAccuracies = [];
+      }
+      m3Render();
+      saveJSON('pdsp_m3_state', m3State);
+      setTimeout(() => m3StartRound(), 600);
+    } else {
+      setTimeout(() => {
+        const nextEmpty = document.querySelector('#m3Grid input:not([disabled])');
+        if (nextEmpty) nextEmpty.focus();
+      }, 100);
+    }
+  } else {
+    m3State.stats.wrong++;
+    m3RecordError(item.c);
+    const isFirstTry = !m3WrongFlags[idx];
+    if (isFirstTry) m3FirstAttempt.wrong++;
+    m3WrongFlags[idx] = true;
+    m3Inputs[idx] = '';
+    m3Render();
+    saveJSON('pdsp_m3_state', m3State);
+    setTimeout(() => {
+      const inp = document.querySelector(`#m3Grid input[data-idx="${idx}"]`);
+      if (inp) inp.focus();
+    }, 50);
+  }
+});
+
+// Tab between M3 inputs
+document.getElementById('m3Grid').addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const inputs = [...document.querySelectorAll('#m3Grid input')];
+    const idx = inputs.indexOf(document.activeElement);
+    const next = inputs[(idx + 1) % inputs.length];
+    if (next) next.focus();
+  }
+});
+
+document.getElementById('m3GroupSize').addEventListener('change', (e) => {
+  m3State.groupSize = Math.max(2, Math.min(20, parseInt(e.target.value) || 10));
+  m3State.groupIndex = 0; m3State.rounds = {};
+  m3BuildGroups();
+  m3StartRound();
+  saveJSON('pdsp_m3_state', m3State);
+});
+
+document.getElementById('m3Reps').addEventListener('change', (e) => {
+  m3State.reps = Math.max(1, Math.min(20, parseInt(e.target.value) || 5));
+  m3State.rounds = {};
+  m3RecentAccuracies = [];
+  m3StartRound();
+  saveJSON('pdsp_m3_state', m3State);
+});
+
+document.getElementById('m3Threshold').addEventListener('change', (e) => {
+  m3State.accuracyThreshold = Math.max(50, Math.min(100, parseInt(e.target.value) || 95));
+  saveJSON('pdsp_m3_state', m3State);
+});
+
+document.getElementById('m3WrongModeBtn').addEventListener('click', () => {
+  m3State.wrongMode = !m3State.wrongMode;
+  updateWrongModeBtn('m3', m3State.wrongMode);
+  m3State.groupIndex = 0; m3State.rounds = {};
+  m3BuildGroups();
+  m3StartRound();
+  saveJSON('pdsp_m3_state', m3State);
+});
+
+// M3 Import
+document.getElementById('m3ImportBtn').addEventListener('click', () => {
+  importTarget = 'm3';
+  document.getElementById('importTitle').textContent = '导入字表数据';
+  document.getElementById('importHint').textContent = '格式：汉字\t编码（一行一条）';
+  document.getElementById('importText').value = '';
+  document.getElementById('importModal').classList.remove('hidden');
+});
+
+// ============================================================
+// SECTION K: IMPORT MODAL
+// ============================================================
+
+document.getElementById('importCancel').addEventListener('click', () => {
+  document.getElementById('importModal').classList.add('hidden');
+  importTarget = null;
+});
+
+document.getElementById('importConfirm').addEventListener('click', () => {
+  const text = document.getElementById('importText').value.trim();
+  if (!text) { document.getElementById('importModal').classList.add('hidden'); return; }
+
+  if (importTarget === 'm2') {
+    const parsed = parseSyllableText(text);
+    if (parsed.length > 0) {
+      m2Data = parsed;
+      saveJSON('pdsp_m2_data', m2Data);
+      m2State.groupIndex = 0; m2State.rounds = {};
+      m2BuildGroups();
+      m2StartRound();
+      saveJSON('pdsp_m2_state', m2State);
+    }
+  } else if (importTarget === 'm3') {
+    const parsed = parseCharText(text);
+    if (parsed.length > 0) {
+      m3Data = parsed;
+      saveJSON('pdsp_m3_data', m3Data);
+      m3State.groupIndex = 0; m3State.rounds = {};
+      m3BuildGroups();
+      m3StartRound();
+      saveJSON('pdsp_m3_state', m3State);
+    }
+  }
+
+  document.getElementById('importModal').classList.add('hidden');
+  importTarget = null;
+});
+
+// ============================================================
+// SECTION L: THEME MANAGEMENT
+// ============================================================
+
+const THEMES = [
+  { name:'default', label:'经典白', color:'#f5f5f5' },
+  { name:'dark', label:'暗夜', color:'#1a1a2e' },
+  { name:'ocean', label:'海洋', color:'#eff6ff' },
+  { name:'forest', label:'森林', color:'#ecfdf5' },
+  { name:'sakura', label:'樱花', color:'#fdf2f8' },
+  { name:'coffee', label:'咖啡', color:'#faf7f2' },
+  { name:'ink', label:'水墨', color:'#f8fafc' },
+  { name:'cyber', label:'赛博', color:'#0d0d0d' },
+];
+
+const savedTheme = localStorage.getItem('ime_theme_26') || '';
+
+function applyTheme(name) {
+  document.body.className = name && name !== 'default' ? 'theme-' + name : '';
+}
+
+function buildSkinPanel() {
+  const panel = document.getElementById('skinPanel');
+  panel.innerHTML = THEMES.map(t => {
+    const active = (t.name === 'default' && !savedTheme) || t.name === savedTheme;
+    return `<div class="skin-dot${active ? ' active' : ''}" data-theme="${t.name}"
+      style="background:${t.color};" title="${t.label}"></div>`;
+  }).join('');
+
+  panel.querySelectorAll('.skin-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const theme = dot.dataset.theme;
+      applyTheme(theme);
+      localStorage.setItem('ime_theme_26', theme === 'default' ? '' : theme);
+      panel.querySelectorAll('.skin-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+      document.getElementById('skinPanel').classList.add('hidden');
+    });
+  });
+}
+
+applyTheme(savedTheme);
+buildSkinPanel();
+
+document.getElementById('skinBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('skinPanel').classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('skinPanel');
+  if (!panel.classList.contains('hidden') && !panel.contains(e.target) && e.target !== document.getElementById('skinBtn')) {
+    panel.classList.add('hidden');
+  }
+});
+
+// ============================================================
+// SECTION L2: HISTORY TRACKING
+// ============================================================
+
+let historyData = loadJSON('pdsp_history', []);
+
+function recordRound(module, correct, total, timeSec, itemCount) {
+  const today = new Date().toISOString().slice(0, 10);
+  let day = historyData.find(d => d.date === today);
+  if (!day) {
+    day = { date: today, m1a: null, m1b: null, m2: null, m3: null };
+    historyData.push(day);
+    if (historyData.length > 90) historyData.shift(); // keep 90 days
+  }
+  if (!day[module]) {
+    day[module] = { rounds: 0, correct: 0, total: 0, times: [], items: 0 };
+  }
+  const d = day[module];
+  d.rounds++;
+  d.correct += correct;
+  d.total += total;
+  d.times.push(timeSec);
+  d.items += itemCount;
+  // Keep last 50 round times
+  if (d.times.length > 50) d.times.shift();
+  saveJSON('pdsp_history', historyData);
+}
+
+function trimmedAvg(arr, trimPct) {
+  if (arr.length < 3) return arr.length > 0 ? arr.reduce((a,b) => a+b, 0) / arr.length : 0;
+  const sorted = [...arr].sort((a,b) => a-b);
+  const trim = Math.max(1, Math.floor(arr.length * trimPct / 100));
+  const trimmed = sorted.slice(trim, sorted.length - trim);
+  return trimmed.reduce((a,b) => a+b, 0) / trimmed.length;
+}
+
+// ============================================================
+// SECTION L3: HISTORY CHART
+// ============================================================
+
+let historyChartModule = 'm2';
+
+function drawHistoryChart() {
+  const canvas = document.getElementById('historyChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const m = historyChartModule;
+  const days = historyData.slice(-30).filter(d => d[m]);
+  if (days.length === 0) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#888';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('暂无数据，开始练习后自动记录', canvas.width/2, canvas.height/2);
+    updateHistorySummary(days, m);
+    return;
+  }
+
+  const W = canvas.width, H = canvas.height;
+  const pad = { top: 20, right: 20, bottom: 40, left: 50 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--bg-input').trim() || '#f0f0f0';
+  ctx.fillRect(0, 0, W, H);
+
+  // Compute data series
+  const points = days.map(d => {
+    const speed = trimmedAvg(d[m].times, 5);
+    const acc = d[m].total > 0 ? d[m].correct / d[m].total * 100 : 0;
+    return { date: d.date.slice(5), speed, acc, rounds: d[m].rounds, items: d[m].items };
+  });
+
+  const maxSpeed = Math.max(...points.map(p => p.speed), 1) * 1.2;
+  const xStep = plotW / Math.max(points.length - 1, 1);
+
+  // Grid lines
+  ctx.strokeStyle = '#ddd';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + plotH * i / 4;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(W - pad.right, y);
+    ctx.stroke();
+  }
+
+  // Speed line (blue)
+  ctx.strokeStyle = '#2196f3';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = pad.left + i * xStep;
+    const y = pad.top + plotH * (1 - p.speed / maxSpeed);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Speed dots
+  points.forEach((p, i) => {
+    const x = pad.left + i * xStep;
+    const y = pad.top + plotH * (1 - p.speed / maxSpeed);
+    ctx.fillStyle = '#2196f3';
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // Accuracy line (green, dashed)
+  ctx.strokeStyle = '#4caf50';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = pad.left + i * xStep;
+    const y = pad.top + plotH * (1 - p.acc / 100);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // X axis labels (every ~5 days)
+  ctx.fillStyle = '#666';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  for (let i = 0; i < points.length; i += Math.max(1, Math.floor(points.length / 6))) {
+    const x = pad.left + i * xStep;
+    ctx.fillText(points[i].date, x, H - pad.bottom + 15);
+  }
+
+  // Y axis labels
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#2196f3';
+  ctx.fillText(maxSpeed.toFixed(0) + '键/s', pad.left - 5, pad.top + 12);
+  ctx.fillText('0', pad.left - 5, pad.top + plotH);
+
+  // Legend
+  ctx.fillStyle = '#2196f3';
+  ctx.fillRect(pad.left, H - 10, 12, 3);
+  ctx.fillStyle = '#666';
+  ctx.textAlign = 'left';
+  ctx.font = '11px sans-serif';
+  ctx.fillText('速度(键/s)', pad.left + 16, H - 6);
+
+  ctx.fillStyle = '#4caf50';
+  ctx.fillRect(pad.left + 100, H - 10, 12, 3);
+  ctx.fillStyle = '#666';
+  ctx.fillText('准确率(%)', pad.left + 116, H - 6);
+
+  updateHistorySummary(points, m);
+}
+
+function updateHistorySummary(points, m) {
+  const el = document.getElementById('historySummary');
+  if (points.length === 0) { el.textContent = ''; return; }
+  const last = points[points.length - 1];
+  const names = { m1a: '声介', m1b: '韵调', m2: '音节', m3: '字' };
+  el.textContent = `${names[m]}: 最近 ${last.date} — 速度 ${last.speed.toFixed(1)}键/s, 准确率 ${last.acc.toFixed(0)}%, 练习量 ${last.items}项/${last.rounds}轮`;
+}
+
+document.getElementById('helpBtn').addEventListener('click', () => {
+  document.getElementById('helpModal').classList.remove('hidden');
+});
+document.getElementById('helpClose').addEventListener('click', () => {
+  document.getElementById('helpModal').classList.add('hidden');
+});
+
+document.getElementById('historyBtn').addEventListener('click', () => {
+  document.getElementById('historyModal').classList.remove('hidden');
+  document.querySelectorAll('.hist-tab').forEach(b => b.classList.toggle('btn-primary', b.dataset.m === historyChartModule));
+  document.querySelectorAll('.hist-tab').forEach(b => b.classList.toggle('btn-secondary', b.dataset.m !== historyChartModule));
+  drawHistoryChart();
+});
+
+document.getElementById('historyClose').addEventListener('click', () => {
+  document.getElementById('historyModal').classList.add('hidden');
+});
+
+document.getElementById('historyTabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('.hist-tab');
+  if (!btn) return;
+  historyChartModule = btn.dataset.m;
+  document.querySelectorAll('.hist-tab').forEach(b => {
+    b.classList.toggle('btn-primary', b === btn);
+    b.classList.toggle('btn-secondary', b !== btn);
+  });
+  drawHistoryChart();
+});
+
+// ============================================================
+// SECTION L4: ERROR NOTEBOOK (M2/M3)
+// ============================================================
+
+// M2 error counts stored in m2State.errorCounts: {pinyin: count}
+// M3 error counts stored in m3State.errorCounts: {char: count}
+
+function m2RecordError(pinyin) {
+  if (!m2State.errorCounts) m2State.errorCounts = {};
+  m2State.errorCounts[pinyin] = (m2State.errorCounts[pinyin] || 0) + 1;
+  saveJSON('pdsp_m2_state', m2State);
+}
+
+function m3RecordError(char) {
+  if (!m3State.errorCounts) m3State.errorCounts = {};
+  m3State.errorCounts[char] = (m3State.errorCounts[char] || 0) + 1;
+  saveJSON('pdsp_m3_state', m3State);
+}
+
+// M2 settings row: add "错题模式" toggle
+// M3 settings row: add "错题模式" toggle
+
+// ============================================================
+// SECTION L5: DUAL CONDITION GROUP ADVANCEMENT
+// ============================================================
+
+// ============================================================
+// SECTION M: TAB SWITCHING
+// ============================================================
+
+let activeTab = localStorage.getItem('pdsp_active_tab') || 'm1a';
+
+function switchTab(tabId) {
+  activeTab = tabId;
+  localStorage.setItem('pdsp_active_tab', tabId);
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  document.querySelectorAll('.module').forEach(m => m.classList.toggle('active', m.id === tabId));
+  // Re-render if module content was built while hidden
+  if (tabId === 'm2' && m2Groups.length > 0 && !document.getElementById('m2List').children.length) {
+    m2StartRound();
+  }
+  if (tabId === 'm3' && m3Groups.length > 0 && !document.getElementById('m3Grid').children.length) {
+    m3StartRound();
+  }
+}
+
+document.getElementById('tabBar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  switchTab(btn.dataset.tab);
+});
+
+// ============================================================
+// SECTION N: INITIALIZATION
+// ============================================================
+
+function init() {
+  switchTab(activeTab);
+
+  // M1A
+  m1aGetNext();
+  m1aShow();
+
+  // M1B
+  m1bGetNext();
+  m1bShow();
+
+  // M2
+  document.getElementById('m2Count').value = m2State.groupSize;
+  document.getElementById('m2Reps').value = m2State.reps;
+  document.getElementById('m2Threshold').value = m2State.accuracyThreshold || 95;
+  updateWrongModeBtn('m2', m2State.wrongMode);
+  m2BuildGroups();
+  m2StartRound();
+
+  // M3
+  document.getElementById('m3GroupSize').value = m3State.groupSize;
+  document.getElementById('m3Reps').value = m3State.reps;
+  document.getElementById('m3Threshold').value = m3State.accuracyThreshold || 95;
+  updateWrongModeBtn('m3', m3State.wrongMode);
+  m3BuildGroups();
+  m3StartRound();
+}
+
+init();
+
+// Tab-specific keyboard initialization
+const tabInitObserver = new MutationObserver(() => {
+  // Re-render keyboards when tabs become visible (fix initial render)
+  if (document.getElementById('m1a').classList.contains('active') && document.getElementById('m1aKeyboard').children.length === 0) {
+    m1aShow();
+  }
+  if (document.getElementById('m1b').classList.contains('active') && document.getElementById('m1bKeyboard').children.length === 0) {
+    m1bShow();
+  }
+});
+document.querySelectorAll('.module').forEach(m => {
+  tabInitObserver.observe(m, { attributes: true, attributeFilter: ['class'] });
+});
+</script>
+
+</body>
+</html>
