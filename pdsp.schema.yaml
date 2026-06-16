@@ -1,7 +1,7 @@
 schema:
   schema_id: pdsp
   name: 拼读双拼
-  version: 20260616
+  version: 20260617
   author:
   description: 51声介，44韵调（+ong-eng）
   dependencies:
@@ -24,6 +24,7 @@ engine:
     - key_binder
     - speller
     - lua_processor@*no_match_clear
+    - lua_processor@*select_char     # -= 以词定字（has_menu 时取首/末字）
     - punctuator
     - selector
     - navigator
