@@ -1,7 +1,7 @@
 schema:
   schema_id: pdsp
   name: 拼读双拼
-  version: 20260511
+  version: 20260616
   author:
   description: 51声介，44韵调（+ong-eng）
   dependencies:
@@ -89,4 +89,4 @@ punctuator:
 
 recognizer:
   patterns:
-    punct: '^\\([0-9][01]?|[A-Za-z]+)?$'
+    punct: '^/([0-9][01]?|[A-Za-z]+)?$'
