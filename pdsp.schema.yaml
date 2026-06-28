@@ -37,11 +37,11 @@ engine:
     - punct_segmentor
     - fallback_segmentor
   translators:
-    - lua_translator@*pin_fix_translator
     - punct_translator
     - table_translator
   filters:
     - lua_filter@*hint_filter
+    - lua_filter@*pin_fix_filter
     #- simplifier
     - uniquifier
 
