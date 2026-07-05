@@ -41,11 +41,11 @@ engine:
     - punct_translator
     - table_translator
   filters:
+    - uniquifier
     - lua_filter@*hint_filter
     - lua_filter@*two_char_first
     - lua_filter@*pin_fix_filter
     #- simplifier
-    - uniquifier
 
 speller:
   #编码唯一自动上屏
