@@ -32,18 +32,36 @@ local function save_fix_map(map)
 end
 
 local function processor(key_event, env)
-  local target = KeyEvent("F20")
-  if not key_event:eq(target) then return 2 end
+  if key_event:release() then return 2 end
+
+  -- 仅响应 Ctrl+数字（Tab 由 key_binder 映射为 Control+1）
+  if not key_event:ctrl() then return 2 end
+  local kc = key_event.keycode
+  local n = nil
+  if kc == 0x30 then n = 10
+  elseif kc >= 0x31 and kc <= 0x39 then n = kc - 0x30
+  else return 2 end
 
   local ctx = env.engine.context
   local input = ctx.input
   if input == "" or not ctx:has_menu() then return 2 end
 
+  -- 获取第 n 个候选（0-based: n-1）
+  local seg = ctx.composition:back()
+  if not seg then return 2 end
+  local old_idx = seg.selected_index
+  seg.selected_index = n - 1
   local cand = ctx:get_selected_candidate()
+  seg.selected_index = old_idx
+
   if not cand then return 2 end
 
   local map = load_fix_map()
-  map[input] = cand.text
+  if map[input] == cand.text then
+    map[input] = nil   -- 已固顶 → 取消固顶
+  else
+    map[input] = cand.text
+  end
   save_fix_map(map)
 
   return 1

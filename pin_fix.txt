@@ -24,6 +24,7 @@ bjwk	比例
 bkak	不适
 bkbz	不被
 bkdd	不断
+bkdz	不对
 bkfp	部分
 bkmf	避免
 bkng	不能
@@ -106,6 +107,7 @@ nxwj	那里
 nzhu	内核
 ogak	城市
 ogfp	成分
+owcn	长春
 ozbp	艾滋病
 pdtp	拼读双拼
 qgkh	情况

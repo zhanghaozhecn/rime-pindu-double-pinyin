@@ -23,6 +23,7 @@ engine:
     - recognizer
     - lua_processor@*overflow_select
     - key_binder
+    - lua_processor@*pin_fix_processor
     - lua_processor@*slash_split
     - speller
     - lua_processor@*no_match_clear
@@ -30,7 +31,6 @@ engine:
     - punctuator
     - selector
     - navigator
-    - lua_processor@*pin_fix_processor
     - express_editor
   segmentors:
     - ascii_segmentor
@@ -84,8 +84,8 @@ key_binder:
     - { when: has_menu, accept: semicolon, send: 2 }
     #退格当清屏用
     - { when: composing, accept: BackSpace, send: Escape }
-    #固定首选
-    - { when: has_menu, accept: Tab, send: F20 }
+    #固定首选（Ctrl+数字 / Tab，在 pin_fix_processor 中处理）
+    - { when: has_menu, accept: Tab, send: Control+1 }
 
 punctuator:
   import_preset: symbols_pd
