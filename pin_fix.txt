@@ -107,6 +107,7 @@ nzhu	内核
 ogak	城市
 ogfp	成分
 ozbp	艾滋病
+pdtp	拼读双拼
 qgkh	情况
 qlts	其它
 qnhs	清华

@@ -1,5 +1,6 @@
 -- pin_fix_filter.lua — 方案自带固顶词优先
 -- 读 pin_fix.txt → 固顶词移到首位，comment 追加 ⛯
+-- 三字以上词模式（pdsp_3plus_active）下不触发固顶
 
 local function load_fix_map()
     local map = {}
@@ -22,9 +23,14 @@ local function load_fix_map()
 end
 
 local function filter(translation, env)
+    -- 三字以上词模式下不触发固顶
+    if _G.pdsp_3plus_active then
+        for cand in translation:iter() do yield(cand) end
+        return
+    end
+
     local all = {}
     for cand in translation:iter() do table.insert(all, cand) end
-    if #all < 2 then for _, c in ipairs(all) do yield(c) end; return end
 
     local ctx = env.engine.context
     local input = ctx.input or ""

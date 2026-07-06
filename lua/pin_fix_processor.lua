@@ -46,9 +46,6 @@ local function processor(key_event, env)
   map[input] = cand.text
   save_fix_map(map)
 
-  -- 固定后直接上屏当前选中候选
-  --ctx:commit()
-
   return 1
 end
 
