@@ -27,7 +27,7 @@ engine:
     - lua_processor@*slash_split
     - speller
     - lua_processor@*no_match_clear
-    - lua_processor@*select_char     # -= 以词定字（has_menu 时取首/末字）
+    - lua_processor@*select_char
     - punctuator
     - selector
     - navigator
