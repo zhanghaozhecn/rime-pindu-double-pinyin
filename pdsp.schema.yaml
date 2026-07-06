@@ -23,6 +23,7 @@ engine:
     - recognizer
     - lua_processor@*overflow_select
     - key_binder
+    - lua_processor@*slash_split
     - speller
     - lua_processor@*no_match_clear
     - lua_processor@*select_char     # -= 以词定字（has_menu 时取首/末字）
@@ -43,7 +44,7 @@ engine:
   filters:
     - uniquifier
     - lua_filter@*hint_filter
-    - lua_filter@*two_char_first
+    - lua_filter@*word_length_split
     - lua_filter@*pin_fix_filter
     #- simplifier
 
