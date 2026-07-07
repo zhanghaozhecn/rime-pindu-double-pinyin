@@ -21,6 +21,7 @@ engine:
   processors:
     - ascii_composer
     - recognizer
+    - lua_processor@*llm_context
     - lua_processor@*overflow_select
     - key_binder
     - lua_processor@*pin_fix_processor
@@ -45,6 +46,7 @@ engine:
     - uniquifier
     - lua_filter@*hint_filter
     - lua_filter@*word_length_split
+    - lua_filter@*llm_rerank
     - lua_filter@*pin_fix_filter
     #- simplifier
 
