@@ -23,9 +23,9 @@ engine:
     - recognizer
     - lua_processor@*llm_context
     - lua_processor@*overflow_select
+    - lua_processor@*length_split_key
     - key_binder
     - lua_processor@*pin_fix_processor
-    - lua_processor@*slash_split
     - speller
     - lua_processor@*no_match_clear
     - lua_processor@*select_char
