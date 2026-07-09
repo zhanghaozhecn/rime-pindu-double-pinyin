@@ -50,6 +50,13 @@ engine:
     - lua_filter@*pin_fix_filter
     #- simplifier
 
+# LLM 候选重排配置（全部可选，省略则用 lua 内置默认值）
+llm_rerank:
+  min_code_len: 4
+  max_tokens: 6
+  max_candidates: 5
+  # cpu_cores: auto
+
 speller:
   #编码唯一自动上屏
   auto_select: false
