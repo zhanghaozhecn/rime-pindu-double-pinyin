@@ -1,5 +1,12 @@
+-- pin_fix_processor.lua — Ctrl+数字固顶/取消
+-- 普通4码模式写入 pin_fix.txt，长词模式写入 pin_fix_3plus.txt
+
 local function get_fix_file()
-  return rime_api.get_user_data_dir() .. "\\pin_fix.txt"
+  local name = "pin_fix.txt"
+  if _G.pdsp_3plus_active then
+    name = "pin_fix_3plus.txt"
+  end
+  return rime_api.get_user_data_dir() .. "\\" .. name
 end
 
 local function load_fix_map()
@@ -34,7 +41,7 @@ end
 local function processor(key_event, env)
   if key_event:release() then return 2 end
 
-  -- 仅响应 Ctrl+数字（Tab 由 key_binder 映射为 Control+1）
+  -- Ctrl+数字（Tab 由 key_binder 映射为 Control+1）
   if not key_event:ctrl() then return 2 end
   local kc = key_event.keycode
   local n = nil
@@ -46,7 +53,6 @@ local function processor(key_event, env)
   local input = ctx.input
   if input == "" or not ctx:has_menu() then return 2 end
 
-  -- 获取第 n 个候选（0-based: n-1）
   local seg = ctx.composition:back()
   if not seg then return 2 end
   local old_idx = seg.selected_index
@@ -58,7 +64,7 @@ local function processor(key_event, env)
 
   local map = load_fix_map()
   if map[input] == cand.text then
-    map[input] = nil   -- 已固顶 → 取消固顶
+    map[input] = nil   -- 已固顶 → 取消
   else
     map[input] = cand.text
   end

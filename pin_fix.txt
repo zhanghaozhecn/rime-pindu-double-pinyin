@@ -269,14 +269,12 @@ mguh	名望
 mgzk	名字
 mkbe	目标
 mkmk	秘密
-mkso	马克思
 mkyk	目的
 mofq	吗啡
 momo	咪咪
 mpco	卖出
 mqvk	美誉
 mqwk	美丽
-nboj	诺贝尔奖
 ngwk	能力
 nihi	南韩
 niqn	年轻
@@ -304,8 +302,6 @@ opyl	艾迪
 ougn	俄军
 oveu	澳洲
 owcn	长春
-ozbp	艾滋病
-pdtp	拼读双拼
 pgmg	平民
 pgmk	屏幕
 pgoi	平安

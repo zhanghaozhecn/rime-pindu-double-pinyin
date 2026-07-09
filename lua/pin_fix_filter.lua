@@ -1,10 +1,13 @@
 -- pin_fix_filter.lua — 方案自带固顶词优先
--- 读 pin_fix.txt → 固顶词移到首位，comment 追加 ⛯
--- 三字以上词模式（pdsp_3plus_active）下不触发固顶
+-- 普通4码模式读 pin_fix.txt，长词模式读 pin_fix_3plus.txt
 
 local function load_fix_map()
+    local name = "pin_fix.txt"
+    if _G.pdsp_3plus_active then
+        name = "pin_fix_3plus.txt"
+    end
     local map = {}
-    local file = io.open(rime_api.get_user_data_dir() .. "\\pin_fix.txt", "r")
+    local file = io.open(rime_api.get_user_data_dir() .. "\\" .. name, "r")
     if not file then return map end
     for line in file:lines() do
         line = line:match("^%s*(.-)%s*$")
@@ -23,12 +26,6 @@ local function load_fix_map()
 end
 
 local function filter(translation, env)
-    -- 三字以上词模式下不触发固顶
-    if _G.pdsp_3plus_active then
-        for cand in translation:iter() do yield(cand) end
-        return
-    end
-
     local all = {}
     for cand in translation:iter() do table.insert(all, cand) end
 
@@ -61,7 +58,6 @@ local function filter(translation, env)
         return
     end
 
-    -- 追加 ⛯，不管已有 comment 是什么
     local fixed_cand = ShadowCandidate(fix_cand, "fixed", fix_cand.text,
                                         fix_cand.comment .. "⛯", true)
 
