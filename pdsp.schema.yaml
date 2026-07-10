@@ -24,6 +24,7 @@ engine:
     - lua_processor@*llm_context
     - lua_processor@*overflow_select
     - lua_processor@*length_split_key
+    - lua_processor@*smart_backspace
     - key_binder
     - lua_processor@*pin_fix_processor
     - speller
