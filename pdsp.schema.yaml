@@ -22,14 +22,12 @@ engine:
     - ascii_composer
     - recognizer
     - lua_processor@*llm_context
-    - lua_processor@*overflow_select
+    - lua_processor@*key_extra
     - lua_processor@*length_split_key
-    - lua_processor@*smart_backspace
     - key_binder
     - lua_processor@*pin_fix_processor
     - speller
     - lua_processor@*no_match_clear
-    - lua_processor@*select_char
     - punctuator
     - selector
     - navigator
@@ -54,9 +52,9 @@ engine:
 # LLM 候选重排配置（全部可选，省略则用 lua 内置默认值）
 llm_rerank:
   min_code_len: 4
-  max_tokens: 6
+  max_tokens: 10
   max_candidates: 5
-  # cpu_cores: auto
+  cpu_cores: 6
 
 speller:
   #编码唯一自动上屏
