@@ -8,7 +8,7 @@
 1. 运行小狼毫输入法安装包，连续点击确定，最后重启。
 1. 右击任务栏的小狼毫图标，打开用户文件夹，把所有方案配置文件复制到用户文件夹。
 1.（可选）下载AI模型[Qwen3.5-0.8B-Q4_K_M.gguf](https://www.modelscope.cn/models/unsloth/Qwen3.5-0.8B-GGUF/files)（约500MB），放到`D:\gguf_models\`，放其他路径需设环境变量`RIME_LLM_MODEL`。
-1.（可选）将`rime_llm.dll`复制到小狼毫程序目录（如`C:\Program Files\Rime\weasel-0.17.4\`），需管理员权限。此插件在打字时用本地AI重排候选词，选中者标记“AI”。模型仅占约497MB内存，可常驻使用。如需关闭，将`rime_llm.dll`重命名为其他后缀后重新部署即可。
+1.（可选）将`dll\rime_llm.dll`（CPU推理，所有机器可用）和/或 `dll\rime_llm_cuda.dll`及其依赖（GPU推理，需NVIDIA显卡+CUDA，延迟约30ms）复制到小狼毫程序目录（如`C:\Program Files\Rime\weasel-0.17.4\`），需管理员权限。GPU版更快更稳定但依赖CUDA环境，CPU版零依赖但延迟约100ms。默认使用CPU；如需切换GPU，在`pdsp.schema.yaml`中将`llm_rerank/backend`改为`gpu`后重新部署。此插件在打字时用本地AI重排候选词，选中者标记”AI”。如需关闭，将所有`rime_llm*.dll`重命名后重新部署即可。
 1.右击小狼毫图标，点击重新部署，等待几秒，即可开始使用。
 
 # 简介

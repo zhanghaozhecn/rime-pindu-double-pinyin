@@ -50,11 +50,13 @@ engine:
     #- simplifier
 
 # LLM 候选重排配置（全部可选，省略则用 lua 内置默认值）
+# backend: "cpu"（默认）或 "gpu"，需对应 DLL 已部署
 llm_rerank:
   min_code_len: 4
   max_tokens: 10
   max_candidates: 5
   cpu_cores: 6
+  backend: cpu
 
 speller:
   #编码唯一自动上屏
