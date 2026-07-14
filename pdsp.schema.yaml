@@ -55,7 +55,7 @@ llm_rerank:
   max_tokens: 10
   max_candidates: 5
   # model_path: "d:/gguf_models/Qwen3.5-0.8B-Q4_K_M.gguf"  # 取消注释可指定模型路径，默认 Qwen3.5-0.8B Q4_K_M
-  # cpu_cores: 0    # 取消注释可手动指定线程数，默认自动检测 = max(4, ceil(总线程数/3))
+  # cpu_cores: 7    # 取消注释可手动指定线程数，默认 7（实测多台机器均在 7 饱和）
   # backend: cpu    # 取消注释可指定后端，默认 cpu，可选 gpu，需对应 DLL 已部署
 
 speller:
