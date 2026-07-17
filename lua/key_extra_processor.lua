@@ -1,44 +1,19 @@
--- key_extra.lua — 按键附加功能（数字溢出 + 智能退格 + 以词定字）
--- 在 pdsp.schema.yaml 的 processors 中引用：
---   - lua_processor@*key_extra
-
-local injecting = false  -- 智能退格注入防护
+-- key_extra.lua — 按键附加功能（数字溢出 + 以词定字）
+-- 在 pdsp.schema.yaml 的 processors 中引用：- lua_processor@*key_extra
 
 -- UTF-8 首/尾字符提取
 local function utf8_first(text)
     return string.match(text, "^([\1-\127\194-\253][\128-\191]*)")
 end
-
 local function utf8_last(text)
     return string.match(text, "([\1-\127\194-\253][\128-\191]*)$")
 end
 
 local function processor(key, env)
     if key:release() then return 2 end
-    if injecting then return 2 end
 
     local ctx = env.engine.context
     local rep = key:repr()
-
-    -- ── 智能退格：Ctrl+BackSpace 删除上次上屏的整个词 ──
-    if ctx.input == "" and rep == "Control+BackSpace" then
-        local ch = ctx.commit_history
-        if ch then
-            local all = ch:to_table()
-            if all and #all > 0 then
-                local last = all[#all]
-                if last and last.text and #last.text > 0 then
-                    injecting = true
-                    for _ = 1, #last.text do
-                        env.engine.process_key(KeyEvent("BackSpace"))
-                    end
-                    injecting = false
-                    return 1
-                end
-            end
-        end
-        return 2
-    end
 
     -- ── 数字溢出：超出候选数时选择最后一个候选 ──
     local n = tonumber(rep)
