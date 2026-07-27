@@ -27,7 +27,6 @@ engine:
     - key_binder
     - lua_processor@*pin_fix_processor
     - speller
-    - lua_processor@*no_match_clear_processor
     - punctuator
     - selector
     - navigator
@@ -47,6 +46,7 @@ engine:
     - lua_filter@*word_length_split_filter
     - lua_filter@*llm_filter
     - lua_filter@*pin_fix_filter
+    - lua_filter@*no_match_placeholder
     #- simplifier
 
 # LLM 候选重排配置（全部可选，省略则用 lua/cpp 内置默认值）
@@ -86,16 +86,14 @@ translator:
 
 key_binder:
   bindings:
-    #comma period
-    #[]翻页
+    #翻页，可选comma、period
     - { when: paging, accept: bracketleft, send: Page_Up }
     - { when: has_menu, accept: bracketright, send: Page_Down }
-    #；次选
+    - { when: has_menu, accept: Tab, send: Page_Down }
+    #次选
     - { when: has_menu, accept: semicolon, send: 2 }
     #退格当清屏用
     - { when: composing, accept: BackSpace, send: Escape }
-    #固定首选（Ctrl+数字 / Tab，在 pin_fix_processor 中处理）
-    - { when: has_menu, accept: Tab, send: Control+1 }
 
 punctuator:
   import_preset: symbols_pd

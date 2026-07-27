@@ -9,7 +9,7 @@ patch:
     good_old_caps_lock: true
     switch_key: {Caps_Lock: noop, Control_L: commit_text, Control_R: commit_text, Eisu_toggle: noop, Shift_L: commit_text, Shift_R: commit_text}
   menu:
-    page_size: 10
+    page_size: 5
   schema_list:
     - {schema: pdsp}
   switcher:

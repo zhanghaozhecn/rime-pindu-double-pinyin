@@ -1,4 +1,5 @@
--- pin_fix_processor.lua — Ctrl+数字固顶/取消
+-- pin_fix_processor.lua — 09876 固顶 1-5 候选
+-- 0→候选1  9→候选2  8→候选3  7→候选4  6→候选5
 -- 普通4码模式写入 pin_fix.txt，长词模式写入 pin_fix_3plus.txt
 
 local function get_fix_file()
@@ -41,17 +42,14 @@ end
 local function processor(key_event, env)
   if key_event:release() then return 2 end
 
-  -- Ctrl+数字（Tab 由 key_binder 映射为 Control+1）
-  if not key_event:ctrl() then return 2 end
-  local kc = key_event.keycode
-  local n = nil
-  if kc == 0x30 then n = 10
-  elseif kc >= 0x31 and kc <= 0x39 then n = kc - 0x30
-  else return 2 end
+  -- 0→1, 9→2, 8→3, 7→4, 6→5
+  local rep = key_event:repr()
+  local PIN_MAP = {["0"]=1, ["9"]=2, ["8"]=3, ["7"]=4, ["6"]=5}
+  local n = PIN_MAP[rep]
+  if not n then return 2 end
 
   local ctx = env.engine.context
-  local input = ctx.input
-  if input == "" or not ctx:has_menu() then return 2 end
+  if not ctx:has_menu() then return 2 end
 
   local seg = ctx.composition:back()
   if not seg then return 2 end
@@ -61,6 +59,9 @@ local function processor(key_event, env)
   seg.selected_index = old_idx
 
   if not cand then return 2 end
+
+  local input = ctx.input
+  if input == "" then return 2 end
 
   local map = load_fix_map()
   if map[input] == cand.text then
