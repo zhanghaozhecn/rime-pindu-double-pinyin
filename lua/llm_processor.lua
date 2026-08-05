@@ -17,6 +17,19 @@ local last_prep_ctx = "" -- 上次 prepare 的 context，避免重复调用
 
 local NAV_KEYS = { Left=true, Right=true, Up=true, Down=true,
                    Home=true, End=true, Page_Up=true, Page_Down=true }
+-- 编辑位置变化键: 退格/删除 (删词) + 导航键 (光标移动/滚动) + 回车 (换行)
+-- 这些键使会话上屏词序列不再代表光标前上文 → 上屏历史上文重置为空
+local function is_edit_key(k)
+    return k == "BackSpace" or k == "Delete"
+        or k == "Control+BackSpace" or k == "Control+Delete"
+        or NAV_KEYS[k]
+        or k == "Return" or k == "KP_Enter"  -- 回车换行: 新段落, 上屏词序列断开
+end
+
+local function reset_history()
+    history = {}
+    prev_hist = {}
+end
 
 local function append_raw(text)
     local f = io.open(rime_api.get_user_data_dir() .. "\\llm_training.txt", "a")
@@ -44,6 +57,30 @@ end
 local function processor(key, env)
     if key:release() then return 2 end
 
+    -- 上文检查 + 预解码 (每次按键): commit_history 变化 → 立即异步预解码
+    local sc = env.engine.schema.config
+    local backend = (sc:get_string("llm_rerank/backend") or "off")
+    if backend == "off" then
+        llm_prep = nil  -- 释放已加载的 DLL 引用
+    elseif not llm_prep then
+        local modname = (backend == "gpu" or backend == "cuda") and "rime_llm_cuda" or "rime_llm"
+        local ok, result = pcall(require, modname)
+        if ok then
+            -- 日志目录: RIME 用户目录 (与 filter 共用同一模块实例)
+            local okd, ud = pcall(function() return rime_api.get_user_data_dir() end)
+            if okd and ud and ud ~= "" then result.log_dir = ud end
+            llm_prep = result
+        end
+    end
+    -- ctx 归一化与 llm_filter 一致 (去空白): C++ prep 命中 = token 序列比较,
+    -- 不一致会导致 prep 永远不命中 → 每次 score 完整解码 (~50ms)。
+    -- 中文无空白两者相同; 含英文/空格 (如 "Hello world 你好") 时保证一致。
+    local cur_ctx = (_G.llm_context_get() or ""):gsub('%s+', '')
+    if llm_prep and llm_prep.prepare and cur_ctx ~= last_prep_ctx then
+        last_prep_ctx = cur_ctx
+        llm_prep.prepare(cur_ctx)
+    end
+
     local ctx = env.engine.context
     local ch = ctx.commit_history
     if not ch then return 2 end
@@ -60,19 +97,27 @@ local function processor(key, env)
     end
     prev_input = ctx.input
 
-    -- 退格 / Delete: 记录训练数据，不 return——
-    -- 继续同步 commit_history，使缩短后的 ctx 也能触发 prepare
-    -- (引擎 Pop 已更新 commit_history 时生效；未更新则本次无副作用)
-    if ctx.input == "" and (key:repr() == "BackSpace" or key:repr() == "Delete") then
-        if #history > 0 then
+    -- 退格 / Delete / 导航键 (composition 为空时): 编辑位置变化
+    --   rime 来源上文重置为空 (会话上屏词序列不再代表光标前上文), 立即重新预解码
+    --   return 2 跳过 commit_history 同步 (引擎 Pop 会重建 history, 覆盖重置;
+    --   且退格后剩余词不应作为新词重新记录训练数据)
+    if ctx.input == "" and is_edit_key(key:repr()) then
+        local k = key:repr()
+        if NAV_KEYS[k] or k == "Return" or k == "KP_Enter" then
+            if #history > 0 then
+                append_raw("\n")
+            end
+        elseif #history > 0 then
             append_raw(SPLIT .. BSP)
         end
-    end
-
-    -- 导航键 → 换行
-    if ctx.input == "" and NAV_KEYS[key:repr()] then
-        if #history > 0 then
-            append_raw("\n")
+        reset_history()
+        -- 编辑后重打相同词 (ctx+input 相同) 必须重新推理: 清空 filter 结果缓存
+        _G.llm_filter_cache = nil
+        -- 上文已重置 → 立即异步预解码 (空上文)
+        cur_ctx = (_G.llm_context_get() or ""):gsub('%s+', '')
+        if llm_prep and llm_prep.prepare and cur_ctx ~= last_prep_ctx then
+            last_prep_ctx = cur_ctx
+            llm_prep.prepare(cur_ctx)
         end
         return 2
     end
@@ -140,35 +185,14 @@ local function processor(key, env)
 
         prev_hist = {}
         for _, v in ipairs(history) do table.insert(prev_hist, v) end
-
-        -- Context 已更新，立即预解码。与 filter 使用同一个 DLL
-        -- 读取 backend 配置：off 时跳过 DLL 加载和预解码
-        local sc = env.engine.schema.config
-        local backend = (sc:get_string("llm_rerank/backend") or "off")
-        if backend == "off" then
-            llm_prep = nil  -- 释放已加载的 DLL 引用
-        elseif not llm_prep then
-            local modname = (backend == "gpu" or backend == "cuda") and "rime_llm_cuda" or "rime_llm"
-            local ok, result = pcall(require, modname)
-            if ok then
-                -- 日志目录: RIME 用户目录 (与 filter 共用同一模块实例)
-                local okd, ud = pcall(function() return rime_api.get_user_data_dir() end)
-                if okd and ud and ud ~= "" then result.log_dir = ud end
-                llm_prep = result
-            end
-        end
-        local cur_ctx = _G.llm_context_get()
-        if llm_prep and llm_prep.prepare and cur_ctx ~= last_prep_ctx then
-            last_prep_ctx = cur_ctx
-            llm_prep.prepare(cur_ctx)
-        end
     end
 
     return 2
 end
 
 local function get_context()
-    return table.concat(history, "")
+    -- 上文 = 上屏历史 (commit_history)。返回 (文本, 来源)
+    return table.concat(history, ""), "rime"
 end
 
 _G.llm_context_get = get_context
