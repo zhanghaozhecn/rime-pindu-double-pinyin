@@ -8,7 +8,6 @@
 1. [下载小狼毫输入法](https://rime.im)
 1. 运行小狼毫输入法安装包，连续点击确定，最后重启。
 1. 右击任务栏的小狼毫图标，打开用户文件夹，把所有方案配置文件复制到用户文件夹。
-1. （可选）LLM候选重排：下载模型[Qwen3.5-0.8B-Q4_K_M.gguf](https://www.modelscope.cn/models/unsloth/Qwen3.5-0.8B-GGUF/files)（约532MB）放到`D:\gguf_models\`，将`rime_llm.dll`复制到小狼毫程序目录（如`C:\ProgramFiles\Rime\weasel-0.17.4\`），然后将`pdsp.schema.yaml`中`llm_rerank.backend`改为`cpu`并重新部署。模型常驻占用约0.5GB内存。如需关闭，改回`off`重新部署。
 1. 右击小狼毫图标，点击重新部署，等待几秒，即可开始使用。
 
 # 简介
