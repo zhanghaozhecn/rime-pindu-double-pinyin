@@ -1,13 +1,9 @@
 -- pin_fix_processor.lua — 09876 固顶 1-5 候选
 -- 0→候选1  9→候选2  8→候选3  7→候选4  6→候选5
--- 普通4码模式写入 pin_fix.txt，长词模式写入 pin_fix_3plus.txt
+-- 固顶词写入 pin_fix.txt
 
 local function get_fix_file()
-  local name = "pin_fix.txt"
-  if _G.pdsp_3plus_active then
-    name = "pin_fix_3plus.txt"
-  end
-  return rime_api.get_user_data_dir() .. "\\" .. name
+  return rime_api.get_user_data_dir() .. "\\pin_fix.txt"
 end
 
 local function load_fix_map()

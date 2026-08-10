@@ -1,13 +1,9 @@
 -- pin_fix_filter.lua — 方案自带固顶词优先
--- 普通4码模式读 pin_fix.txt，长词模式读 pin_fix_3plus.txt
+-- 固顶词读取 pin_fix.txt
 
 local function load_fix_map()
-    local name = "pin_fix.txt"
-    if _G.pdsp_3plus_active then
-        name = "pin_fix_3plus.txt"
-    end
     local map = {}
-    local file = io.open(rime_api.get_user_data_dir() .. "\\" .. name, "r")
+    local file = io.open(rime_api.get_user_data_dir() .. "\\pin_fix.txt", "r")
     if not file then return map end
     for line in file:lines() do
         line = line:match("^%s*(.-)%s*$")
