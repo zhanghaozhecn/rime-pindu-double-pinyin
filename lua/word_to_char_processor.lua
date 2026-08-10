@@ -1,5 +1,5 @@
--- key_extra.lua — 按键附加功能（以词定字）
--- 在 pdsp.schema.yaml 的 processors 中引用：- lua_processor@*key_extra
+-- word_to_char.lua — 以词定字
+-- 在 pdsp.schema.yaml 的 processors 中引用：- lua_processor@*word_to_char
 
 -- UTF-8 首/尾字符提取
 local function utf8_first(text)
