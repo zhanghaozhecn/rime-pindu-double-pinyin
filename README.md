@@ -125,3 +125,7 @@
 
 # 入门练习
 打开[拼读双拼一站式练习](./拼读双拼一站式练习.html)，按照声介、韵调、音节、字前两码的顺序进行练习。
+
+# 许可证
+
+本项目采用[署名许可协议](./LICENSE)：可自由使用（含商业用途），**无需作者同意**；用于商业用途时须注明作者来源（zhanghaozhecn，仓库：https://github.com/zhanghaozhecn/rime-pindu-double-pinyin）。
