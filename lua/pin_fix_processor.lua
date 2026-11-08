@@ -1,6 +1,8 @@
--- pin_fix_processor.lua — 09876 固顶 1-5 候选
+-- pin_fix_processor.lua — 09876 固顶 1-5 候选并上屏
 -- 0→候选1  9→候选2  8→候选3  7→候选4  6→候选5
--- 固顶词写入 pin_fix.txt
+-- 固顶词写入 pin_fix.txt（幂等：已固顶再按只重复固顶，不取消）
+-- 取消固顶 = 手动编辑 pin_fix.txt（2026-11-08 改版：按键固顶同时上屏，
+-- 原有"再按取消"逻辑与上屏冲突——按 0 提交固顶词本身会误触取消——故移除）
 
 local function get_fix_file()
   return rime_api.get_user_data_dir() .. "\\pin_fix.txt"
@@ -60,12 +62,11 @@ local function processor(key_event, env)
   if input == "" then return 2 end
 
   local map = load_fix_map()
-  if map[input] == cand.text then
-    map[input] = nil   -- 已固顶 → 取消
-  else
-    map[input] = cand.text
-  end
+  map[input] = cand.text   -- 一律固顶（幂等）
   save_fix_map(map)
+
+  -- 固顶同时上屏所选候选（2026-11-08 改版）
+  ctx:commit_text(cand.text)
 
   return 1
 end
