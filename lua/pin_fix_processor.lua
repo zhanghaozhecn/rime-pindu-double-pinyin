@@ -51,10 +51,11 @@ local function processor(key_event, env)
 
   local seg = ctx.composition:back()
   if not seg then return 2 end
-  local old_idx = seg.selected_index
-  seg.selected_index = n - 1
+
+  -- 高亮第 n 个候选（highlight 内部把索引夹到实际候选数范围；返回 false
+  -- 只是"高亮未变化"，非失败——按 0 时候选 1 本就高亮，属最常见情形）
+  ctx:highlight(n - 1)
   local cand = ctx:get_selected_candidate()
-  seg.selected_index = old_idx
 
   if not cand then return 2 end
 
@@ -65,8 +66,11 @@ local function processor(key_event, env)
   map[input] = cand.text   -- 一律固顶（幂等）
   save_fix_map(map)
 
-  -- 固顶同时上屏所选候选（2026-11-08 改版）
-  ctx:commit_text(cand.text)
+  -- 固顶同时上屏所选候选（2026-11-08 改版）。注意 Context 没有 commit_text
+  -- 方法（那是 Engine 的，2026-11-08 实测调用抛错被吞=固顶成功但不上屏），
+  -- 上屏必须走标准确认路径 confirm_current_selection：用户词学习、
+  -- commit_history、llm_processor 取码与正常数字选重完全一致
+  ctx:confirm_current_selection()
 
   return 1
 end
