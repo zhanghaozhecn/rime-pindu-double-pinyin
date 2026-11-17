@@ -23,7 +23,7 @@ engine:
     - recognizer
     - lua_processor@*word_to_char_processor
     - key_binder
-    - lua_processor@*pin_fix_processor
+    - lua_processor@*pairfix_key_processor
     - speller
     - punctuator
     - selector
@@ -41,7 +41,6 @@ engine:
   filters:
     - uniquifier
     - lua_filter@*hint_filter
-    - lua_filter@*pin_fix_filter
     - lua_filter@*no_match_placeholder
     #- simplifier
 
