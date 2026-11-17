@@ -1,0 +1,4 @@
+llm_pairfix.tsv
+llm_pairfix.tsv.bak-*
+lua/pairfix_key_processor.lua
+pin_fix.txt
