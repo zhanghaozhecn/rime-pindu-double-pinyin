@@ -23,7 +23,7 @@ engine:
     - recognizer
     - lua_processor@*word_to_char_processor
     - key_binder
-    - lua_processor@*pairfix_key_processor
+    - lua_processor@*pin_processor
     - speller
     - punctuator
     - selector
