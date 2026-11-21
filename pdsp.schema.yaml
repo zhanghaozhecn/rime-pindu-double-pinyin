@@ -40,6 +40,7 @@ engine:
     - table_translator
   filters:
     - uniquifier
+    - lua_filter@*pin_filter
     - lua_filter@*hint_filter
     - lua_filter@*no_match_placeholder
     #- simplifier
